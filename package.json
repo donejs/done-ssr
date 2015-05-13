@@ -1,0 +1,23 @@
+{
+  "name": "steal-server-side-render",
+  "version": "0.0.1",
+  "description": "Server-side rendering for CanJS and StealJS",
+  "main": "lib/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/canjs/steal-server-side-render.git"
+  },
+  "keywords": [
+    "stealjs",
+    "canjs"
+  ],
+  "author": "Bitovi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/canjs/steal-server-side-render/issues"
+  },
+  "homepage": "https://github.com/canjs/steal-server-side-render"
+}
