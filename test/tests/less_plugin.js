@@ -66,12 +66,8 @@ if( steal.config('env') === 'production' ) {
 				}
 
 				if(assetRegister) {
-					assetRegister({
-						id: load.name,
-						type: "css",
-						value: function(){
-							return style.cloneNode(true);
-						}
+					assetRegister(load.name, "css", function(){
+						return style.cloneNode(true);
 					});
 				}
 			}
