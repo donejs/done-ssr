@@ -15,6 +15,20 @@ render("/orders").then(function(html){
 });
 ```
 
+## API
+
+### asset-register
+
+A module used to register assets:
+
+```js
+var register = require("asset-register");
+
+register("module/name", "css", function(){
+	return HTMLElement;
+});
+```
+
 ## License
 
 MIT
