@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/canjs/steal-server-side-render.svg?branch=master)](https://travis-ci.org/canjs/steal-server-side-render)
+[![npm version](https://badge.fury.io/js/steal-server-side-render.svg)](http://badge.fury.io/js/steal-server-side-render)
 
 # steal-server-side-render
 
