@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/canjs/steal-server-side-render.svg?branch=master)](https://travis-ci.org/canjs/steal-server-side-render)
+
 # steal-server-side-render
 
 Server-side rendering for users of StealJS and CanJS.
