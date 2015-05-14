@@ -31,6 +31,10 @@ register("module/name", "css", function(){
 });
 ```
 
+`register(moduleName, type, assetMaker)`
+
+Register takes the moduleName to register, a type associated with it, and a function that when called returns an HTMLElement.
+
 ## License
 
 MIT

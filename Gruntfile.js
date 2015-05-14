@@ -2,6 +2,12 @@
 module.exports = function(grunt){
 
 	grunt.initConfig({
+		simplemocha: {
+			test: {
+				src: ["test/test.js"]
+			}
+		},
+
 		copy: {
 			toTest: {
 				files: [{
@@ -22,6 +28,8 @@ module.exports = function(grunt){
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-copy");
+	grunt.loadNpmTasks("grunt-simple-mocha");
 
+	grunt.registerTask("test", ["copy", "simplemocha"]);
 	grunt.registerTask("default", ["copy"]);
 };

@@ -24,6 +24,7 @@
     "can": "git://github.com/bitovi/canjs#place-my-order2",
     "grunt": "^0.4.5",
     "grunt-contrib-copy": "^0.8.0",
+    "grunt-simple-mocha": "^0.4.0",
     "jquery": "^1.11.3",
     "mocha": "^2.2.4"
   },
