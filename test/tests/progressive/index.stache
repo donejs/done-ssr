@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>test page</title>
+
+		{{asset "css"}}
+	</head>
+	<body>
+		<can-import from="progressive/routes"/>
+		<can-import from="progressive/appstate" as="viewModel"/>
+		<can-import from="progressive/main.css!"/>
+
+		{{#eq page "home"}}
+			<div id="home">You are home</div>
+		{{/eq}}
+
+		{{#eq page "orders"}}
+			<can-import from="progressive/orders/">
+				{{#eq state "resolved"}}
+					<order-history></order-history>
+				{{/eq}}
+			</can-import>
+		{{/eq}}
+
+	</body>
+</html>
