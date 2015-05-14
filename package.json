@@ -1,6 +1,6 @@
 {
   "name": "steal-server-side-render",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Server-side rendering for CanJS and StealJS",
   "main": "lib/main.js",
   "scripts": {
