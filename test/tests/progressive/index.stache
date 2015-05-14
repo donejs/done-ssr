@@ -21,5 +21,6 @@
 			</can-import>
 		{{/eq}}
 
+		{{asset "inline-cache"}}
 	</body>
 </html>

@@ -28,20 +28,22 @@ describe("steal-server-side-render", function(){
 		}).then(done);
 	});
 
-	it("works with progressively loaded bundles", function(done){
+	it.only("works with progressively loaded bundles", function(done){
 		render("/orders").then(function(html){
 			var node = helpers.dom(html);
 
 			var found = {};
-
 			helpers.traverse(node, function(el){
-				if(el.nodeName === "STYLE") {
+				if(el.nodeName === "STYLE" || el.nodeName === "SCRIPT") {
 					found[el.getAttribute("can-asset-id")] = true;
 				}
 			});
 
 			assert.equal(found["progressive/main.css!$css"], true, "Found the main css");
 			assert.equal(found["progressive/orders/orders.css!$css"], true, "Found the orders bundle css");
+			assert.equal(found["@inline-cache"], true, "The inline-cache was registered");
+
+
 		}).then(done);
 	});
 });
