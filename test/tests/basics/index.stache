@@ -1,0 +1,13 @@
+<html>
+	<head>
+		<title>test page</title>
+	</head>
+	<body>
+		<can-import from="basics/routes"/>
+		<can-import from="basics/appstate" as="viewModel"/>
+
+		{{#eq page "home"}}
+			<div id="home">You are home</div>
+		{{/eq}}
+	</body>
+</html>

@@ -1,0 +1,8 @@
+{
+	"name": "basics-can",
+	"version": "0.0.1",
+	"main": "main.js",
+	"dependencies": {
+		"can": "2.3.0-pre.0"
+	}
+}
