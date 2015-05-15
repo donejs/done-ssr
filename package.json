@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/donejs/done-server-side-render.git"
+    "url": "https://github.com/donejs/server-side-render.git"
   },
   "keywords": [
     "stealjs",
@@ -17,9 +17,9 @@
   "author": "Bitovi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/donejs/done-server-side-render/issues"
+    "url": "https://github.com/donejs/server-side-render/issues"
   },
-  "homepage": "https://github.com/donejs/done-server-side-render",
+  "homepage": "https://github.com/donejs/server-side-render",
   "devDependencies": {
     "can": "git://github.com/bitovi/canjs#place-my-order2",
     "grunt": "^0.4.5",
