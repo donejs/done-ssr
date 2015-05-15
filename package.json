@@ -1,14 +1,14 @@
 {
-  "name": "steal-server-side-render",
+  "name": "done-server-side-render",
   "version": "0.0.3",
-  "description": "Server-side rendering for CanJS and StealJS",
+  "description": "Server-side rendering for DoneJS applications",
   "main": "lib/main.js",
   "scripts": {
     "test": "mocha test/test.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/canjs/steal-server-side-render.git"
+    "url": "https://github.com/donejs/done-server-side-render.git"
   },
   "keywords": [
     "stealjs",
@@ -17,9 +17,9 @@
   "author": "Bitovi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/canjs/steal-server-side-render/issues"
+    "url": "https://github.com/donejs/done-server-side-render/issues"
   },
-  "homepage": "https://github.com/canjs/steal-server-side-render",
+  "homepage": "https://github.com/donejs/done-server-side-render",
   "devDependencies": {
     "can": "git://github.com/bitovi/canjs#place-my-order2",
     "grunt": "^0.4.5",
