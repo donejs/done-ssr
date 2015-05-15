@@ -1,14 +1,14 @@
 [![Build Status](https://travis-ci.org/donejs/server-side-render.svg?branch=master)](https://travis-ci.org/donejs/server-side-render)
 [![npm version](https://badge.fury.io/js/steal-server-side-render.svg)](http://badge.fury.io/js/steal-server-side-render)
 
-# steal-server-side-render
+# done-server-side-render
 
 Server-side rendering for users of StealJS and CanJS.
 
 ## Usage
 
 ```js
-var render = require("steal-server-side-render")({
+var render = require("done-server-side-render")({
   config: __dirname + "/public/package.json!npm",
   main: "index.stache!"
 });

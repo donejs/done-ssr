@@ -35,7 +35,7 @@ describe("steal-server-side-render", function(){
 			var found = {};
 			helpers.traverse(node, function(el){
 				if(el.nodeName === "STYLE" || el.nodeName === "SCRIPT") {
-					found[el.getAttribute("can-asset-id")] = true;
+					found[el.getAttribute("asset-id")] = true;
 				}
 			});
 
