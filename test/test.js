@@ -28,7 +28,7 @@ describe("steal-server-side-render", function(){
 		}).then(done);
 	});
 
-	it.only("works with progressively loaded bundles", function(done){
+	it("works with progressively loaded bundles", function(done){
 		render("/orders").then(function(html){
 			var node = helpers.dom(html);
 
