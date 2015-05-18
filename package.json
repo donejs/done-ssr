@@ -1,6 +1,6 @@
 {
   "name": "done-server-side-render",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Server-side rendering for DoneJS applications",
   "main": "lib/main.js",
   "scripts": {
@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/donejs/server-side-render",
   "devDependencies": {
-    "can": "git://github.com/bitovi/canjs#place-my-order2",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-copy": "^0.8.0",
@@ -31,6 +30,11 @@
   },
   "dependencies": {
     "steal": "^0.10.5",
-    "can-vdom": "0.0.1"
+    "can": "git://github.com/bitovi/canjs#place-my-order2"
+  },
+  "system": {
+    "npmDependencies": [
+      "can"
+    ]
   }
 }
