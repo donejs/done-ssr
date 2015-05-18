@@ -30,6 +30,7 @@
     "mocha": "^2.2.4"
   },
   "dependencies": {
-    "steal": "^0.10.5"
+    "steal": "^0.10.5",
+    "can-vdom": "0.0.1"
   }
 }
