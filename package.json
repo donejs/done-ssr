@@ -1,6 +1,6 @@
 {
   "name": "done-server-side-render",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Server-side rendering for DoneJS applications",
   "main": "lib/main.js",
   "scripts": {
