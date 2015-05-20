@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/donejs/server-side-render.svg?branch=master)](https://travis-ci.org/donejs/server-side-render)
-[![npm version](https://badge.fury.io/js/steal-server-side-render.svg)](http://badge.fury.io/js/steal-server-side-render)
+[![npm version](https://badge.fury.io/js/done-server-side-render.svg)](http://badge.fury.io/js/done-server-side-render)
 
 # done-server-side-render
 
