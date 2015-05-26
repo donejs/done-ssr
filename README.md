@@ -1,14 +1,14 @@
-[![Build Status](https://travis-ci.org/donejs/server-side-render.svg?branch=master)](https://travis-ci.org/donejs/server-side-render)
-[![npm version](https://badge.fury.io/js/done-server-side-render.svg)](http://badge.fury.io/js/done-server-side-render)
+[![Build Status](https://travis-ci.org/canjs/ssr.svg?branch=master)](https://travis-ci.org/donejs/server-side-render)
+[![npm version](https://badge.fury.io/js/can-ssr.svg)](http://badge.fury.io/js/done-server-side-render)
 
-# done-server-side-render
+# can-ssr
 
-Server-side rendering for users of StealJS and CanJS.
+Server-side rendering for CanJS.
 
 ## Usage
 
 ```js
-var render = require("done-server-side-render")({
+var render = require("can-ssr")({
   config: __dirname + "/public/package.json!npm",
   main: "index.stache!"
 });
