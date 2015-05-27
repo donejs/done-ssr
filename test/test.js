@@ -6,7 +6,7 @@ var path = require("path");
 describe("steal-server-side-render", function(){
 	var render = stealServerSideRender({
 		config: __dirname + "/tests/package.json!npm",
-		main: "progressive/index.stache!",
+		main: "progressive/index.stache!done-autorender",
 		paths: {
 			"$css": path.resolve(__dirname + "/tests/less_plugin.js")
 		}

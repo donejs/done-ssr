@@ -21,6 +21,11 @@ module.exports = function(grunt){
 					dest: "test/tests/",
 					filter: "isFile"
 
+				}, {
+					expand: true,
+					src:["node_modules/done-autorender/**"],
+					dest: "test/tests/",
+					filter: "isFile"
 				}]
 			}
 
