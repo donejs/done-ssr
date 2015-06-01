@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/canjs/ssr.svg?branch=master)](https://travis-ci.org/donejs/server-side-render)
-[![npm version](https://badge.fury.io/js/can-ssr.svg)](http://badge.fury.io/js/done-server-side-render)
+[![Build Status](https://travis-ci.org/canjs/ssr.svg?branch=master)](https://travis-ci.org/canjs/ssr)
+[![npm version](https://badge.fury.io/js/can-ssr.svg)](http://badge.fury.io/js/can-ssr)
 
 # can-ssr
 
