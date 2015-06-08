@@ -1,4 +1,4 @@
-var stealServerSideRender = require("../lib/main");
+var stealServerSideRender = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
 var path = require("path");

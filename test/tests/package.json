@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "main.js",
   "dependencies": {
-    "can": "2.3.0-pre.0",
+    "can": "2.3.0-pre.1",
     "done-autorender": "0.0.7"
   }
 }

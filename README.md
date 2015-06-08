@@ -1,9 +1,18 @@
-[![Build Status](https://travis-ci.org/canjs/ssr.svg?branch=master)](https://travis-ci.org/canjs/ssr)
+[![Build Status](https://travis-ci.org/canjs/can-ssr.svg?branch=master)](https://travis-ci.org/canjs/can-ssr)
 [![npm version](https://badge.fury.io/js/can-ssr.svg)](http://badge.fury.io/js/can-ssr)
 
 # can-ssr
 
 Server-side rendering for CanJS.
+
+## Server
+
+To start a full server that hosts your application run:
+
+> npm install can-ssr
+> node_modules/.bin/can-server --port 3030
+
+In your application folder. To proxy an API add `--proxy-to url`.
 
 ## Usage
 

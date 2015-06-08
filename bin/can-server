@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+var program = require('commander');
+var pkg = require('../package.json');
+var server = require('../lib/server');
+
+program.version(pkg.version)
+  .usage('[options]')
+  .description(pkg.description)
+  .option('-p, --port [port]', 'The server port')
+  .option('-r, --proxy [url]', 'A URL to an API that should be proxied')
+  .option('-t, --proxy-to [path]', 'The path to proxy to (default: /api)')
+  .parse(process.argv);
+
+var config = {
+  path: process.cwd()
+};
+
+if(program.proxy) {
+  config.proxy = program.proxy;
+  config.proxyTo = program['proxy-to']
+}
+
+var app = server(config);
+
+app.listen(program.port || process.env.PORT || 3030);
