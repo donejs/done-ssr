@@ -2,9 +2,16 @@
   "name": "can-ssr",
   "version": "0.0.15",
   "description": "Server-side rendering for CanJS applications",
-  "main": "lib/main.js",
+  "main": "lib/index.js",
+  "bin": {
+    "can-server": "./bin/can-server"
+  },
   "scripts": {
-    "test": "mocha test/test.js"
+    "test": "mocha test/test.js",
+    "publish": "git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish"
   },
   "repository": {
     "type": "git",
@@ -31,8 +38,13 @@
     "steal-qunit": "0.0.4"
   },
   "dependencies": {
-    "steal": "^0.10.5",
-    "can": "^2.3.0-pre.1"
+    "can": "^2.3.0-pre.1",
+    "commander": "^2.8.1",
+    "compression": "^1.4.4",
+    "express": "^4.12.4",
+    "http-proxy": "^1.11.1",
+    "najax": "^0.1.5",
+    "steal": "^0.10.5"
   },
   "system": {
     "npmDependencies": [
