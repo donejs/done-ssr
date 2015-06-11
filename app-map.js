@@ -1,4 +1,4 @@
-steal("can/util", "can/map", "can/compute",function(can){
+steal("can/util", "can/map", "can/compute", "can/route/pushstate/", function(can){
 
 	function sortedSetJson(set){
 		if(set == null) {
