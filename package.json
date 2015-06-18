@@ -44,7 +44,8 @@
     "express": "^4.12.4",
     "http-proxy": "^1.11.1",
     "najax": "^0.1.5",
-    "steal": "^0.10.5"
+    "steal": "^0.10.5",
+    "xmlhttprequest": "^1.7.0"
   },
   "system": {
     "npmDependencies": [
