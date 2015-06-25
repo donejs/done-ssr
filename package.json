@@ -1,6 +1,6 @@
 {
   "name": "can-ssr",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
   "bin": {
@@ -44,7 +44,8 @@
     "express": "^4.12.4",
     "http-proxy": "^1.11.1",
     "najax": "^0.1.5",
-    "steal": "^0.10.5"
+    "steal": "^0.10.5",
+    "xmlhttprequest": "^1.7.0"
   },
   "system": {
     "npmDependencies": [
