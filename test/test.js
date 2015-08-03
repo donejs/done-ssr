@@ -1,10 +1,10 @@
-var stealServerSideRender = require("../lib/");
+var canSsr = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
 var path = require("path");
 
-describe("steal-server-side-render", function(){
-	var render = stealServerSideRender({
+describe("rendering an app", function(){
+	var render = canSsr({
 		config: __dirname + "/tests/package.json!npm",
 		main: "progressive/index.stache!done-autorender",
 		paths: {
