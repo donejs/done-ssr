@@ -4,17 +4,18 @@ var assert = require("assert");
 var path = require("path");
 
 describe("rendering an app", function(){
-	var render = canSsr({
-		config: __dirname + "/tests/package.json!npm",
-		main: "progressive/index.stache!done-autorender",
-		paths: {
-			"$css": path.resolve(__dirname + "/tests/less_plugin.js")
-		}
+	before(function(){
+		this.render = canSsr({
+			config: __dirname + "/tests/package.json!npm",
+			main: "progressive/index.stache!done-autorender",
+			paths: {
+				"$css": path.resolve(__dirname + "/tests/less_plugin.js")
+			}
+		});
 	});
 
-
 	it("basics works", function(done){
-		render("/").then(function(html){
+		this.render("/").then(function(html){
 			var node = helpers.dom(html);
 
 			var foundHome = false;
@@ -29,7 +30,7 @@ describe("rendering an app", function(){
 	});
 
 	it("works with progressively loaded bundles", function(done){
-		render("/orders").then(function(html){
+		this.render("/orders").then(function(html){
 			var node = helpers.dom(html);
 
 			var found = {};
