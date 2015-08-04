@@ -5,5 +5,13 @@
   "dependencies": {
     "can": "2.3.0-pre.1",
     "done-autorender": "0.0.7"
+  },
+  "system": {
+    "envs": {
+      "someenv": {
+		"baseURL": "http://example.com/",
+		"FOO": "bar"
+      }
+    }
   }
 }

@@ -7,7 +7,8 @@
     "can-serve": "./bin/can-serve"
   },
   "scripts": {
-    "test": "mocha test/test.js",
+    "test": "mocha test/test.js && mocha test/test_envs.js && npm run test:browser",
+    "test:browser": "testee test/test.html --browsers firefox --reporter Spec",
     "publish": "git push origin --tags",
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
@@ -35,7 +36,8 @@
     "grunt-simple-mocha": "^0.4.0",
     "jquery": "^1.11.3",
     "mocha": "^2.2.4",
-    "steal-qunit": "0.0.4"
+    "steal-qunit": "0.0.4",
+    "testee": "^0.2.0"
   },
   "dependencies": {
     "can": "^2.3.0-pre.1",
@@ -44,7 +46,7 @@
     "express": "^4.12.4",
     "http-proxy": "^1.11.1",
     "najax": "^0.1.5",
-    "steal": "^0.10.5",
+    "steal": "^0.11.0-pre.0",
     "xmlhttprequest": "^1.7.0"
   },
   "system": {

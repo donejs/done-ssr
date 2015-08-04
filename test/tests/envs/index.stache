@@ -1,0 +1,10 @@
+<html>
+	<head>
+		<title>envs test</title>
+	</head>
+	<body>
+		<can-import from="envs/state" [.]="{value}" />
+
+		<span>hello {{env}}</span>
+	</body>
+</html>
