@@ -3,7 +3,7 @@
 		<title>envs test</title>
 	</head>
 	<body>
-		<can-import from="envs/state" [.]="{value}" />
+		<can-import from="envs/state" as="viewModel" />
 
 		<span>hello {{env}}</span>
 	</body>
