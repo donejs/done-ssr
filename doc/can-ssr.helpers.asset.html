@@ -17,7 +17,7 @@
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8">
-	<title>can-ssr  - can-ssr</title>
+	<title>can-ssr - asset </title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
@@ -135,7 +135,7 @@
 			
 				
 				
-				<li class="search-container">
+				<li class="search-container active ">
 					<a class="function" href="can-ssr.helpers.asset.html" data-search="asset">
 						asset
 					</a>
@@ -208,9 +208,9 @@
 		
 		<section class="title">
 			<div class="heading">
-<h1>can-ssr</h1>
+<h1>asset</h1>
 	<ul class="tags">
-		<li>page</li>
+		<li>function</li>
 	</ul>
 	
 	
@@ -219,13 +219,17 @@
 <div class="sub-heading">
 	
 	
+		<span class="module">can-ssr.helpers.asset</span>
+	
+	
+	
 	<span class="inherits">&nbsp;</span>
 </div>
 
 <ul class="links">
 	
 	
-		<li><a href="git://github.com/canjs/can-ssr#masterreadme.md">source</a></li>
+		<li><a href="git://github.com/canjs/can-ssr#master/asset.md">source</a></li>
 	
 	
 	
@@ -243,13 +247,58 @@
 
 		
 		<section class="description">
-			<!--
--->
+			<p>A can.stache <a href="http://canjs.com/docs/can.stache.Helpers.html">helper</a> that is used to add a type of asset to the page.</p>
 
 		</section>
 		
 
 		
+			
+				<section class="signature">
+					<h2 id="sig___assettype__">{{asset type}}
+</h2>
+<div class="signature-wrapper">
+<p>Add the <strong>type</strong> of asset to the page.</p>
+
+
+	<h3>Parameters</h3>
+
+	<ol class="parameters">
+		
+		<li class="parameter">
+			<h4>type
+				<code>{String}</code></h4>
+			<div class="description">
+				<p>a type of asset such as <strong>css</strong>.</p>
+
+			</div>
+			
+			
+			
+		</li>
+		
+	</ol>
+
+
+	<h3>Returns</h3>
+	<div class="returns">
+		<h4><code>{DocumentFragment}</code></h4>
+		<div class="description">
+			<p>A fragment appended to the page in the location of the helper.</p>
+
+		</div>
+		
+		
+	</div>
+	
+
+
+
+
+
+</div>
+
+				</section>
 			
 		
 		
@@ -258,63 +307,27 @@
 
 		
 		<section class="comment">
-			<p><a href="https://travis-ci.org/canjs/can-ssr"><img src="https://travis-ci.org/canjs/can-ssr.svg?branch=master" alt="Build Status" /></a>
-<a href="http://badge.fury.io/js/can-ssr"><img src="https://badge.fury.io/js/can-ssr.svg" alt="npm version" /></a></p>
-<h1>can-ssr</h1>
-<p>Server-side rendering for CanJS.</p>
-<h2>Server</h2>
-<p>To start a full server that hosts your application run:</p>
-<blockquote>
-<p>npm install can-ssr
-node_modules/.bin/can-server --port 3030</p>
-</blockquote>
-<p>In your application folder. To proxy an API add <code>--proxy-to url</code>.</p>
-<h2>Usage</h2>
-<pre><code class="language-js">var render = require(&quot;can-ssr&quot;)({
-  config: __dirname + &quot;/public/package.json!npm&quot;,
-  main: &quot;index.stache!&quot;
-});
-
-render(&quot;/orders&quot;).then(function(html){
-  // Do something with `html`
-});
+			<h1>Use</h1>
+<p>Plugins can implement the [asset.register] interface to provide types of assets that might need to be added to the page.</p>
+<p>For example the <a href="https://github.com/donejs/css">done-css</a> plugin registers itself as a handler for css assets. This allows you to do:</p>
+<pre><code class="language-html">&lt;head&gt;
+    {{asset &quot;css&quot;}}
+&lt;/head&gt;
 </code></pre>
-<h2>API</h2>
-<h3>asset-register</h3>
-<p>A module used to register assets:</p>
-<pre><code class="language-js">var register = require(&quot;asset-register&quot;);
-
-register(&quot;module/name&quot;, &quot;css&quot;, function(){
-    return HTMLElement;
-});
+<p>which will generate:</p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;style&gt;
+        body {
+          ...
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
 </code></pre>
-<h4>register(moduleName, type, assetMaker)</h4>
-<p>Register takes the moduleName to register, a type associated with it, and a function that when called returns an HTMLElement.</p>
-<h4>register(type, assetMaker)</h4>
-<p>If registering an asset not associated with a particular module, supply only the type and a function that when called returns an HTMLElement.</p>
-<h3>asset (helper)</h3>
-<p>When rendering in Node, a special <code>asset</code> helper is included. This is used to append assets within your template:</p>
-<pre><code class="language-html">&lt;html&gt;
-    &lt;head&gt;
-        {{asset &quot;css&quot;}}
-    &lt;/head&gt;
-    &lt;body&gt;
-        &lt;can-import from=&quot;routes&quot;/&gt;
-
-        ...
-    &lt;/body&gt;
-&lt;/html&gt;
+<p>in development and in production:</p>
+<pre><code class="language-html">&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/dist/bundles/index.css&quot;&gt;
+&lt;/head&gt;
 </code></pre>
-<p>In this example, all CSS (either <code>&lt;style&gt;</code> or <code>&lt;link&gt;</code> elements depending on whether you are in development or production.</p>
-<pre><code class="language-html">{{asset type}}
-</code></pre>
-<p>Specify the <code>type</code> to insert. Assets can be registered with <code>asset-register</code> (docs above). Types provided natively by JavaScriptMVC:</p>
-<ul>
-<li><strong>css</strong>: Inserts a <code>&lt;style&gt;</code> or <code>&lt;link&gt;</code></li>
-<li><strong>inline-cache</strong>: If using the can.AppMap will insert data fetched as part of the page lifecycle.</li>
-</ul>
-<h2>License</h2>
-<p>MIT</p>
 
 		</section>
 		
@@ -344,7 +357,7 @@ register(&quot;module/name&quot;, &quot;css&quot;, function(){
 	
 	
 	<script type="text/javascript">
-		var docObject = {"type":"page","name":"can-ssr","src":"readme.md","description":"<!--\n-->","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"minifyBuild":false,"watch":true,"dest":"/Users/matthew/Projects/can-ssr-docs/doc","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"1.0.0","name":"can-ssr","source":"git://github.com/canjs/can-ssr#master"}};
+		var docObject = {"type":"function","name":"can-ssr.helpers.asset","src":"docs/asset.md","description":"A can.stache [helper](http://canjs.com/docs/can.stache.Helpers.html) that is used to add a type of asset to the page.","title":"asset","parent":"can-ssr.helpers","signatures":[{"code":"{{asset type}}","description":"Add the **type** of asset to the page.","params":[{"types":[{"type":"String"}],"name":"type","description":"a type of asset such as **css**."}],"returns":{"types":[{"type":"DocumentFragment"}],"description":"A fragment appended to the page in the location of the helper."}}],"comment":" ","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"minifyBuild":false,"watch":true,"dest":"/Users/matthew/Projects/can-ssr-docs/doc","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"1.0.0","name":"can-ssr","source":"git://github.com/canjs/can-ssr#master"}};
 	</script>
 	
 	
