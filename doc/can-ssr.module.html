@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8 lt-ie7" lang="en">
+<![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8" lang="en">
+<![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie lt-ie9" lang="en">
+<![endif]-->
+<!--[if IE 9]>
+<html class="no-js ie ie9" lang="en">
+<![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title>can-ssr - can-ssr </title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<link rel="stylesheet" type="text/css" href="./static/bundles/static.css">
+	
+	<!--[if lt IE 9]>
+   <script type="text/javascript" src="static/html5shiv.js"></script>
+    <!--<![endif]-->
+</head>
+
+<body class="docs">
+	<header>
+		<nav class="container">
+
+			<div class="logo-menu">
+				<a class="brand" href="./index.html">can-ssr</a>
+			</div>
+
+			<div class="pull-right">
+				<div class="bitovi-menu">
+					<a href="http://bitovi.com" class="bitovi icon-bits">Bitovi</a>
+					<ul class="dropdown-menu">
+						<li><a href="http://bitovi.com">Bitovi.com</a></li>
+						<li><a href="http://bitovi.com/blog/">Blog</a></li>
+						<li><a href="http://bitovi.com/consulting/">Consulting</a></li>
+						<li><a href="http://bitovi.com/training/">Training</a></li>
+						<li><a href="http://bitovi.com/open-source/">Open Source</a></li>
+						<li><a href="http://bitovi.com/people/">People</a></li>
+						<li><a href="http://bitovi.com/contact/">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	
+<div class="container api">
+
+	
+	<nav class="sidebar">
+		
+		<ul class="api cascading primary-grouping"> 
+	
+		
+		<li class="search-container active parent">
+			<a class="sidebar-title" href="index.html" data-search="can-ssr">
+				can-ssr
+			</a>
+			
+		</li>
+		
+		
+			
+			<li class="search-container active">
+			<a class="sidebar-title" href="can-ssr.module.html" data-search="can-ssr">
+				can-ssr
+			</a>
+			
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="function" href="can-ssr.renderer.html" data-search="renderer">
+						renderer
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+		</li>
+			
+		
+	
+</ul>
+	</nav>
+	
+	
+	
+	<article class="content docs">
+	
+	
+		
+		<section class="title">
+			<div class="heading">
+<h1>can-ssr</h1>
+	<ul class="tags">
+		<li>module</li>
+	</ul>
+	
+	
+</div>
+
+<div class="sub-heading">
+	
+	
+		<span class="module">can-ssr.module</span>
+	
+	
+	
+	<h2><code>{function()}</code></h2>
+	
+	<span class="inherits">&nbsp;</span>
+</div>
+
+<ul class="links">
+	
+	
+		<li><a href="git://github.com/canjs/can-ssr#master/canssr.md">source</a></li>
+	
+	
+	
+</ul>
+<br />
+		</section>
+		
+		
+		
+		<section class="contents">
+		</section>
+		
+		
+		
+
+		
+		<section class="description">
+			<p>Create a <a href="can-ssr.renderer.html">renderer</a> that, when called, renders the page for a given route.</p>
+
+		</section>
+		
+
+		
+			
+				<section class="signature">
+					<h2 id="sig_canSsr_config_">canSsr(config)
+</h2>
+<div class="signature-wrapper">
+<pre><code class="language-js">var canSsr = require(&quot;can-ssr&quot;);
+
+var renderer = canSsr({
+    config: __dirname + &quot;/package.json!npm&quot;
+});
+</code></pre>
+
+
+	<h3>Parameters</h3>
+
+	<ol class="parameters">
+		
+		<li class="parameter">
+			<h4>config
+				<code>{Object}</code><span class="pull-right optional">Optional</span></h4>
+			<div class="description">
+				<p>Configuration options that are a <a href="http://stealjs.com/docs/steal-tools.SystemConfig.html">SystemConfig</a>.</p>
+
+			</div>
+			
+			
+			
+		</li>
+		
+	</ol>
+
+
+	<h3>Returns</h3>
+	<div class="returns">
+		<h4><code>{<a href="can-ssr.renderer.html" >renderer</a>(route)}</code></h4>
+		<div class="description">
+			<p>A renderer function that can be used to render a given route.</p>
+
+		</div>
+		
+		
+	</div>
+	
+
+
+
+
+
+</div>
+
+				</section>
+			
+		
+		
+		
+		
+
+		
+		<section class="comment">
+			
+		</section>
+		
+		
+
+		
+
+		
+	
+	
+	</article>
+	
+	
+
+</div>
+
+
+
+
+
+	
+	<footer>
+		<nav class="container">
+			<a class="brand javascriptmvc" href="index.html"></a>
+		</nav>
+	</footer>
+	
+	
+	<script type="text/javascript">
+		var docObject = {"type":"module","name":"can-ssr.module","src":"docs/canssr.md","description":"Create a [can-ssr.renderer] that, when called, renders the page for a given route.","title":"can-ssr","types":[{"type":"function","returns":{"types":[{"type":"undefined"}]},"params":[]}],"parent":"can-ssr.node","signatures":[{"code":"canSsr(config)","description":"```js\nvar canSsr = require(\"can-ssr\");\n\nvar renderer = canSsr({\n\tconfig: __dirname + \"/package.json!npm\"\n});\n```","params":[{"types":[{"type":"Object","options":[]}],"optional":true,"name":"config","description":"Configuration options that are a [SystemConfig](http://stealjs.com/docs/steal-tools.SystemConfig.html)."}],"returns":{"types":[{"type":"can-ssr.renderer"}],"description":"A renderer function that can be used to render a given route."}}],"glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"minifyBuild":false,"watch":true,"dest":"/Users/matthew/Projects/can-ssr-docs/doc","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"1.0.0","name":"can-ssr","source":"git://github.com/canjs/can-ssr#master"}};
+	</script>
+	
+	
+		<script>
+		  steal = {
+		    instantiated: {
+		      "bundles/static.css!$css" : null
+		    }
+		  }
+		</script>
+		<script type='text/javascript' 
+				data-main="static"
+				data-config="./static/config.js"
+				src="./static/steal.production.js"
+	    		bundles-path="bundles"></script>
+	
+</body>
+
+</html>

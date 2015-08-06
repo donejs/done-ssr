@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8 lt-ie7" lang="en">
+<![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8" lang="en">
+<![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie lt-ie9" lang="en">
+<![endif]-->
+<!--[if IE 9]>
+<html class="no-js ie ie9" lang="en">
+<![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title>can-ssr - pageData </title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<link rel="stylesheet" type="text/css" href="./static/bundles/static.css">
+	
+	<!--[if lt IE 9]>
+   <script type="text/javascript" src="static/html5shiv.js"></script>
+    <!--<![endif]-->
+</head>
+
+<body class="docs">
+	<header>
+		<nav class="container">
+
+			<div class="logo-menu">
+				<a class="brand" href="./index.html">can-ssr</a>
+			</div>
+
+			<div class="pull-right">
+				<div class="bitovi-menu">
+					<a href="http://bitovi.com" class="bitovi icon-bits">Bitovi</a>
+					<ul class="dropdown-menu">
+						<li><a href="http://bitovi.com">Bitovi.com</a></li>
+						<li><a href="http://bitovi.com/blog/">Blog</a></li>
+						<li><a href="http://bitovi.com/consulting/">Consulting</a></li>
+						<li><a href="http://bitovi.com/training/">Training</a></li>
+						<li><a href="http://bitovi.com/open-source/">Open Source</a></li>
+						<li><a href="http://bitovi.com/people/">People</a></li>
+						<li><a href="http://bitovi.com/contact/">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	
+<div class="container api">
+
+	
+	<nav class="sidebar">
+		
+		<ul class="api cascading primary-grouping"> 
+	
+		
+		<li class="search-container active parent">
+			<a class="sidebar-title" href="index.html" data-search="can-ssr">
+				can-ssr
+			</a>
+			
+		</li>
+		
+		
+			
+			<li class="search-container active">
+			<a class="sidebar-title" href="can-ssr.AppMap.html" data-search="AppMap">
+				AppMap
+			</a>
+			
+	<ul>
+		
+			
+				
+					<li class="heading search-container">
+						<span>Prototype</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container active ">
+					<a class="function" href="can-ssr.AppMap.prototype.pageData.html" data-search="pageData">
+						pageData
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="function" href="can-ssr.AppMap.prototype.waitFor.html" data-search="waitFor">
+						waitFor
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+	</ul>
+
+		</li>
+			
+		
+	
+</ul>
+	</nav>
+	
+	
+	
+	<article class="content docs">
+	
+	
+		
+		<section class="title">
+			<div class="heading">
+<h1>pageData</h1>
+	<ul class="tags">
+		<li>function</li>
+	</ul>
+	
+	
+</div>
+
+<div class="sub-heading">
+	
+	
+		<span class="module">can-ssr.AppMap.prototype.pageData</span>
+	
+	
+	
+	<span class="inherits">&nbsp;</span>
+</div>
+
+<ul class="links">
+	
+	
+		<li><a href="git://github.com/canjs/can-ssr#master/appmap-prototype.pageData.md">source</a></li>
+	
+	
+	
+</ul>
+<br />
+		</section>
+		
+		
+		
+		<section class="contents">
+		</section>
+		
+		
+		
+
+		
+		<section class="description">
+			<p>Notify can-ssr of page data that should be added to the [inline-cache].</p>
+
+		</section>
+		
+
+		
+			
+				<section class="signature">
+					<h2 id="sig_appMap_pageData_key_set_inst_">appMap.pageData(key, set, inst)
+</h2>
+<div class="signature-wrapper">
+<p>Appends the data to the <a href="can-ssr.AppMap.html">AppMap</a>'s application data cache, to be used for appending to the page's [inline-cache].</p>
+
+
+	<h3>Parameters</h3>
+
+	<ol class="parameters">
+		
+		<li class="parameter">
+			<h4>key
+				<code>{String}</code></h4>
+			<div class="description">
+				<p>A key to use to distinguish this type of page data.</p>
+
+			</div>
+			
+			
+			
+		</li>
+		
+		<li class="parameter">
+			<h4>set
+				<code>{Object}</code></h4>
+			<div class="description">
+				<p>An object of key/value pairs that can be serialized to a JSON string. Used as a representation for the subtype of data being cached.</p>
+
+			</div>
+			
+			
+			
+		</li>
+		
+		<li class="parameter">
+			<h4>inst
+				<code>{Promise | Object}</code></h4>
+			<div class="description">
+				<p>An object which contains the instance data to be cached. If the instance is a Promise, <a href="can-ssr.AppMap.prototype.waitFor.html">waitFor</a> will be called so that the page waits for the promise to resolve.</p>
+
+			</div>
+			
+			
+			
+			
+			
+		</li>
+		
+	</ol>
+
+
+	<h3>Returns</h3>
+	<div class="returns">
+		<h4><code>{Object}</code></h4>
+		<div class="description">
+			<p>The instance passed into pageData.</p>
+
+		</div>
+		
+		
+	</div>
+	
+
+
+
+
+
+</div>
+
+				</section>
+			
+		
+		
+		
+		
+
+		
+		<section class="comment">
+			<h1>Use</h1>
+<p>pageData is used to pass data that is collected as part of the rendering cycle used to populate the [inline-cache]. For example:</p>
+<pre><code class="language-js">```js
+var TodosApp = can.Map.extend({
+    define: {
+        todos: {
+            get: function(){
+                var params = {
+                    status: &quot;complete&quot;
+                };
+
+                var todosPromise = Todos.getList(params);
+
+                var appState = this.attr(&quot;@root&quot;);
+                return appState.pageData(&quot;todos&quot;, params, todosPromise);
+            }
+        }
+    }
+});
+
+can.Component.extend({
+    tag: &quot;todos-app&quot;,
+    viewModel: TodosApp
+});
+</code></pre>
+<p>In this example the Todo model is fetching a list of Todos from the server that have a <strong>status</strong> of &quot;complete&quot;. Passing this information into pageData will cause the [inline-cache] to be populated like so:</p>
+<pre><code class="language-html">&lt;script&gt;
+    INLINE_CACHE = {
+        &quot;todos&quot;: {
+            &quot;{'status':'complete'}&quot;: [
+                { description: &quot;Clean room&quot;, status: &quot;complete&quot; },
+                { description: &quot;Mow lawn&quot;, status: &quot;complete&quot; }
+            ]
+        }
+    };
+&lt;/script&gt;
+</code></pre>
+<p>This information can be used by your application to perform the page's initial render. If using <a href="http://connect.canjs.com/">can-connect</a> it will use the inline cache to prevent extra requests from being made.</p>
+
+		</section>
+		
+		
+
+		
+
+		
+	
+	
+	</article>
+	
+	
+
+</div>
+
+
+
+
+
+	
+	<footer>
+		<nav class="container">
+			<a class="brand javascriptmvc" href="index.html"></a>
+		</nav>
+	</footer>
+	
+	
+	<script type="text/javascript">
+		var docObject = {"type":"function","name":"can-ssr.AppMap.prototype.pageData","src":"docs/appmap-prototype.pageData.md","description":"Notify can-ssr of page data that should be added to the [inline-cache].","title":"pageData","parent":"can-ssr.AppMap.prototype","signatures":[{"code":"appMap.pageData(key, set, inst)","description":"Appends the data to the [can-ssr.AppMap]'s application data cache, to be used for appending to the page's [inline-cache].","params":[{"types":[{"type":"String"}],"name":"key","description":"A key to use to distinguish this type of page data."},{"types":[{"type":"Object","options":[]}],"name":"set","description":"An object of key/value pairs that can be serialized to a JSON string. Used as a representation for the subtype of data being cached."},{"types":[{"type":"Promise"},{"type":"Object","options":[]}],"name":"inst","description":"An object which contains the instance data to be cached. If the instance is a Promise, [can-ssr.AppMap.prototype.waitFor] will be called so that the page waits for the promise to resolve."}],"returns":{"types":[{"type":"Object","options":[]}],"description":"The instance passed into pageData."}}],"comment":" ","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"minifyBuild":false,"watch":true,"dest":"/Users/matthew/Projects/can-ssr-docs/doc","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"1.0.0","name":"can-ssr","source":"git://github.com/canjs/can-ssr#master"}};
+	</script>
+	
+	
+		<script>
+		  steal = {
+		    instantiated: {
+		      "bundles/static.css!$css" : null
+		    }
+		  }
+		</script>
+		<script type='text/javascript' 
+				data-main="static"
+				data-config="./static/config.js"
+				src="./static/steal.production.js"
+	    		bundles-path="bundles"></script>
+	
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+{
+	"versions": {
+		"1.0.0": {
+			"source":  "git://github.com/canjs/can-ssr#master",
+			"minify": false
+		}
+	},
+	"defaultVersion" : "1.0.0"
+}

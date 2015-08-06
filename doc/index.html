@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<!--[if lt IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8 lt-ie7" lang="en">
+<![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie lt-ie9 lt-ie8" lang="en">
+<![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie lt-ie9" lang="en">
+<![endif]-->
+<!--[if IE 9]>
+<html class="no-js ie ie9" lang="en">
+<![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title>can-ssr  - can-ssr</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<link rel="stylesheet" type="text/css" href="./static/bundles/static.css">
+	
+	<!--[if lt IE 9]>
+   <script type="text/javascript" src="static/html5shiv.js"></script>
+    <!--<![endif]-->
+</head>
+
+<body class="docs">
+	<header>
+		<nav class="container">
+
+			<div class="logo-menu">
+				<a class="brand" href="./index.html">can-ssr</a>
+			</div>
+
+			<div class="pull-right">
+				<div class="bitovi-menu">
+					<a href="http://bitovi.com" class="bitovi icon-bits">Bitovi</a>
+					<ul class="dropdown-menu">
+						<li><a href="http://bitovi.com">Bitovi.com</a></li>
+						<li><a href="http://bitovi.com/blog/">Blog</a></li>
+						<li><a href="http://bitovi.com/consulting/">Consulting</a></li>
+						<li><a href="http://bitovi.com/training/">Training</a></li>
+						<li><a href="http://bitovi.com/open-source/">Open Source</a></li>
+						<li><a href="http://bitovi.com/people/">People</a></li>
+						<li><a href="http://bitovi.com/contact/">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	
+<div class="container api">
+
+	
+	<nav class="sidebar">
+		
+		<ul class="api cascading primary-grouping"> 
+	
+		
+		
+			
+			<li class="search-container active">
+			<a class="sidebar-title" href="index.html" data-search="can-ssr">
+				can-ssr
+			</a>
+			
+	<ul>
+		
+			
+				
+					<li class="heading search-container">
+						<span>Node</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="module" href="can-ssr.module.html" data-search="can-ssr">
+						can-ssr
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+			
+				
+					<li class="heading search-container">
+						<span>Client</span>
+						
+	<ul>
+		
+			
+				
+				
+				<li class="search-container">
+					<a class="constructor" href="can-ssr.AppMap.html" data-search="AppMap">
+						AppMap
+					</a>
+				</li>
+				
+			
+			
+		
+	</ul>
+
+					</li>
+				
+				
+			
+			
+		
+	</ul>
+
+		</li>
+			
+		
+	
+</ul>
+	</nav>
+	
+	
+	
+	<article class="content docs">
+	
+	
+		
+		<section class="title">
+			<div class="heading">
+<h1>can-ssr</h1>
+	<ul class="tags">
+		<li>page</li>
+	</ul>
+	
+	
+</div>
+
+<div class="sub-heading">
+	
+	
+	<span class="inherits">&nbsp;</span>
+</div>
+
+<ul class="links">
+	
+	
+		<li><a href="git://github.com/canjs/can-ssr#masterreadme.md">source</a></li>
+	
+	
+	
+</ul>
+<br />
+		</section>
+		
+		
+		
+		<section class="contents">
+		</section>
+		
+		
+		
+
+		
+		<section class="description">
+			<!--
+-->
+
+		</section>
+		
+
+		
+			
+		
+		
+		
+		
+
+		
+		<section class="comment">
+			<p><a href="https://travis-ci.org/canjs/can-ssr"><img src="https://travis-ci.org/canjs/can-ssr.svg?branch=master" alt="Build Status" /></a>
+<a href="http://badge.fury.io/js/can-ssr"><img src="https://badge.fury.io/js/can-ssr.svg" alt="npm version" /></a></p>
+<h1>can-ssr</h1>
+<p>Server-side rendering for CanJS.</p>
+<h2>Server</h2>
+<p>To start a full server that hosts your application run:</p>
+<blockquote>
+<p>npm install can-ssr
+node_modules/.bin/can-server --port 3030</p>
+</blockquote>
+<p>In your application folder. To proxy an API add <code>--proxy-to url</code>.</p>
+<h2>Usage</h2>
+<pre><code class="language-js">var render = require(&quot;can-ssr&quot;)({
+  config: __dirname + &quot;/public/package.json!npm&quot;,
+  main: &quot;index.stache!&quot;
+});
+
+render(&quot;/orders&quot;).then(function(html){
+  // Do something with `html`
+});
+</code></pre>
+<h2>API</h2>
+<h3>asset-register</h3>
+<p>A module used to register assets:</p>
+<pre><code class="language-js">var register = require(&quot;asset-register&quot;);
+
+register(&quot;module/name&quot;, &quot;css&quot;, function(){
+    return HTMLElement;
+});
+</code></pre>
+<h4>register(moduleName, type, assetMaker)</h4>
+<p>Register takes the moduleName to register, a type associated with it, and a function that when called returns an HTMLElement.</p>
+<h4>register(type, assetMaker)</h4>
+<p>If registering an asset not associated with a particular module, supply only the type and a function that when called returns an HTMLElement.</p>
+<h3>asset (helper)</h3>
+<p>When rendering in Node, a special <code>asset</code> helper is included. This is used to append assets within your template:</p>
+<pre><code class="language-html">&lt;html&gt;
+    &lt;head&gt;
+        {{asset &quot;css&quot;}}
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;can-import from=&quot;routes&quot;/&gt;
+
+        ...
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>In this example, all CSS (either <code>&lt;style&gt;</code> or <code>&lt;link&gt;</code> elements depending on whether you are in development or production.</p>
+<pre><code class="language-html">{{asset type}}
+</code></pre>
+<p>Specify the <code>type</code> to insert. Assets can be registered with <code>asset-register</code> (docs above). Types provided natively by JavaScriptMVC:</p>
+<ul>
+<li><strong>css</strong>: Inserts a <code>&lt;style&gt;</code> or <code>&lt;link&gt;</code></li>
+<li><strong>inline-cache</strong>: If using the can.AppMap will insert data fetched as part of the page lifecycle.</li>
+</ul>
+<h2>License</h2>
+<p>MIT</p>
+
+		</section>
+		
+		
+
+		
+
+		
+	
+	
+	</article>
+	
+	
+
+</div>
+
+
+
+
+
+	
+	<footer>
+		<nav class="container">
+			<a class="brand javascriptmvc" href="index.html"></a>
+		</nav>
+	</footer>
+	
+	
+	<script type="text/javascript">
+		var docObject = {"type":"page","name":"can-ssr","src":"readme.md","description":"<!--\n-->","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"minifyBuild":false,"watch":true,"dest":"/Users/matthew/Projects/can-ssr-docs/doc","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"1.0.0","name":"can-ssr","source":"git://github.com/canjs/can-ssr#master"}};
+	</script>
+	
+	
+		<script>
+		  steal = {
+		    instantiated: {
+		      "bundles/static.css!$css" : null
+		    }
+		  }
+		</script>
+		<script type='text/javascript' 
+				data-main="static"
+				data-config="./static/config.js"
+				src="./static/steal.production.js"
+	    		bundles-path="bundles"></script>
+	
+</body>
+
+</html>
