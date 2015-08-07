@@ -1,6 +1,6 @@
 {
   "name": "can-ssr",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
   "bin": {
