@@ -43,6 +43,9 @@ if(program.develop) {
 var app = server(config);
 var port = program.port || process.env.PORT || 3030;
 var server = app.listen(port);
+var address = server.address();
+var url = 'http://' + (address.address === '::' ?
+		'localhost' : address.address) + ':' + address.port;
 
 server.on('error', function(e) {
 	if(e.code === 'EADDRINUSE') {
@@ -54,4 +57,4 @@ server.on('error', function(e) {
 	}
 });
 
-console.log('can-serve starting on port ' + port);
+console.log('can-serve starting on ' + url);
