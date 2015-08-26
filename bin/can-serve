@@ -1,11 +1,15 @@
 #!/usr/bin/env node
+var fs = require('fs');
 var program = require('commander');
+
 var pkg = require('../package.json');
 var server = require('../lib/server');
+var exec = require('child_process').exec;
 
 program.version(pkg.version)
   .usage('[options]')
   .description(pkg.description)
+  .option('-d, --develop', 'Enable development mode (live-reload)')
   .option('-p, --port [port]', 'The server port')
   .option('-r, --proxy [url]', 'A URL to an API that should be proxied')
   .option('-t, --proxy-to [path]', 'The path to proxy to (default: /api)')
@@ -20,6 +24,34 @@ if(program.proxy) {
   config.proxyTo = program['proxy-to']
 }
 
-var app = server(config);
+// Spawn a child process in development mode
+if(program.develop) {
+	if(!fs.existsSync('node_modules/.bin/steal-tools')) {
+		console.error('live-reload not available: ' +
+			'No local steal-tools binary found. ' +
+			'Run `npm install steal-tools --save-dev`.')
+	} else {
+		var child = exec('node_modules/.bin/steal-tools live-reload', {
+			cwd: process.cwd()
+		});
 
-app.listen(program.port || process.env.PORT || 3030);
+		child.stdout.pipe(process.stdout);
+		child.stderr.pipe(process.stderr);
+	}
+}
+
+var app = server(config);
+var port = program.port || process.env.PORT || 3030;
+var server = app.listen(port);
+
+server.on('error', function(e) {
+	if(e.code === 'EADDRINUSE') {
+		console.error('ERROR: Can not start can-serve on port ' + port
+			+ '.\nAnother application is already using it.')
+	} else {
+		console.error(e);
+		console.error(e.stack);
+	}
+});
+
+console.log('can-serve starting on port ' + port);
