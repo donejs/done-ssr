@@ -21,7 +21,7 @@ var config = {
 
 if(program.proxy) {
   config.proxy = program.proxy;
-  config.proxyTo = program['proxy-to']
+  config.proxyTo = program.proxyTo;
 }
 
 // Spawn a child process in development mode
