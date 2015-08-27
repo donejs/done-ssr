@@ -10,9 +10,9 @@ program.version(pkg.version)
   .usage('[options]')
   .description(pkg.description)
   .option('-d, --develop', 'Enable development mode (live-reload)')
-  .option('-p, --port [port]', 'The server port')
-  .option('-r, --proxy [url]', 'A URL to an API that should be proxied')
-  .option('-t, --proxy-to [path]', 'The path to proxy to (default: /api)')
+  .option('-p, --port <port>', 'The server port')
+  .option('-r, --proxy <url>', 'A URL to an API that should be proxied')
+  .option('-t, --proxy-to <path>', 'The path to proxy to (default: /api)')
   .parse(process.argv);
 
 var config = {

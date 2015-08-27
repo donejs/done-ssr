@@ -20,7 +20,14 @@ To start a full server that hosts your application run:
 > npm install can-ssr
 > node_modules/.bin/can-server --port 3030
 
-In your application folder. To proxy an API add `--proxy-to url`.
+In your application folder.
+
+Available options:
+
+- __-p, --port__ - Set the port the server should run on
+- __-d, --develop__ - Also starts a live-reload server
+- __-p, --proxy__ <url> - Proxy a local path (default: `/api`) to the given URL (e.g. `http://api.myapp.com`)
+- __-t, --proxy-to <path>__ - Set the proxy endpoint (default: `/api`)
 
 ## Usage
 
