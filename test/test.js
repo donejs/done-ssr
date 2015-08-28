@@ -6,10 +6,10 @@ var path = require("path");
 describe("rendering an app", function(){
 	before(function(){
 		this.render = canSsr({
-			config: __dirname + "/tests/package.json!npm",
+			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "progressive/index.stache!done-autorender",
 			paths: {
-				"$css": path.resolve(__dirname + "/tests/less_plugin.js")
+				"$css": "file:" + path.resolve(__dirname + "/tests/less_plugin.js")
 			}
 		});
 	});
