@@ -1,5 +1,6 @@
 var AppMap = require("can-ssr/app-map");
 var QUnit = require("steal-qunit");
+var loader = require("@loader");
 
 QUnit.module("can-ssr/app-map");
 
@@ -18,4 +19,22 @@ test("sorts correctly", function(){
 	map.pageData("foo", { "two": 2, "one": 1 }, {});
 
 	equal(keys(map.__pageData).length, 1, "There is one key");
+});
+
+test("Correctly serializes json with scripts in it", function(){
+	var cloneAsset;
+	loader.set("asset-register", loader.newModule({
+		"default": function(name, callback){
+			cloneAsset = callback;
+		}
+	}));
+
+	var map = new AppMap();
+	map.pageData("foo", {foo:"bar"}, {
+		readme: "# hello world\n ```<script type=\"test/stache\">something</script>"
+	});
+
+	debugger;
+
+	QUnit.stop();
 });
