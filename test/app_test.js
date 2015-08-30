@@ -1,6 +1,7 @@
 var AppMap = require("can-ssr/app-map");
 var QUnit = require("steal-qunit");
 var loader = require("@loader");
+var $ = require("jquery");
 
 QUnit.module("can-ssr/app-map");
 
@@ -34,7 +35,9 @@ test("Correctly serializes json with scripts in it", function(){
 		readme: "# hello world\n ```<script type=\"test/stache\">something</script>"
 	});
 
-	debugger;
+	var script = cloneAsset();
+	$("#qunit-test-area").append(script);
 
-	QUnit.stop();
+	QUnit.ok(window.INLINE_CACHE, "Inline cache exists");
+	QUnit.ok(INLINE_CACHE["{\"foo\":\"bar\"}"], "The set key exists");
 });
