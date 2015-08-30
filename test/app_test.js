@@ -36,8 +36,10 @@ test("Correctly serializes json with scripts in it", function(){
 	});
 
 	var script = cloneAsset();
-	$("#qunit-test-area").append(script);
+	var icText = $(script).text();
+	var frame = $("#qunit-test-area").append("<iframe id='myframe'/>").find("#myframe");
+	frame.append("<script>" + icText + "</script>");
 
 	QUnit.ok(window.INLINE_CACHE, "Inline cache exists");
-	QUnit.ok(INLINE_CACHE["{\"foo\":\"bar\"}"], "The set key exists");
+	QUnit.ok(INLINE_CACHE["foo"], "The set key exists");
 });
