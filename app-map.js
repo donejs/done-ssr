@@ -29,7 +29,9 @@ steal("can/util", "can/map", "can/compute", function(can){
 				var self = this;
 				register("inline-cache", function(){
 					var script = document.createElement("script");
-					var text = document.createTextNode("\nINLINE_CACHE = " + JSON.stringify(self.__pageData) + ";\n")
+					var jsonString = JSON.stringify(self.__pageData);
+					var dataString = jsonString.replace(/script/g, "scr\"+\"ipt");
+					var text = document.createTextNode("\nINLINE_CACHE = " + dataString + ";\n")
 					script.appendChild(text);
 					return script;
 				});

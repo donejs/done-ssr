@@ -32,7 +32,7 @@ test("Correctly serializes json with scripts in it", function(){
 
 	var map = new AppMap();
 	map.pageData("foo", {foo:"bar"}, {
-		readme: "# hello world\n ```<script type=\"test/stache\">something</script>"
+		readme: "# hello world\n ```<script type=\"test/stache\">something</script>```"
 	});
 
 	var script = cloneAsset();
