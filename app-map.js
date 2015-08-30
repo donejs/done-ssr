@@ -30,7 +30,7 @@ steal("can/util", "can/map", "can/compute", function(can){
 				register("inline-cache", function(){
 					var script = document.createElement("script");
 					var jsonString = JSON.stringify(self.__pageData);
-					var dataString = jsonString.replace(/script/g, "scr\"+\"ipt");
+					var dataString = jsonString.replace(/(<\/?)script/g, "$1scr\"+\"ipt");
 					var text = document.createTextNode("\nINLINE_CACHE = " + dataString + ";\n")
 					script.appendChild(text);
 					return script;
