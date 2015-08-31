@@ -7,8 +7,8 @@
     "can-serve": "./bin/can-serve"
   },
   "scripts": {
-    "test": "npm run test:node && npm run test:browser",
-	"test:node": "mocha test/test.js && mocha test/test_envs.js",
+    "test": "grunt && npm run test:node && npm run test:browser",
+	"test:node": "mocha --timeout 10000 test/test.js && mocha --timeout 10000 test/test_envs.js",
     "test:browser": "testee test/test.html --browsers firefox --reporter Spec",
     "publish": "git push origin --tags",
     "release:patch": "npm version patch && npm publish",
