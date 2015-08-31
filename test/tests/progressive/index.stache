@@ -10,7 +10,7 @@
 		<can-import from="progressive/main.css!"/>
 
 		{{#eq page "home"}}
-			<div id="home">You are home</div>
+			<div id="home">You are {{page}}</div>
 		{{/eq}}
 
 		{{#eq page "orders"}}
