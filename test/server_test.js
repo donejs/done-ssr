@@ -35,15 +35,24 @@ describe('can-serve tests', function() {
 		});
 	});
 
-	it('starts SSR with package.json settings and outputs page', function(done) {
-		request('http://localhost:5050', function(err, req, body) {
+	it('starts SSR with package.json settings and outputs page with 200 status', function(done) {
+		request('http://localhost:5050', function(err, res, body) {
+			assert.equal(res.statusCode, 200);
 			assert.ok(/You are home/.test(body), 'Got body');
 			done();
 		});
 	});
 
+	it('route errors send 404 status', function(done) {
+		request('http://localhost:5050/invalid/route', function(err, res, body) {
+			assert.equal(res.statusCode, 404);
+			assert.ok(/Error: Not found/.test(body), 'Got body');
+			done();
+		});
+	});
+
 	it('proxies to other servers on a path', function(done) {
-		request('http://localhost:5050/testing/', function(err, req, body) {
+		request('http://localhost:5050/testing/', function(err, res, body) {
 			assert.equal(body, 'Other server\n', 'Got message from other server');
 			done();
 		});

@@ -1,9 +1,11 @@
 {
 	"sites": {
-		"doc": {
+		"docs": {
+			"dest": "doc",
 			"glob": {
 				"pattern": "{src/**/*,readme,docs/**/*}.{js,md}"
 			},
+			"ignoreTemplateRender": true,
 			"parent" : "can-ssr",
 			"minifyBuild": false
 		}

@@ -1,3 +1,3 @@
-var AppMap = require("app_map");
+var AppMap = require("app-map");
 
 module.exports = AppMap.extend({});

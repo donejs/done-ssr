@@ -20,7 +20,6 @@ Appends the data to the [can-ssr.AppMap]'s application data cache, to be used fo
 pageData is used to pass data that is collected as part of the rendering cycle used to populate the [inline-cache]. For example:
 
 ```js
-```js
 var TodosApp = can.Map.extend({
 	define: {
 		todos: {
