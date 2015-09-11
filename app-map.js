@@ -41,6 +41,14 @@ steal("can/util", "can/map", "can/compute", function(can){
 			this.__readyPromises.push(promise);
 			return promise;
 		},
+		pageStatus: function(statusCode, message) {
+			this.attr({
+				statusCode: statusCode,
+				statusMessage: message
+			});
+
+			return this;
+		},
 		pageData: can.__notObserve(function(key, set, inst){
 			var appState = this;
 
@@ -56,6 +64,11 @@ steal("can/util", "can/map", "can/compute", function(can){
 				this.waitFor(inst);
 				inst.then(function(data){
 					store(data);
+				}, function(xhr) {
+					appState.attr({
+						statusCode: xhr.status || 500,
+						statusMessage: xhr.statusText
+					});
 				});
 			} else {
 				store(inst);

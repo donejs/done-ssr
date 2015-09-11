@@ -21,6 +21,10 @@
 			</can-import>
 		{{/eq}}
 
+		{{^eq statusCode 200}}
+			<div>Error: {{statusMessage}}</div>
+		{{/eq}}
+
 		{{asset "inline-cache"}}
 	</body>
 </html>

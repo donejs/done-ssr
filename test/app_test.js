@@ -1,4 +1,5 @@
 var AppMap = require("can-ssr/app-map");
+var can = require("can");
 var QUnit = require("steal-qunit");
 var loader = require("@loader");
 var $ = require("jquery");
@@ -43,4 +44,18 @@ test("Correctly serializes json with scripts in it", function(){
 
 	QUnit.ok(window.INLINE_CACHE, "Inline cache exists");
 	QUnit.ok(INLINE_CACHE["foo"], "The set key exists");
+});
+
+test("pageData with promises that fail set statusCode", function() {
+	var dfd = can.Deferred();
+	var map = new AppMap();
+	map.pageData("promise", {}, dfd);
+
+	dfd.reject({
+		status: 500,
+		statusText: "Server crashed"
+	});
+
+	QUnit.equal(map.attr("statusCode"), 500);
+	QUnit.equal(map.attr("statusMessage"), "Server crashed");
 });

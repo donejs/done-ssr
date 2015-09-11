@@ -7,6 +7,7 @@
     "done-autorender": "0.0.7"
   },
   "system": {
+    "paths": { "./app-map": "../../app-map.js" },
     "envs": {
       "someenv": {
 		"baseURL": "http://example.com/",

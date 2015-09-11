@@ -37,8 +37,10 @@ var render = require("can-ssr")({
   main: "index.stache!"
 });
 
-render("/orders").then(function(html){
-  // Do something with `html`
+render("/orders").then(function(result){
+  // Do something with `result.html`
+  // Get the app state with `result.state`
+  // e.g. for the statusCode in `result.state.attr('statusCode')`
 });
 ```
 

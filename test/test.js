@@ -2,6 +2,7 @@ var canSsr = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
 var path = require("path");
+var	hasError = /Error:/;
 
 describe("rendering an app", function(){
 	before(function(){
@@ -15,8 +16,8 @@ describe("rendering an app", function(){
 	});
 
 	it("basics works", function(done){
-		this.render("/").then(function(html){
-			var node = helpers.dom(html);
+		this.render("/").then(function(result){
+			var node = helpers.dom(result.html);
 
 			var foundHome = false;
 			helpers.traverse(node, function(el){
@@ -30,8 +31,8 @@ describe("rendering an app", function(){
 	});
 
 	it("works with progressively loaded bundles", function(done){
-		this.render("/orders").then(function(html){
-			var node = helpers.dom(html);
+		this.render("/orders").then(function(result){
+			var node = helpers.dom(result.html);
 
 			var found = {};
 			helpers.traverse(node, function(el){
@@ -40,11 +41,23 @@ describe("rendering an app", function(){
 				}
 			});
 
+			assert.ok(!hasError.test(result.html), 'does not print an error message');
+			assert.equal(result.state.attr('statusCode'), 200);
 			assert.equal(found["progressive/main.css!$css"], true, "Found the main css");
 			assert.equal(found["progressive/orders/orders.css!$css"], true, "Found the orders bundle css");
 			assert.equal(found["@inline-cache"], true, "The inline-cache was registered");
+		}).then(done);
+	});
 
+	it("sets status to 404 if route was not round", function(done){
+		this.render("/invalid/route").then(function(result){
+			var state = result.state;
+			var printsMessage = /Not found/;
 
+			assert.ok(hasError.test(result.html), 'error message is showing');
+			assert.ok(printsMessage.test(result.html), 'Error message is showing on the page');
+			assert.equal(state.attr("statusCode"), 404);
+			assert.equal(state.attr("statusMessage"), "Not found");
 		}).then(done);
 	});
 });

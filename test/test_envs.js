@@ -14,8 +14,8 @@ describe("rendering an app using envs", function(){
 	});
 
 	it("works", function(done){
-		this.render("/").then(function(html){
-			var node = helpers.dom(html);
+		this.render("/").then(function(result){
+			var node = helpers.dom(result.html);
 
 			var found = [];
 			helpers.traverse(node, function(el){
