@@ -2,7 +2,6 @@ var assert = require('assert');
 var path = require('path');
 var http = require('http');
 var request = require('request');
-var xhr = require('xmlhttprequest').XMLHttpRequest;
 
 var serve = require('../lib/server');
 
