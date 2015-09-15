@@ -1,6 +1,6 @@
 
 exports.dom = function(html){
-	var doc = new document.constructor;
+	var doc = new document.constructor();
 	var div = doc.createElement("div");
 	div.innerHTML = html;
 

@@ -1,8 +1,6 @@
 var canSsr = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
-var path = require("path");
-
 
 describe("rendering an app using envs", function(){
 	before(function(){

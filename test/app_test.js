@@ -10,20 +10,20 @@ QUnit.module("pageData");
 
 var keys = Object.keys || function(obj){
 	var result = [];
-	for (prop in obj) {
+	for (var prop in obj) {
 		result.push(prop);
 	}
 };
 
-test("sorts correctly", function(){
+QUnit.test("sorts correctly", function(){
 	var map = new AppMap();
 	map.pageData("foo", { "one": 1, "two": 2 }, {});
 	map.pageData("foo", { "two": 2, "one": 1 }, {});
 
-	equal(keys(map.__pageData).length, 1, "There is one key");
+	QUnit.equal(keys(map.__pageData).length, 1, "There is one key");
 });
 
-test("Correctly serializes json with scripts in it", function(){
+QUnit.test("Correctly serializes json with scripts in it", function(){
 	var cloneAsset;
 	loader.set("asset-register", loader.newModule({
 		"default": function(name, callback){
@@ -43,10 +43,10 @@ test("Correctly serializes json with scripts in it", function(){
 	frame.append("<script>" + icText + "</script>");
 
 	QUnit.ok(window.INLINE_CACHE, "Inline cache exists");
-	QUnit.ok(INLINE_CACHE["foo"], "The set key exists");
+	QUnit.ok(INLINE_CACHE.foo, "The set key exists");
 });
 
-test("pageData with promises that fail set statusCode", function() {
+QUnit.test("pageData with promises that fail set statusCode", function() {
 	var dfd = can.Deferred();
 	var map = new AppMap();
 	map.pageData("promise", {}, dfd);
