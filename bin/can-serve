@@ -13,15 +13,17 @@ program.version(pkg.version)
   .option('-p, --port <port>', 'The server port')
   .option('-r, --proxy <url>', 'A URL to an API that should be proxied')
   .option('-t, --proxy-to <path>', 'The path to proxy to (default: /api)')
+  .option('-l, --no-live-reload', 'Turn off live-reload')
   .parse(process.argv);
 
-var config = {
-  path: process.cwd()
+var options = {
+  path: process.cwd(),
+  liveReload: program.liveReload
 };
 
 if(program.proxy) {
-  config.proxy = program.proxy;
-  config.proxyTo = program.proxyTo;
+  options.proxy = program.proxy;
+  options.proxyTo = program.proxyTo;
 }
 
 // Spawn a child process in development mode
@@ -40,7 +42,7 @@ if(program.develop) {
 	}
 }
 
-var app = server(config);
+var app = server(options);
 var port = program.port || process.env.PORT || 3030;
 var server = app.listen(port);
 var address = server.address();
