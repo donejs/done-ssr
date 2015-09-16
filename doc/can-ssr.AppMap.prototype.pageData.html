@@ -101,6 +101,18 @@
 				
 				
 				<li class="search-container">
+					<a class="function" href="can-ssr.AppMap.prototype.pageStatus.html" data-search="pageStatus">
+						pageStatus
+					</a>
+				</li>
+				
+			
+			
+		
+			
+				
+				
+				<li class="search-container">
 					<a class="function" href="can-ssr.AppMap.prototype.waitFor.html" data-search="waitFor">
 						waitFor
 					</a>
@@ -155,7 +167,7 @@
 <ul class="links">
 	
 	
-		<li><a href="git://github.com/canjs/can-ssr#master/appmap-prototype.pageData.md">source</a></li>
+		<li><a href="git://github.com/canjs/can-ssr#master/appmap-prototype-pageData.md">source</a></li>
 	
 	
 	
@@ -261,8 +273,7 @@
 		<section class="comment">
 			<h1>Use</h1>
 <p>pageData is used to pass data that is collected as part of the rendering cycle used to populate the <a href="inline-cache.html">inline-cache</a>. For example:</p>
-<pre><code class="language-js">```js
-var TodosApp = can.Map.extend({
+<pre><code class="language-js">var TodosApp = can.Map.extend({
     define: {
         todos: {
             get: function(){
@@ -326,7 +337,7 @@ can.Component.extend({
 	
 	
 	<script type="text/javascript">
-		var docObject = {"type":"function","name":"can-ssr.AppMap.prototype.pageData","src":"docs/appmap-prototype.pageData.md","description":"Notify can-ssr of page data that should be added to the [inline-cache].","title":"pageData","parent":"can-ssr.AppMap.prototype","signatures":[{"code":"appMap.pageData(key, set, inst)","description":"Appends the data to the [can-ssr.AppMap]'s application data cache, to be used for appending to the page's [inline-cache].","params":[{"types":[{"type":"String"}],"name":"key","description":"A key to use to distinguish this type of page data."},{"types":[{"type":"Object","options":[]}],"name":"set","description":"An object of key/value pairs that can be serialized to a JSON string. Used as a representation for the subtype of data being cached."},{"types":[{"type":"Promise"},{"type":"Object","options":[]}],"name":"inst","description":"An object which contains the instance data to be cached. If the instance is a Promise, [can-ssr.AppMap.prototype.waitFor] will be called so that the page waits for the promise to resolve."}],"returns":{"types":[{"type":"Object","options":[]}],"description":"The instance passed into pageData."}}],"comment":" ","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"minifyBuild":false,"dest":"/Users/matthew/Projects/can-ssr-docs/doc","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"1.0.0","name":"can-ssr","source":"git://github.com/canjs/can-ssr#master"}};
+		var docObject = {"type":"function","name":"can-ssr.AppMap.prototype.pageData","src":"docs/appmap-prototype-pageData.md","description":"Notify can-ssr of page data that should be added to the [inline-cache].","title":"pageData","parent":"can-ssr.AppMap.prototype","signatures":[{"code":"appMap.pageData(key, set, inst)","description":"Appends the data to the [can-ssr.AppMap]'s application data cache, to be used for appending to the page's [inline-cache].","params":[{"types":[{"type":"String"}],"name":"key","description":"A key to use to distinguish this type of page data."},{"types":[{"type":"Object","options":[]}],"name":"set","description":"An object of key/value pairs that can be serialized to a JSON string. Used as a representation for the subtype of data being cached."},{"types":[{"type":"Promise"},{"type":"Object","options":[]}],"name":"inst","description":"An object which contains the instance data to be cached. If the instance is a Promise, [can-ssr.AppMap.prototype.waitFor] will be called so that the page waits for the promise to resolve."}],"returns":{"types":[{"type":"Object","options":[]}],"description":"The instance passed into pageData."}}],"comment":" ","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"ignoreTemplateRender":true,"minifyBuild":false,"dest":"/Users/matthew/Projects/can-ssr-docs/docs","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"1.0.0","name":"can-ssr","source":"git://github.com/canjs/can-ssr#master"}};
 	</script>
 	
 	

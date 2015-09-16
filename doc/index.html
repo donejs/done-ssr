@@ -268,15 +268,24 @@
 <p>npm install can-ssr
 node_modules/.bin/can-server --port 3030</p>
 </blockquote>
-<p>In your application folder. To proxy an API add <code>--proxy-to url</code>.</p>
+<p>In your application folder.</p>
+<p>Available options:</p>
+<ul>
+<li><strong>-p, --port</strong> - Set the port the server should run on</li>
+<li><strong>-d, --develop</strong> - Also starts a live-reload server</li>
+<li><strong>-p, --proxy</strong> <url> - Proxy a local path (default: <code>/api</code>) to the given URL (e.g. <code>http://api.myapp.com</code>)</li>
+<li><strong>-t, --proxy-to <path></strong> - Set the proxy endpoint (default: <code>/api</code>)</li>
+</ul>
 <h2>Usage</h2>
 <pre><code class="language-js">var render = require(&quot;can-ssr&quot;)({
   config: __dirname + &quot;/public/package.json!npm&quot;,
   main: &quot;index.stache!&quot;
 });
 
-render(&quot;/orders&quot;).then(function(html){
-  // Do something with `html`
+render(&quot;/orders&quot;).then(function(result){
+  // Do something with `result.html`
+  // Get the app state with `result.state`
+  // e.g. for the statusCode in `result.state.attr('statusCode')`
 });
 </code></pre>
 <h2>API</h2>
@@ -296,7 +305,7 @@ register(&quot;module/name&quot;, &quot;css&quot;, function(){
 <p>When rendering in Node, a special <code>asset</code> helper is included. This is used to append assets within your template:</p>
 <pre><code class="language-html">&lt;html&gt;
     &lt;head&gt;
-        {{asset &quot;css&quot;}}
+        \{{asset &quot;css&quot;}}
     &lt;/head&gt;
     &lt;body&gt;
         &lt;can-import from=&quot;routes&quot;/&gt;
@@ -306,7 +315,7 @@ register(&quot;module/name&quot;, &quot;css&quot;, function(){
 &lt;/html&gt;
 </code></pre>
 <p>In this example, all CSS (either <code>&lt;style&gt;</code> or <code>&lt;link&gt;</code> elements depending on whether you are in development or production.</p>
-<pre><code class="language-html">{{asset type}}
+<pre><code class="language-html">\{{asset type}}
 </code></pre>
 <p>Specify the <code>type</code> to insert. Assets can be registered with <code>asset-register</code> (docs above). Types provided natively by JavaScriptMVC:</p>
 <ul>
@@ -344,7 +353,7 @@ register(&quot;module/name&quot;, &quot;css&quot;, function(){
 	
 	
 	<script type="text/javascript">
-		var docObject = {"type":"page","name":"can-ssr","src":"readme.md","description":"<!--\n-->","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"minifyBuild":false,"dest":"/Users/matthew/Projects/can-ssr-docs/doc","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"1.0.0","name":"can-ssr","source":"git://github.com/canjs/can-ssr#master"}};
+		var docObject = {"type":"page","name":"can-ssr","src":"readme.md","description":"<!--\n-->","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"ignoreTemplateRender":true,"minifyBuild":false,"dest":"/Users/matthew/Projects/can-ssr-docs/docs","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"1.0.0","name":"can-ssr","source":"git://github.com/canjs/can-ssr#master"}};
 	</script>
 	
 	
