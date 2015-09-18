@@ -1,5 +1,7 @@
 steal("can/util", "can/map", "can/compute", function(can){
 
+	var CanMap = can.Map;
+
 	function sortedSetJson(set){
 		if(set == null) {
 			return set;
@@ -75,7 +77,13 @@ steal("can/util", "can/map", "can/compute", function(can){
 			}
 
 			return inst;
-		})
+		}),
+		serialize: function(){
+			var data = CanMap.prototype.serialize.apply(this, arguments);
+			delete data.statusCode;
+			delete data.statusMessage;
+			return data;
+		}
 	});
 
 	return can.AppMap;

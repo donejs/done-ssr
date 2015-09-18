@@ -6,8 +6,6 @@ var $ = require("jquery");
 
 QUnit.module("can-ssr/app-map");
 
-QUnit.module("pageData");
-
 var keys = Object.keys || function(obj){
 	var result = [];
 	for (var prop in obj) {
@@ -46,6 +44,8 @@ QUnit.test("Correctly serializes json with scripts in it", function(){
 	QUnit.ok(INLINE_CACHE.foo, "The set key exists");
 });
 
+QUnit.module("pageData");
+
 QUnit.test("pageData with promises that fail set statusCode", function() {
 	var dfd = can.Deferred();
 	var map = new AppMap();
@@ -58,4 +58,20 @@ QUnit.test("pageData with promises that fail set statusCode", function() {
 
 	QUnit.equal(map.attr("statusCode"), 500);
 	QUnit.equal(map.attr("statusMessage"), "Server crashed");
+});
+
+QUnit.module("pageStatus");
+
+QUnit.test("statusCode and statusMessage are not serialized", function(){
+	var MyMap = AppMap.extend({});
+
+	var params = {
+		name: "Matthew",
+		occupation: "JavaScripter"
+	};
+	var myMap = new MyMap(params);
+	myMap.pageStatus(404, "That resource wasn't found");
+
+
+	QUnit.deepEqual(myMap.serialize(), params, "Only the params were serialized");
 });
