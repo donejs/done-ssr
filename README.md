@@ -38,7 +38,7 @@ Available options:
 Use the provided middleware to add server-side rendering to an existing Express server:
 
 ```js
-var ssr = require(‘can-ssr/lib/middleware’),
+var ssr = require(‘can-ssr/middleware’),
     config = {
         config: __dirname + "/public/package.json!npm",
         main: "index.stache!"
