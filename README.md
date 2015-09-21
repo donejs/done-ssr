@@ -31,6 +31,23 @@ Available options:
 
 ## Usage
 
+`can-ssr` can be used either as Express middleware or programatically.
+
+### Express Middleware
+
+Use the provided middleware to add server-side rendering to an existing Express server:
+
+```js
+var ssr = require(‘can-ssr/lib/middleware’),
+    config = {
+        config: __dirname + "/public/package.json!npm",
+        main: "index.stache!"
+    };
+app.use(‘/‘, ssr(config))
+```
+
+### Use Programatically
+
 ```js
 var render = require("can-ssr")({
   config: __dirname + "/public/package.json!npm",
