@@ -56,4 +56,20 @@ describe('can-serve tests', function() {
 			done();
 		});
 	});
+
+	it('server should parse URL parameters (#52)', function(done) {
+		request('http://localhost:5050/test?param=paramtest', function(err, res, body) {
+			assert.equal(res.statusCode, 200);
+			assert.ok(/paramtest/.test(body), 'Param printed in body');
+			done();
+		});
+	});
+
+	it('errors when rendering an app trigger Express error handler (#58)',function(done) {
+		request('http://localhost:5050/?err=true', function(err, res, body) {
+			assert.equal(res.statusCode, 500);
+			assert.ok(/Something went wrong/.test(body), 'Got error message');
+			done();
+		});
+	});
 });

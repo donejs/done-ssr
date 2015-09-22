@@ -25,6 +25,10 @@
 			<div>Error: {{statusMessage}}</div>
 		{{/eq}}
 
+		{{#if param}} {{param}} {{/if}}
+
+		{{#if err}} {{throwError}} {{/if}}
+
 		{{asset "inline-cache"}}
 	</body>
 </html>
