@@ -1,4 +1,5 @@
 node_modules/
 test/tests/node_modules/
+test/tests/live/node_modules/
 doc/
 .idea/
