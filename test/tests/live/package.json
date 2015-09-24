@@ -1,0 +1,15 @@
+{
+	"name": "live-project",
+	"main": "index.stache!done-autorender",
+	"version": "1.0.0",
+	"dependencies": {
+		"can": "2.3.0-pre.1",
+		"done-autorender": "0.0.7"
+	},
+	"system": {
+		"paths": { "./app-map": "../../../app-map.js" },
+		"configDependencies": [
+			"live-reload"
+		]
+	}
+}

@@ -1,0 +1,10 @@
+<html>
+	<head>
+		<title>live-reload test</title>
+	</head>
+	<body>
+		<can-import from="state" as="viewModel" />
+
+		<span>hello world</span>
+	</body>
+</html>
