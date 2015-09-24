@@ -16,3 +16,13 @@ exports.traverse = function(node, callback){
 		cur = cur.nextSibling;
 	}
 };
+
+exports.text = function(node){
+	var text = "";
+	exports.traverse(node, function(node){
+		if(node.nodeType === 3) {
+			text += node.nodeValue;
+		}
+	});
+	return text;
+};

@@ -60,4 +60,26 @@ describe("rendering an app", function(){
 			assert.equal(state.attr("statusMessage"), "Not found");
 		}).then(done);
 	});
+
+	it("dep-cache asset works", function(done){
+		this.render("/").then(function(result){
+			var node = helpers.dom(result.html);
+
+			var found;
+			helpers.traverse(node, function(el){
+				if(el.nodeName === "SCRIPT" && el.getAttribute
+				   && el.getAttribute("asset-id") === "@dep-cache") {
+					found = el;
+				}
+			});
+
+			assert(!!found, "Found the dep-cache asset");
+
+			var content = helpers.text(found).trim();
+			assert(/System\.depCache/.test(content), "depCache added to the page");
+			assert(/progressive\/index\.stache/.test(content), "System.main was included");
+
+		}).then(done);
+	});
+
 });

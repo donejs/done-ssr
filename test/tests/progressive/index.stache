@@ -30,5 +30,7 @@
 		{{#if err}} {{throwError}} {{/if}}
 
 		{{asset "inline-cache"}}
+
+		{{asset "dep-cache"}}
 	</body>
 </html>
