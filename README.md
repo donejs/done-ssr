@@ -38,13 +38,15 @@ Available options:
 Use the provided middleware to add server-side rendering to an existing Express server:
 
 ```js
-var ssr = require(‘can-ssr/middleware’),
-    config = {
-        config: __dirname + "/public/package.json!npm",
-        main: "index.stache!"
-    };
-app.use(‘/‘, ssr(config))
+var ssr = require('can-ssr/middleware');
+
+app.use('/', ssr({
+ config: __dirname + '/public/package.json!npm',
+ main: 'index.stache!'
+}));
 ```
+
+__Note:__ Errors when rendering the application will be passed to your Express error handler. Error status codes (e.g. 404s or others set via `appState.status()`) will be rendered with the application.
 
 ### Use Programatically
 
