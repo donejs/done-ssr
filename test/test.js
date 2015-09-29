@@ -60,4 +60,15 @@ describe("rendering an app", function(){
 			assert.equal(state.attr("statusMessage"), "Not found");
 		}).then(done);
 	});
+
+	it("renders html5 conditional comment", function(done){
+		this.render("/orders").then(function(result){
+			assert.ok(/<!--\[if lt IE 9\]>/.test(result.html), "beginning comment added");
+			assert.ok(/\/scripts\/html5shiv\.min\.js/.test(result.html), "contains the correct path to html5shiv");
+			assert.ok(/<!\[endif\]-->/.test(result.html), "ending comment added");
+
+			assert.ok(/html5\.elements = "can-import order-history"/.test(result.html), "Custom tags added to shim the document");
+
+		}).then(done);
+	});
 });
