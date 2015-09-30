@@ -31,7 +31,7 @@ if(program.develop) {
 	if(!fs.existsSync('node_modules/.bin/steal-tools')) {
 		console.error('live-reload not available: ' +
 			'No local steal-tools binary found. ' +
-			'Run `npm install steal-tools --save-dev`.')
+			'Run `npm install steal-tools --save-dev`.');
 	} else {
 		var child = exec('node_modules/.bin/steal-tools live-reload', {
 			cwd: process.cwd()
@@ -49,7 +49,7 @@ var server = app.listen(port);
 server.on('error', function(e) {
 	if(e.code === 'EADDRINUSE') {
 		console.error('ERROR: Can not start can-serve on port ' + port +
-			'.\nAnother application is already using it.')
+			'.\nAnother application is already using it.');
 	} else {
 		console.error(e);
 		console.error(e.stack);
