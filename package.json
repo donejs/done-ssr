@@ -47,7 +47,7 @@
     "testee": "^0.2.0"
   },
   "dependencies": {
-    "can": "^2.3.0-pre.1",
+    "can": "^2.3.0-pre || ^2.3.0-beta || ^2.3.0",
     "commander": "^2.8.1",
     "compression": "^1.4.4",
     "express": "^4.12.4",
