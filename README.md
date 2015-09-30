@@ -41,12 +41,11 @@ Use the provided middleware to add server-side rendering to an existing Express 
 var ssr = require('can-ssr/middleware');
 
 app.use('/', ssr({
- config: __dirname + '/public/package.json!npm',
- main: 'index.stache!'
+  config: __dirname + '/public/package.json!npm'
 }));
 ```
 
-__Note:__ Errors when rendering the application will be passed to your Express error handler. Error status codes (e.g. 404s or others set via `appState.status()`) will be rendered with the application.
+__Note:__ Make sure the ssr middleware is the last middleware in the chain but before the error handler. Errors when rendering the application will be passed to your Express error handler. Error status codes (e.g. 404s or others set via `appState.status()`) will be rendered with the application.
 
 ### Use Programatically
 
