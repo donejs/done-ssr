@@ -1,11 +1,11 @@
-@typedef {{}} inline-cache
+@function inline-cache
 @parent can-ssr.assets
 
 A representation of page data that was used to render the page.
 
-@signature `INLINE_CACHE={..}`
+@signature `{{asset "inline-cache"}}`
 
-A global object added to the page that contains all page data used to render the route.
+Creates a global object added to the page that contains all page data used to render the route.
 
 @body
 
