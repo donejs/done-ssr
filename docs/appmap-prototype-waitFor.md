@@ -25,7 +25,7 @@ var TodosApp = can.Map.extend({
 			get: function(){
 				var todosPromise = Todos.findAll();
 
-				return this.attr("@root").waitFor(todosPromise);
+				return this.attr("%root").waitFor(todosPromise);
 			}
 		}
 	}
@@ -37,4 +37,4 @@ can.Component.extend({
 });
 ```
 
-`@root` is a special property added to every can.Component View Model, it is the parent-most viewModel for the template. In this example it is a [can-ssr.AppMap].
+`%root` is a special property added to every can.Component View Model, it is the parent-most viewModel for the template. In this example it is a [can-ssr.AppMap].

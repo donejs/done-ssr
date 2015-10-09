@@ -30,7 +30,7 @@ var TodosApp = can.Map.extend({
 
 				var todosPromise = Todos.getList(params);
 
-				var appState = this.attr("@root");
+				var appState = this.attr("%root");
 				return appState.pageData("todos", params, todosPromise);
 			}
 		}
