@@ -16,3 +16,14 @@ exports.traverse = function(node, callback){
 		cur = cur.nextSibling;
 	}
 };
+
+exports.count = function(node, callback){
+	var count = 0;
+	exports.traverse(node, function(){
+		var truthy = callback.apply(this, arguments);
+		if(truthy) {
+			count++;
+		}
+	});
+	return count;
+};
