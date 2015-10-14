@@ -49,6 +49,30 @@ describe("rendering an app", function(){
 		}).then(done);
 	});
 
+	it("returns only the css needed for the request", function(done){
+		var render = this.render;
+
+		var checkCount = function(result, expected, message){
+			var node = helpers.dom(result.html);
+
+			var styles = helpers.count(node, function(el){
+				return el.nodeName === "STYLE";
+			});
+
+			assert.equal(styles, expected, message);
+		};
+
+		render("/orders").then(function(result){
+			checkCount(result, 2, "There should be 2 styles for the orders page");
+
+			return render("/");
+		}).then(function(result){
+			checkCount(result, 1, "There should only be 1 style for the root page");
+
+			done();
+		});
+	});
+
 	it("sets status to 404 if route was not round", function(done){
 		this.render("/invalid/route").then(function(result){
 			var state = result.state;
