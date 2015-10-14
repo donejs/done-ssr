@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 var fs = require('fs');
+var path = require("path");
 var program = require('commander');
 
 var pkg = require('../package.json');
@@ -14,6 +15,7 @@ program.version(pkg.version)
   .option('-r, --proxy <url>', 'A URL to an API that should be proxied')
   .option('-t, --proxy-to <path>', 'The path to proxy to (default: /api)')
   .option('-l, --no-live-reload', 'Turn off live-reload')
+  .option('--steal-tools-path <path>', 'Location of your steal-tools')
   .parse(process.argv);
 
 var options = {
@@ -28,12 +30,14 @@ if(program.proxy) {
 
 // Spawn a child process in development mode
 if(program.develop) {
-	if(!fs.existsSync('node_modules/.bin/steal-tools')) {
+	var stealToolsPath = program.stealToolsPath ||
+		path.join("node_modules", ".bin", "steal-tools");
+	if(!fs.existsSync(stealToolsPath)) {
 		console.error('live-reload not available: ' +
 			'No local steal-tools binary found. ' +
 			'Run `npm install steal-tools --save-dev`.');
 	} else {
-		var child = exec('node_modules/.bin/steal-tools live-reload', {
+		var child = exec(stealToolsPath + ' live-reload', {
 			cwd: process.cwd()
 		});
 

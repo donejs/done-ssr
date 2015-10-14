@@ -10,7 +10,7 @@
     "jshint": "jshint lib/.  test/*.js --config",
     "test:only": "grunt && npm run test:node && npm run test:browser",
     "test": "npm run jshint && npm run test:only",
-    "test:node": "mocha --timeout 10000 test/test.js && mocha --timeout 10000 test/test_envs.js && mocha test/server_test.js --timeout 10000 && mocha test/middleware_test.js --timeout 10000",
+    "test:node": "mocha --timeout 10000 test/test.js && mocha --timeout 10000 test/test_envs.js && mocha test/server_test.js --timeout 10000 && mocha test/middleware_test.js --timeout 10000 && mocha test/can-serve_test.js --timeout 30000",
     "test:browser": "testee test/test.html --browsers firefox --reporter Spec",
     "publish": "git push origin --tags",
     "release:patch": "npm version patch && npm publish",
@@ -43,6 +43,7 @@
     "jshint": "^2.8.0",
     "mocha": "^2.2.4",
     "request": "^2.61.0",
+    "steal-tools": "^0.12.0-pre.0",
     "steal-qunit": "0.0.4",
     "testee": "^0.2.0"
   },
