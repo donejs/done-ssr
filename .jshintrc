@@ -16,7 +16,7 @@
 	"eqeqeq": true,
 	"freeze": true,
 	"indent": 2,
-	"latedef": true,
+	"latedef": false,
 	"noarg": true,
 	"undef": true,
 	"unused": "vars",
