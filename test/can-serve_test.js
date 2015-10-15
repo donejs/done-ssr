@@ -5,9 +5,14 @@ var spawn = require("child_process").spawn;
 describe("can-serve cli tests", function(){
 	this.timeout(30000);
 
-	var canServeBin = path.join(__dirname, "..", "bin", "can-serve");
-	var stealToolsBin = path.join(__dirname, "..", "node_modules",
-								  "steal-tools", "bin", "steal");
+	var isWin = /^win/.test(process.platform);
+	var platformExt = function(p) {
+		return p + (isWin ? ".cmd" : "");
+	};
+
+	var canServeBin = platformExt(path.join(__dirname, "..", "bin", "can-serve"));
+	var stealToolsBin = platformExt(path.join(__dirname, "..", "node_modules",
+								  ".bin", "steal-tools"));
 
 	describe("--develop", function(){
 		beforeEach(function(){
@@ -27,6 +32,7 @@ describe("can-serve cli tests", function(){
 				"--port",
 				"8085"
 			]);
+
 			// Keeps track of the web server and live-reload server starting.
 			var partsStarted = 0;
 
