@@ -30,7 +30,9 @@ describe("can-serve cli tests", function(){
 				"--steal-tools-path",
 				stealToolsBin,
 				"--port",
-				"8085"
+				"8085",
+				"--live-reload-port",
+				"8011"
 			]);
 
 			// Keeps track of the web server and live-reload server starting.
@@ -48,13 +50,19 @@ describe("can-serve cli tests", function(){
 				}
 				if(/Live-reload server/.test(msg)) {
 					assert(true, "live-reload started");
+					assert(/port 8011/.test(msg), "correct port");
 					partsStarted++;
 				}
 				if(partsStarted === 2) {
 					child.kill();
-					done();
 				}
 			}
+
+			child.on("exit", function(){
+				done();
+			});
 		});
+
+
 	});
 });
