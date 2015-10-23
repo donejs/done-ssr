@@ -15,6 +15,7 @@ program.version(pkg.version)
   .option('-r, --proxy <url>', 'A URL to an API that should be proxied')
   .option('-t, --proxy-to <path>', 'The path to proxy to (default: /api)')
   .option('-l, --no-live-reload', 'Turn off live-reload')
+  .option('--live-reload-port <port>', 'Port to use for live-reload')
   .option('--steal-tools-path <path>', 'Location of your steal-tools')
   .parse(process.argv);
 
@@ -37,12 +38,19 @@ if(program.develop) {
 			'No local steal-tools binary found. ' +
 			'Run `npm install steal-tools --save-dev`.');
 	} else {
-		var child = exec(stealToolsPath + ' live-reload', {
+		var cmd = stealToolsPath + ' live-reload';
+		if(program.liveReloadPort) {
+			cmd += ' --live-reload-port ' + program.liveReloadPort;
+		}
+		var child = exec(cmd, {
 			cwd: process.cwd()
 		});
 
 		child.stdout.pipe(process.stdout);
 		child.stderr.pipe(process.stderr);
+
+		var killOnExit = require('infanticide');
+		killOnExit(child);
 	}
 }
 
