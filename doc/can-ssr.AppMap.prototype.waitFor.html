@@ -29,6 +29,7 @@
 </head>
 
 <body class="docs">
+	
 	<header>
 		<nav class="container">
 
@@ -42,7 +43,8 @@
 					<ul class="dropdown-menu">
 						<li><a href="http://bitovi.com">Bitovi.com</a></li>
 						<li><a href="http://bitovi.com/blog/">Blog</a></li>
-						<li><a href="http://bitovi.com/consulting/">Consulting</a></li>
+						<li><a href="http://bitovi.com/design/">Design</a></li>
+						<li><a href="http://bitovi.com/development/">Development</a></li>
 						<li><a href="http://bitovi.com/training/">Training</a></li>
 						<li><a href="http://bitovi.com/open-source/">Open Source</a></li>
 						<li><a href="http://bitovi.com/people/">People</a></li>
@@ -52,6 +54,7 @@
 			</div>
 		</nav>
 	</header>
+	
 
 	
 <div class="container api">
@@ -167,7 +170,7 @@
 <ul class="links">
 	
 	
-		<li><a href="git://github.com/canjs/can-ssr#master/appmap-prototype-waitFor.md">source</a></li>
+		<li><a href="git://github.com/canjs/can-ssr#0.10.1/appmap-prototype-waitFor.md">source</a></li>
 	
 	
 	
@@ -254,7 +257,7 @@
             get: function(){
                 var todosPromise = Todos.findAll();
 
-                return this.attr(&quot;@root&quot;).waitFor(todosPromise);
+                return this.attr(&quot;%root&quot;).waitFor(todosPromise);
             }
         }
     }
@@ -265,7 +268,7 @@ can.Component.extend({
     viewModel: TodosApp
 });
 </code></pre>
-<p><code>@root</code> is a special property added to every can.Component View Model, it is the parent-most viewModel for the template. In this example it is a <a href="can-ssr.AppMap.html">AppMap</a>.</p>
+<p><code>%root</code> is a special property added to every can.Component View Model, it is the parent-most viewModel for the template. In this example it is a <a href="can-ssr.AppMap.html">AppMap</a>.</p>
 
 		</section>
 		
@@ -295,7 +298,7 @@ can.Component.extend({
 	
 	
 	<script type="text/javascript">
-		var docObject = {"type":"function","name":"can-ssr.AppMap.prototype.waitFor","src":"docs/appmap-prototype-waitFor.md","description":"Wait for a Promise to resolve.","title":"waitFor","parent":"can-ssr.AppMap.prototype","signatures":[{"code":"appMap.waitFor(promise)","description":"Adds `promise` as a pending Promise in the rendering lifecycle.","params":[{"types":[{"type":"Promise"}],"name":"promise","description":"The Promise to wait for resolution/rejection."}],"returns":{"types":[{"type":"Promise"}],"description":"the promise passed into waitFor."}}],"comment":" ","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"ignoreTemplateRender":true,"minifyBuild":false,"dest":"/Users/matthew/Projects/can-ssr-docs/docs","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"1.0.0","name":"can-ssr","source":"git://github.com/canjs/can-ssr#master"}};
+		var docObject = {"type":"function","name":"can-ssr.AppMap.prototype.waitFor","src":"docs/appmap-prototype-waitFor.md","description":"Wait for a Promise to resolve.","title":"waitFor","parent":"can-ssr.AppMap.prototype","signatures":[{"code":"appMap.waitFor(promise)","description":"Adds `promise` as a pending Promise in the rendering lifecycle.","params":[{"types":[{"type":"Promise"}],"name":"promise","description":"The Promise to wait for resolution/rejection."}],"returns":{"types":[{"type":"Promise"}],"description":"the promise passed into waitFor."}}],"comment":" ","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"ignoreTemplateRender":true,"minifyBuild":false,"dest":"/Users/matthew/Projects/can-ssr-docs/docs","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"0.10","name":"can-ssr","source":"git://github.com/canjs/can-ssr#0.10.1"}};
 	</script>
 	
 	

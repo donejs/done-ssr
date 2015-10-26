@@ -17,7 +17,7 @@
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8">
-	<title>can-ssr  - inline-cache</title>
+	<title>can-ssr  - html5shiv</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
@@ -177,7 +177,7 @@
 			
 				
 				
-				<li class="search-container">
+				<li class="search-container active ">
 					<a class="function" href="html5shiv.html" data-search="html5shiv">
 						html5shiv
 					</a>
@@ -189,7 +189,7 @@
 			
 				
 				
-				<li class="search-container active ">
+				<li class="search-container">
 					<a class="function" href="inline-cache.html" data-search="inline-cache">
 						inline-cache
 					</a>
@@ -223,7 +223,7 @@
 		
 		<section class="title">
 			<div class="heading">
-<h1>inline-cache</h1>
+<h1>html5shiv</h1>
 	<ul class="tags">
 		<li>function</li>
 	</ul>
@@ -240,7 +240,7 @@
 <ul class="links">
 	
 	
-		<li><a href="git://github.com/canjs/can-ssr#0.10.1/inline-cache.md">source</a></li>
+		<li><a href="git://github.com/canjs/can-ssr#0.10.1/html5shiv.md">source</a></li>
 	
 	
 	
@@ -258,7 +258,8 @@
 
 		
 		<section class="description">
-			<p>A representation of page data that was used to render the page.</p>
+			<p>Conditionally load <a href="https://github.com/afarkas/html5shiv">html5shiv</a> and register custom
+elements for use with legacy versions of Internet Explorer.</p>
 
 		</section>
 		
@@ -266,10 +267,10 @@
 		
 			
 				<section class="signature">
-					<h2 id="sig___asset__34_inline_cache__34___">{{asset &#34;inline-cache&#34;}}
+					<h2 id="sig___asset__34_html5shiv__34___">{{asset &#34;html5shiv&#34;}}
 </h2>
 <div class="signature-wrapper">
-<p>Creates a global object added to the page that contains all page data used to render the route.</p>
+<p>Creates script tags adding html5shiv and registering custom elements.</p>
 
 
 
@@ -289,24 +290,36 @@
 		
 		<section class="comment">
 			<h1>Use</h1>
-<p>You can add the inline cache to your page using the <a href="can-ssr.helpers.asset.html">asset helper</a>:</p>
-<pre><code class="language-html">&lt;body&gt;
- ...
+<p>html5shiv needs to be added to the page before any custom elements appear. It is best
+to place it in the <code>&lt;head&gt;</code>, probably after your css. Your page might look like:</p>
+<pre><code class="language-handlebars">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My App&lt;/title&gt;
 
- \{{asset &quot;inline-cache&quot;}}
-
+    {{asset &quot;css&quot;}}
+    {{asset &quot;html5shiv&quot;}]
+&lt;/head&gt;
+&lt;body&gt;
+    ...
 &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
-<p>Will generate:</p>
-<pre><code class="language-html">&lt;body&gt;
- ...
+<p>This will produce something like:</p>
+<pre><code class="language-html">&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My App&lt;/title&gt;
 
- &lt;script&gt;
-    INLINE_CACHE = {&quot;key&quot;: {...}}
- &lt;/script&gt;
-
+    &lt;link href=&quot;foo.css&quot;&gt;
+    &lt;script src=&quot;path/to/html5shiv.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        html5.elements = &quot;order-history can-import&quot;;
+        html5.shivDocument();
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    ...
 &lt;/body&gt;
-
+&lt;/html&gt;
 </code></pre>
 
 		</section>
@@ -337,7 +350,7 @@
 	
 	
 	<script type="text/javascript">
-		var docObject = {"type":"function","name":"inline-cache","src":"docs/inline-cache.md","description":"A representation of page data that was used to render the page.","title":"","parent":"can-ssr.assets","signatures":[{"code":"{{asset \"inline-cache\"}}","description":"Creates a global object added to the page that contains all page data used to render the route.","params":[]}],"comment":" ","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"ignoreTemplateRender":true,"minifyBuild":false,"dest":"/Users/matthew/Projects/can-ssr-docs/docs","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"0.10","name":"can-ssr","source":"git://github.com/canjs/can-ssr#0.10.1"}};
+		var docObject = {"type":"function","name":"html5shiv","src":"docs/html5shiv.md","description":"Conditionally load [html5shiv](https://github.com/afarkas/html5shiv) and register custom\nelements for use with legacy versions of Internet Explorer.","title":"","parent":"can-ssr.assets","signatures":[{"code":"{{asset \"html5shiv\"}}","description":"Creates script tags adding html5shiv and registering custom elements.","params":[]}],"comment":" ","glob":{"pattern":"{src/**/*,readme,docs/**/*}.{js,md}","ignore":"{node_modules,bower_components}/**/*","cwd":"/Users/matthew/Projects/can-ssr"},"ignoreTemplateRender":true,"minifyBuild":false,"dest":"/Users/matthew/Projects/can-ssr-docs/docs","generators":["html"],"docConfigDest":"../documentjs.json","project":{"version":"0.10","name":"can-ssr","source":"git://github.com/canjs/can-ssr#0.10.1"}};
 	</script>
 	
 	

@@ -1,9 +1,10 @@
 {
 	"versions": {
-		"1.0.0": {
-			"source":  "git://github.com/canjs/can-ssr#master",
+		"0.10": {
+			"source":  "git://github.com/canjs/can-ssr#0.10.1",
 			"minify": false
 		}
 	},
-	"defaultVersion" : "1.0.0"
+	"defaultVersion" : "0.10",
+	"defaultDest": "foo"
 }
