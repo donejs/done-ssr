@@ -1,8 +1,6 @@
-var ssr = require("../../../lib");
+var ssr = require("../../../lib"); // same as require("can-ssr");
 
-var render = ssr({
-	config: __dirname + "/package.json!npm"
-});
+var render = ssr();
 
 render("/").then(function(result){
 	console.log(result.html);
