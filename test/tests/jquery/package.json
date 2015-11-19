@@ -9,7 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "can": "^2.3.0-beta.0",
+    "can": "^2.3.0",
     "jquery": "^2.1.4"
   }
 }
