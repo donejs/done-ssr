@@ -2,7 +2,7 @@ language: node_js
 script: npm test
 node_js:
   - "0.10"
-  - "node"
+  - "0.12"
   - "iojs"
 before_install:
   - "export DISPLAY=:99.0"
