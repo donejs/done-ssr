@@ -10,7 +10,7 @@
     "jshint": "jshint lib/.  test/*.js --config",
     "test:only": "grunt && npm run test:node && npm run test:browser",
     "test": "npm run jshint && npm run test:only",
-    "test:node": "mocha --timeout 10000 test/test.js && mocha --timeout 10000 test/test_envs.js && mocha test/async_test && mocha test/server_test.js --timeout 10000 && mocha test/middleware_test.js --timeout 10000 && mocha test/can-serve_test.js --timeout 60000",
+    "test:node": "mocha --timeout 10000 test/test.js && mocha --timeout 10000 test/test_envs.js && mocha test/async_test --timeout 10000 && && mocha test/jquery_test --timeout 10000 mocha test/server_test.js --timeout 10000 && mocha test/middleware_test.js --timeout 10000 && mocha test/can-serve_test.js --timeout 60000",
     "test:browser": "testee test/test.html --browsers firefox --reporter Spec",
     "publish": "git push origin --tags",
     "release:patch": "npm version patch && npm publish",
