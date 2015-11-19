@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>test page</title>
+
+		{{asset "css"}}
+		{{asset "html5shiv"}}
+	</head>
+	<body>
+		<can-import from="async/routes"/>
+		<can-import from="async/appstate" as="viewModel" />
+
+		{{#eq page "orders"}}
+			<can-import from="async/orders/">
+				{{#isResolved}}
+					<order-history></order-history>
+				{{/isResolved}}
+			</can-import>
+
+			{{#if message}}
+				<div id="message">{{message}}</div>
+			{{/if}}
+		{{/eq}}
+
+		{{asset "inline-cache"}}
+	</body>
+</html>
