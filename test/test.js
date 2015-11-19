@@ -59,7 +59,8 @@ describe("rendering an app", function(){
 				return el.nodeName === "STYLE";
 			});
 
-			assert.equal(styles, expected, message);
+			assert.equal(styles, expected, message + " | " + styles +
+						 " !== " + expected);
 		};
 
 		render("/orders").then(function(result){
