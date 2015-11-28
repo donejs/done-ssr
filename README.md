@@ -61,7 +61,7 @@ __Note:__ Make sure the ssr middleware is the last middleware in the chain but b
 ```js
 var render = require("can-ssr")({
   config: __dirname + "/public/package.json!npm",
-  main: "index.stache!"
+  main: "index.stache!done-autorender"
 });
 
 render("/orders").then(function(result){
