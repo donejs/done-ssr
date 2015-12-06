@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "can": "^2.3.0",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+	"can-wait": "^0.2.4"
   }
 }

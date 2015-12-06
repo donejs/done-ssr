@@ -27,6 +27,8 @@ describe("rendering a jquery app", function(){
 
 			assert.equal(helpers.text(future).trim(),
 						 "Hello from the future");
+
+			assert.equal(result.responses[0].app, 1, "Was able to retrieve #app using jQuery");
 		}).then(done, done);
 	});
 });

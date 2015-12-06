@@ -61,6 +61,11 @@ module.exports = function(grunt){
 					src:["node_modules/jquery/**"],
 					dest: "test/tests/jquery/",
 					filter: "isFile"
+				}, {
+					expand: true,
+					src:["node_modules/can-wait/**"],
+					dest: "test/tests/jquery/",
+					filter: "isFile"
 				}]
 			}
 		}

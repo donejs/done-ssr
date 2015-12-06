@@ -30,6 +30,7 @@ describe("rendering a JavaScript main", function(){
 		};
 
 		render("/orders").then(function(result){
+			console.log(result.html)
 			checkCount(result, 2, "There should be 2 styles for the orders page");
 
 			return render("/");
