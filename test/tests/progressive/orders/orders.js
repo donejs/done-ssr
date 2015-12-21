@@ -13,10 +13,23 @@ var ViewModel = can.Map.extend({
 				this.attr("%root").pageData("restaurant", { foo: id }, dfd);
 
 				list.replace(dfd);
-				dfd.resolve([ { a: "a" }, { b: "b" } ]);
+				dfd.resolve([ { a: "a", v: 2 }, { b: "b", v: 5 } ]);
 
 				return list;
 			}
+		},
+		totals: {
+			get: function(){
+				var orders = this.attr("orders");
+				var totals = 0;
+				orders.each(function(order){
+					totals += order.v;
+				});
+				return totals;
+			}
+		},
+		showTotals: {
+			value: false
 		}
 	}
 });
@@ -24,5 +37,10 @@ var ViewModel = can.Map.extend({
 can.Component.extend({
 	tag: "order-history",
 	template: template,
-	viewModel: ViewModel
+	viewModel: ViewModel,
+	events: {
+		inserted: function(){
+			this.viewModel.attr("showTotals", true);
+		}
+	}
 });
