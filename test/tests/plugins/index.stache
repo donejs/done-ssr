@@ -1,0 +1,12 @@
+<html>
+	<head>
+		<title>envs test</title>
+	</head>
+	<body>
+		<can-import from="plugins/state" export-as="viewModel" />
+
+		{{#if foo}}
+		<div id="foo">I am foo</div>
+		{{/if}}
+	</body>
+</html>

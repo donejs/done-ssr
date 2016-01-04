@@ -59,12 +59,10 @@ __Note:__ Make sure the ssr middleware is the last middleware in the chain but b
 ### Use Programatically
 
 ```js
-var render = require("can-ssr")({
-  config: __dirname + "/public/package.json!npm",
-  main: "index.stache!"
-});
+var ssr = require("can-ssr");
+var render = ssr();
 
-render("/orders").then(function(result){
+render("/orders").then(function(result) {
   // Do something with `result.html`
   // Get the app state with `result.state`
   // e.g. for the statusCode in `result.state.attr('statusCode')`

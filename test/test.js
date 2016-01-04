@@ -46,6 +46,13 @@ describe("rendering an app", function(){
 			assert.equal(found["progressive/main.css!$css"], true, "Found the main css");
 			assert.equal(found["progressive/orders/orders.css!$css"], true, "Found the orders bundle css");
 			assert.equal(found["@inline-cache"], true, "The inline-cache was registered");
+
+
+			var totalsEl = helpers.find(node, function(el){
+				return el.getAttribute && el.getAttribute("id") === "totals";
+			});
+			assert.ok(totalsEl, "an element that was conditionally added in the 'inserted' event is rendered");
+
 		}).then(done);
 	});
 
@@ -59,7 +66,8 @@ describe("rendering an app", function(){
 				return el.nodeName === "STYLE";
 			});
 
-			assert.equal(styles, expected, message);
+			assert.equal(styles, expected, message + " | " + styles +
+						 " !== " + expected);
 		};
 
 		render("/orders").then(function(result){

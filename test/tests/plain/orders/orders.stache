@@ -3,7 +3,3 @@
 	<div>order {{%index}}</div>
 {{/each}}
 </div>
-
-{{#if showTotals}}
-	<div id='totals'>{{totals}}</div>
-{{/if}}

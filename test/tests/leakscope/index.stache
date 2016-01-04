@@ -1,0 +1,10 @@
+<html>
+	<head>
+		<title>leakscope test</title>
+	</head>
+	<body>
+		<can-import from="leakscope/state" export-as="viewModel" />
+		<can-import from="leakscope/foo" />
+		<app-foo />
+	</body>
+</html>

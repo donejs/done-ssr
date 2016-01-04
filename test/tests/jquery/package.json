@@ -1,0 +1,15 @@
+{
+  "name": "jquery-app",
+  "version": "1.0.0",
+  "description": "This is a jQuery app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "can": "^2.3.0",
+    "jquery": "^2.1.4"
+  }
+}

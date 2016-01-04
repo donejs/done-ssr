@@ -1,6 +1,6 @@
 {
   "name": "can-ssr",
-  "version": "0.10.1",
+  "version": "0.11.0-pre.4",
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
   "bin": {
@@ -10,7 +10,7 @@
     "jshint": "jshint lib/.  test/*.js --config",
     "test:only": "grunt && npm run test:node && npm run test:browser",
     "test": "npm run jshint && npm run test:only",
-    "test:node": "mocha --timeout 10000 test/test.js && mocha --timeout 10000 test/test_envs.js && mocha test/server_test.js --timeout 10000 && mocha test/middleware_test.js --timeout 10000 && mocha test/can-serve_test.js --timeout 60000",
+    "test:node": "mocha --timeout 10000 test/test.js && mocha --timeout 10000 test/test_envs.js && mocha test/async_test.js --timeout 10000 && mocha test/jquery_test.js --timeout 10000 && mocha test/react_test.js --timeout 10000 && mocha test/plugin_test.js --timeout 10000 && mocha test/plainjs_test.js --timeout 10000 && mocha test/server_test.js --timeout 10000 && mocha test/middleware_test.js --timeout 10000 && mocha test/can-serve_test.js --timeout 60000 && mocha test/leakscope_test.js --timeout 60000",
     "test:browser": "testee test/test.html --browsers firefox --reporter Spec",
     "publish": "git push origin --tags",
     "release:patch": "npm version patch && npm publish",
@@ -34,7 +34,7 @@
   "homepage": "https://github.com/canjs/ssr",
   "devDependencies": {
     "documentjs": "^0.3.0",
-    "done-autorender": "^0.3.0",
+    "done-autorender": "^0.6.0-pre.0",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-copy": "^0.8.0",
@@ -44,18 +44,21 @@
     "mocha": "^2.2.4",
     "request": "^2.61.0",
     "steal-qunit": "0.0.4",
-    "steal-tools": "^0.12.0-pre.0",
-    "testee": "^0.2.0"
+    "steal-tools": "^0.13.0-pre.0",
+    "testee": "^0.2.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "dependencies": {
     "can": "^2.3.0-pre || ^2.3.0-beta || ^2.3.0",
+    "can-wait": "^0.2.0",
     "commander": "^2.8.1",
     "compression": "^1.4.4",
     "express": "^4.12.4",
     "http-proxy": "^1.11.1",
     "infanticide": "^1.0.0",
     "najax": "^0.1.5",
-    "steal": "^0.12.0-pre.0",
+    "steal": "^0.13.0-pre.0",
     "websocket": "^1.0.21",
     "xmlhttprequest": "^1.7.0"
   },

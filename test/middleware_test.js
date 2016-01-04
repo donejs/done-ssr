@@ -20,6 +20,7 @@ describe('standalone middleware test', function() {
 			request('http://localhost:5500', function(err, res, body) {
 				assert.equal(res.statusCode, 200);
 				assert.ok(/You are home/.test(body), 'Got body');
+				assert.ok(/Showing: \//.test(body), 'The request object is accessible from the AppViewModel');
 				server.close(done);
 			});
 		});

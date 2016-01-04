@@ -30,6 +30,10 @@
 
 		{{#if err}} {{throwError}} {{/if}}
 
+		{{#if request}}
+			<div>Showing: {{request.url}}</div>
+		{{/if}}
+
 		{{asset "inline-cache"}}
 	</body>
 </html>

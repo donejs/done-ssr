@@ -10,7 +10,8 @@
 		"bundle": true,
 		"can": true,
 		"Promise": true,
-		"INLINE_CACHE": true
+		"INLINE_CACHE": true,
+		"canWait": true
 	},
 	"curly": true,
 	"eqeqeq": true,
