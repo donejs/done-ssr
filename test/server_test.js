@@ -2,11 +2,13 @@ var assert = require('assert');
 var path = require('path');
 var http = require('http');
 var request = require('request');
+var socketio = require('socket.io');
+var socketClient = require('socket.io-client');
 
 var serve = require('../lib/server');
 
 describe('can-serve tests', function() {
-	var server, other;
+	var server, other, io;
 
 	before(function(done) {
 		server = serve({
@@ -19,6 +21,8 @@ describe('can-serve tests', function() {
 			res.writeHead(200, {'Content-Type': 'text/plain'});
 			res.end('Other server\n');
 		}).listen(6060);
+
+		io = socketio().listen(other);
 
 		server.on('listening', done);
 	});
@@ -54,6 +58,34 @@ describe('can-serve tests', function() {
 		request('http://localhost:5050/testing/', function(err, res, body) {
 			assert.equal(body, 'Other server\n', 'Got message from other server');
 			done();
+		});
+	});
+
+	it('proxies Socket.io websockets', function(done) {
+		var original = { hello: 'world' };
+		var oldDocument = global.document;
+
+		// socket.io-client doesn't like our document shim but we don't need it for this test
+		// See https://github.com/socketio/socket.io-client/issues/916
+		delete global.document;
+
+		io.on('connection', function (socket) {
+		  socket.emit('news', original);
+		});
+
+		var socket = socketClient('http://localhost:6060');
+
+		socket.on('news', function(data) {
+			assert.deepEqual(data, original);
+			socket.disconnect();
+		});
+
+		socket.on('disconnect', function() {
+			// Timeout for Socket.io cleanup on slower machiens (like CI) finish
+			setTimeout(function() {
+				global.document = oldDocument;
+				done();
+			}, 500);
 		});
 	});
 
