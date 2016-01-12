@@ -20,6 +20,16 @@ var ViewModel = can.Map.extend({
 					};
 				}));
 
+				setTimeout(function(){
+					canWait.data({
+						pageData: {
+							restaurant: {
+								"{\"bar\":\"bar\"}": {}
+							}
+						}
+					});
+				});
+
 				list.replace(dfd);
 				dfd.resolve([ { a: "a" }, { b: "b" } ]);
 
