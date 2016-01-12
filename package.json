@@ -1,6 +1,6 @@
 {
   "name": "can-ssr",
-  "version": "0.11.0",
+  "version": "0.11.2",
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
   "bin": {
@@ -34,12 +34,12 @@
   "homepage": "https://github.com/canjs/ssr",
   "devDependencies": {
     "documentjs": "^0.3.0",
-    "done-autorender": "^0.6.0-pre.0",
+    "done-autorender": "^0.6.0",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-simple-mocha": "^0.4.0",
-    "jquery": "^1.11.3",
+    "jquery": ">=1.9.0 <1.12.0 || >=2.1.0 <2.2.0",
     "jshint": "^2.8.0",
     "mocha": "^2.2.4",
     "react": "^0.14.0",
@@ -48,7 +48,7 @@
     "socket.io": "^1.4.1",
     "socket.io-client": "^1.4.1",
     "steal-qunit": "0.0.4",
-    "steal-tools": "^0.13.0-pre.0",
+    "steal-tools": "^0.13.0",
     "testee": "^0.2.0"
   },
   "dependencies": {
@@ -60,7 +60,7 @@
     "http-proxy": "^1.11.1",
     "infanticide": "^1.0.0",
     "najax": "^0.1.5",
-    "steal": "^0.13.0-pre.0",
+    "steal": "^0.13.0",
     "websocket": "^1.0.21",
     "xmlhttprequest": "^1.7.0"
   },
