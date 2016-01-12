@@ -25,7 +25,10 @@ describe("async rendering", function(){
 
 			var cache = helpers.getInlineCache(node);
 
-			assert(cache.restaurant, "restaurant key was added");
+			assert(cache.restaurant["{\"foo\":\"foo\"}"],
+				  "foo key added for restaurant");
+			assert(cache.restaurant["{\"bar\":\"bar\"}"],
+				  "bar key added for restaurant");
 		}).then(done, done);
 	});
 });
