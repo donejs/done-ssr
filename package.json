@@ -52,7 +52,7 @@
     "testee": "^0.2.0"
   },
   "dependencies": {
-    "can": "git://github.com/canjs/canjs#master",
+    "can": "^2.3.0-pre || ^2.3.0-beta || ^2.3.0",
     "can-wait": "^0.2.0",
     "commander": "^2.8.1",
     "compression": "^1.4.4",
