@@ -17,8 +17,10 @@ Server-side rendering for CanJS.
 
 To start a full server that hosts your application run:
 
-> npm install can-ssr
-> node_modules/.bin/can-server --port 3030
+```
+npm install can-ssr  
+node_modules/.bin/can-serve --port 3030
+```
 
 In your application folder.
 
