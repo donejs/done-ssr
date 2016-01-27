@@ -30,6 +30,7 @@ Available options:
 - __-d, --develop__ - Also starts a live-reload server
 - __-p, --proxy__ <url> - Proxy a local path (default: `/api`) to the given URL (e.g. `http://api.myapp.com`)
 - __-t, --proxy-to <path>__ - Set the proxy endpoint (default: `/api`)
+- __--proxy-no-cert-check__ - Turn off SSL certificate verification
 
 ## Usage
 

@@ -14,6 +14,7 @@ program.version(pkg.version)
   .option('-p, --port <port>', 'The server port')
   .option('-r, --proxy <url>', 'A URL to an API that should be proxied')
   .option('-t, --proxy-to <path>', 'The path to proxy to (default: /api)')
+  .option('--proxy-no-cert-check', 'Turn off SSL certificate verification')
   .option('-l, --no-live-reload', 'Turn off live-reload')
   .option('--live-reload-port <port>', 'Port to use for live-reload')
   .option('--steal-tools-path <path>', 'Location of your steal-tools')
@@ -27,6 +28,7 @@ var options = {
 if(program.proxy) {
   options.proxy = program.proxy;
   options.proxyTo = program.proxyTo;
+  options.proxyCertCheck = program.proxyCertCheck;
 }
 
 // Spawn a child process in development mode
