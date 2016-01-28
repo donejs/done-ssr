@@ -1,6 +1,7 @@
 
 exports.dom = function(html){
 	var doc = new document.constructor();
+	doc.__addSerializerAndParser(document.__serializer, document.__parser);
 	var div = doc.createElement("div");
 	div.innerHTML = html;
 
