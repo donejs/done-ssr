@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title>xhr test page</title>
+	</head>
+	<body>
+		<can-import from="xhr/appstate" as="viewModel" />
+
+		<ul>
+			{{#each list}}
+				<li>{{.}}</li>
+			{{/each}}
+		</ul>
+	</body>
+</html>
