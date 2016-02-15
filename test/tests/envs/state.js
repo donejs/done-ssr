@@ -4,7 +4,7 @@ var route = require("can/route/route");
 require("can/route/pushstate/pushstate");
 
 module.exports = AppMap.extend({
-	env: function(){
+	envs: function(){
 		return System.FOO;
 	}
 });
