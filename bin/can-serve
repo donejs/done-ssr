@@ -16,13 +16,15 @@ program.version(pkg.version)
   .option('-t, --proxy-to <path>', 'The path to proxy to (default: /api)')
   .option('--proxy-no-cert-check', 'Turn off SSL certificate verification')
   .option('-l, --no-live-reload', 'Turn off live-reload')
+  .option('-s, --static', 'Only serve static files, no server-side rendering')
   .option('--live-reload-port <port>', 'Port to use for live-reload')
   .option('--steal-tools-path <path>', 'Location of your steal-tools')
   .parse(process.argv);
 
 var options = {
   path: process.cwd(),
-  liveReload: program.liveReload
+  liveReload: program.liveReload,
+  static: program.static
 };
 
 if(program.proxy) {
