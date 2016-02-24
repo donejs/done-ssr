@@ -4,7 +4,7 @@ var assert = require("assert");
 var canSsr = require("../lib/");
 var helpers = require("./helpers");
 
-require("../lib/middleware/xhr");
+require("../lib/middleware/xhr")( global );
 
 describe("xhr async rendering", function() {
 	var render;

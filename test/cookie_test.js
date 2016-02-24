@@ -4,7 +4,7 @@ var assert = require("assert");
 var canSsr = require("../lib/");
 var helpers = require("./helpers");
 
-require("../lib/middleware/xhr");
+require("../lib/middleware/xhr")( global );
 
 describe("cookie async rendering", function() {
 	var render;
@@ -57,7 +57,9 @@ describe("cookie async rendering", function() {
 
 			assert( scope.isDone(), "request should be trapped" );
 
+			//TODO: this assertion should be false unless CORS is enabled ( will need to test both situations once this is handled )
 			assert.equal( cookieAttachedToSSRAjaxReq, "willitcookie=letsfindout", "The cookie was sent with the SSR'd ajax req" );
+
 			assert.equal( cookieOnSSRDocument, "willitcookie=letsfindout", "The cookie was on the doc when it was ssr'd" );
 			done();
 		});
