@@ -29,15 +29,18 @@ describe("xhr async rendering", function() {
 		nock.restore();
 	});
 
-	it("works", function() {
-		assert(!scope.isDone());
+	it("works", function(done) {
+		assert(!scope.isDone(), "request not ready");
+		
+		var renderProm = render("/");
 
-		return render("/").then(function(result) {
+		return renderProm.then(function(result) {
 			var node = helpers.dom(result.html);
 			var listItems = node.getElementsByTagName('li');
 
 			assert(scope.isDone(), 'request should be trapped');
 			assert.equal(listItems.length, 5, 'there should be 5 items');
+			done();
 		});
 	});
 });

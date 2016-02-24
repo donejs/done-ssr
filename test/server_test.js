@@ -31,13 +31,6 @@ describe('can-serve tests', function() {
 		server.close(done);
 	});
 
-	it('sets XMLHttpRequest polyfill base URL', function(done) {
-		request('http://localhost:5050', function() {
-			assert.equal(XMLHttpRequest.base, 'http://localhost:5050');
-			done();
-		});
-	});
-
 	it('starts SSR with package.json settings and outputs page with 200 status', function(done) {
 		request('http://localhost:5050', function(err, res, body) {
 			assert.equal(res.statusCode, 200);

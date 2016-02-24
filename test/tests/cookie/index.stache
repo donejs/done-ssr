@@ -1,0 +1,11 @@
+<html>
+	<head>
+		<title>cookie test page</title>
+	</head>
+	<body>
+		<can-import from="cookie/appstate" as="viewModel" />
+
+		<div id="cookieAttachedToSSRAjaxReq">{{xhrResponse}}</div>
+		<div id="cookieOnCurrentDocument">{{cookie}}</div>
+	</body>
+</html>
