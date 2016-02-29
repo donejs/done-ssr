@@ -22,6 +22,7 @@ module.exports = AppMap.extend({
 		},
 		cookie: {
 			get: function ( last, set ) {
+				document.cookie = "newCookieKey=newCookieValue";
 				set( document.cookie );
 			}
 		}

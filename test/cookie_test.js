@@ -59,8 +59,12 @@ describe("cookie async rendering", function() {
 
 			//TODO: this assertion should be false unless CORS is enabled ( will need to test both situations once this is handled )
 			assert.equal( cookieAttachedToSSRAjaxReq, "willitcookie=letsfindout", "The cookie was sent with the SSR'd ajax req" );
-
-			assert.equal( cookieOnSSRDocument, "willitcookie=letsfindout", "The cookie was on the doc when it was ssr'd" );
+			
+			assert.equal(
+				cookieOnSSRDocument,
+				"willitcookie=letsfindout; newCookieKey=newCookieValue",
+				"The cookie was on the doc when it was ssr'd and the polyfil works"
+			);
 			done();
 		});
 	});
