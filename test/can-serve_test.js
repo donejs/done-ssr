@@ -3,7 +3,7 @@ var path = require("path");
 var spawn = require("child_process").spawn;
 
 describe("can-serve cli tests", function(){
-	this.timeout(30000);
+	this.timeout(60000);
 
 	var isWin = /^win/.test(process.platform);
 	var platformExt = function(p) {

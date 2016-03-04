@@ -11,11 +11,15 @@
 		<can-import from="progressive/main.css!"/>
 
 		{{#eq page "home"}}
-			<div id="home">You are {{page}}</div>
+			<can-import from="./progressive/home/">
+				{{#eq state "resolved"}}
+					<home-page></home-page>
+				{{/eq}}
+			</can-import>
 		{{/eq}}
 
 		{{#eq page "orders"}}
-			<can-import from="progressive/orders/">
+			<can-import from="./progressive/orders/">
 				{{#eq state "resolved"}}
 					<order-history></order-history>
 				{{/eq}}

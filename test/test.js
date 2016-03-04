@@ -44,7 +44,7 @@ describe("rendering an app", function(){
 			assert.ok(!hasError.test(result.html), 'does not print an error message');
 			assert.equal(result.state.attr('statusCode'), 200);
 			assert.equal(found["progressive/main.css!$css"], true, "Found the main css");
-			assert.equal(found["progressive/orders/orders.css!$css"], true, "Found the orders bundle css");
+			assert.equal(found["basics-can@0.0.1#progressive/orders/orders.css!$css"], true, "Found the orders bundle css");
 			assert.equal(found["@inline-cache"], true, "The inline-cache was registered");
 
 
@@ -75,8 +75,7 @@ describe("rendering an app", function(){
 
 			return render("/");
 		}).then(function(result){
-			checkCount(result, 1, "There should only be 1 style for the root page");
-
+			checkCount(result, 2, "There should be 2 styles for the home page");
 			done();
 		});
 	});
@@ -94,12 +93,15 @@ describe("rendering an app", function(){
 	});
 
 	it("renders html5 conditional comment", function(done){
-		this.render("/orders").then(function(result){
+		var render = this.render;
+		render("/").then(function(){
+			return render("/orders");
+		}).then(function(result){
 			assert.ok(/<!--\[if lt IE 9\]>/.test(result.html), "beginning comment added");
 			assert.ok(/\/scripts\/html5shiv\.min\.js/.test(result.html), "contains the correct path to html5shiv");
 			assert.ok(/<!\[endif\]-->/.test(result.html), "ending comment added");
 
-			assert.ok(/html5\.elements = "can-import order-history"/.test(result.html), "Custom tags added to shim the document");
+			assert.ok(/html5\.elements = "can-import home-page order-history"/.test(result.html), "Custom tags added to shim the document");
 
 		}).then(done);
 	});
