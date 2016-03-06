@@ -27,29 +27,6 @@ module.exports = function(grunt){
 					filter: "isFile"
 				}]
 			},
-			toReact: {
-				files: [{
-					expand: true,
-					src:["node_modules/can/**"],
-					dest: "test/tests/react/",
-					filter: "isFile"
-				}, {
-					expand: true,
-					src:["node_modules/jquery/**"],
-					dest: "test/tests/react/",
-					filter: "isFile"
-				}, {
-					expand: true,
-					src:["node_modules/react/**"],
-					dest: "test/tests/react/",
-					filter: "isFile"
-				}, {
-					expand: true,
-					src:["node_modules/react-dom/**"],
-					dest: "test/tests/react/",
-					filter: "isFile"
-				}]
-			},
 			tojQuery: {
 				files: [{
 					expand: true,

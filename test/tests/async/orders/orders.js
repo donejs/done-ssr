@@ -9,29 +9,18 @@ var ViewModel = can.Map.extend({
 			Value: can.List,
 			get: function(list){
 				var id = "foo";
-				var dfd = new can.Deferred();
-				canWait.data(dfd.then(function(resp){
-					return {
-						pageData: {
-							restaurant: {
-								"{\"foo\":\"foo\"}": resp
-							}
-						}
-					};
-				}));
 
-				setTimeout(function(){
-					canWait.data({
-						pageData: {
-							restaurant: {
-								"{\"bar\":\"bar\"}": {}
-							}
-						}
-					});
-				});
+				var dfd = new can.Deferred();
+
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET", "foo://bar");
+				xhr.onload = function(){
+					var data = JSON.parse(xhr.responseText);
+					dfd.resolve(data);
+				};
+				xhr.send();
 
 				list.replace(dfd);
-				dfd.resolve([ { a: "a" }, { b: "b" } ]);
 
 				return list;
 			}

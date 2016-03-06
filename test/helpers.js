@@ -38,6 +38,22 @@ exports.text = function(node){
 	return txt;
 };
 
+exports.getXhrCache = function(node){
+	var script = exports.find(node, function(el){
+		if(el.tagName !== "SCRIPT") { return false; }
+
+		var txt = exports.text(el);
+		return /XHR_CACHE/.test(txt);
+	});
+
+	var txt = exports.text(script).replace(/XHR_CACHE = /, "");
+	var cache = JSON.parse(
+		txt.substr(0, txt.length - 1)
+	);
+
+	return cache;
+};
+
 exports.getInlineCache = function(node){
 	var script = exports.text(exports.find(node, function(el){
 		return el.getAttribute && el.getAttribute("asset-id") === "@inline-cache";

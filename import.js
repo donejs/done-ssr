@@ -10,11 +10,15 @@ module.exports = function(moduleName, options){
 			parentMap[name] = false;
 		}
 
-		if(typeof canWait !== "undefined" && canWait.data){
-			canWait.data({ page: name });
+		if(typeof Zone !== "undefined" && Zone.current){
+			var zoneData = Zone.current.data;
+			var pages = zoneData.pages;
+			if(!pages) {
+				pages = zoneData.pages = [];
+			}
+			pages.push(name);
 		}
 
 		return loader.import(moduleName, options);
 	});
-
 };

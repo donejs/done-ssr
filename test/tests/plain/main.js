@@ -22,7 +22,7 @@ export function render(doc, state){
 	var page = state.attr("page");
 	var module = "plain/" + page + "/";
 
-	importPage(module, { name: System.main }).then(function(){
+	importPage(module).then(function(){
 		body.find("#app").html(
 			can.stache(pages[page])(state)
 		);

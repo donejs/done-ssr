@@ -4,7 +4,7 @@ var assert = require("assert");
 var path = require("path");
 var	hasError = /Error:/;
 
-describe("rendering an app", function(){
+describe("Server-Side Rendering Basics", function(){
 	before(function(){
 		this.render = canSsr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
@@ -12,6 +12,8 @@ describe("rendering an app", function(){
 			paths: {
 				"$css": "file:" + path.resolve(__dirname + "/tests/less_plugin.js")
 			}
+		}, {
+			html5shiv: true
 		});
 	});
 
@@ -45,8 +47,6 @@ describe("rendering an app", function(){
 			assert.equal(result.state.attr('statusCode'), 200);
 			assert.equal(found["progressive/main.css!$css"], true, "Found the main css");
 			assert.equal(found["progressive/orders/orders.css!$css"], true, "Found the orders bundle css");
-			assert.equal(found["@inline-cache"], true, "The inline-cache was registered");
-
 
 			var totalsEl = helpers.find(node, function(el){
 				return el.getAttribute && el.getAttribute("id") === "totals";
