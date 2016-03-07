@@ -34,7 +34,7 @@ describe("cookie async rendering", function() {
 		server.close(done);
 	});
 
-	it('starts SSR with package.json settings and outputs page with 200 status', function(done) {
+	it.only('starts SSR with package.json settings and outputs page with 200 status', function(done) {
 		var j = request.jar();
 		request({ url: 'http://localhost:5050', jar: j }, function(err, res, body) {
 			var cookie_string = j.getCookieString( "http://localhost:5050/" );

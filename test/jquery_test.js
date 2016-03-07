@@ -3,7 +3,7 @@ var helpers = require("./helpers");
 var assert = require("assert");
 var path = require("path");
 
-describe("rendering a jquery app", function(){
+describe("Rendering a jQuery app", function(){
 	before(function(){
 		this.render = canSsr({
 			config: "file:" + path.join(__dirname, "tests/jquery", "package.json!npm"),

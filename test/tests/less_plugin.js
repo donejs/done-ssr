@@ -3,7 +3,7 @@ var getDoc = function () {
 	if ( typeof canSsr !== "undefined" && canSsr.globalDocument ) {
 		return canSsr.globalDocument;
 	}
-	
+
 	return document;
 };
 

@@ -10,16 +10,6 @@ var ViewModel = can.Map.extend({
 			get: function(list){
 				var id = "foo";
 				var dfd = new can.Deferred();
-				canWait.data(dfd.then(function(value){
-					return {
-						pageData: {
-							restaurant: {
-								"{\"foo\":\"foo\"}": value
-							}
-						}
-					}
-				}));
-
 				list.replace(dfd);
 				dfd.resolve([ { a: "a" }, { b: "b" } ]);
 
