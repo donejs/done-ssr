@@ -1,5 +1,5 @@
-var AppMap = require("app-map");
+var Map = require("can/map/map");
 
-module.exports = AppMap.extend({
+module.exports = Map.extend({
 
 });

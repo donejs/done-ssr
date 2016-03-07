@@ -6,9 +6,9 @@ Create a [can-ssr.renderer] that, when called, renders the page for a given rout
 @signature `canSsr(config)`
 
 ```js
-var canSsr = require("can-ssr");
+var ssr = require("can-ssr");
 
-var render = canSsr({
+var render = ssr({
 	config: __dirname + "/package.json!npm"
 });
 ```
