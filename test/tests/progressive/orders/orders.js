@@ -10,7 +10,6 @@ var ViewModel = can.Map.extend({
 			get: function(list){
 				var id = "foo";
 				var dfd = new can.Deferred();
-				this.attr("%root").pageData("restaurant", { foo: id }, dfd);
 
 				list.replace(dfd);
 				dfd.resolve([ { a: "a", v: 2 }, { b: "b", v: 5 } ]);

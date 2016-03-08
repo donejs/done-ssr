@@ -1,4 +1,4 @@
-var AppMap = require("app-map");
+var AppMap = require("can/map/");
 
 var route = require("can/route/route");
 require("can/route/pushstate/pushstate");
