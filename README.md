@@ -1,15 +1,15 @@
 <!--
-@page can-ssr
-@group can-ssr.node 0 Node
-@group can-ssr.client 1 Client
-@group can-ssr.helpers 2 Helpers
-@group can-ssr.assets 3 Assets
+@page done-ssr
+@group done-ssr.node 0 Node
+@group done-ssr.client 1 Client
+@group done-ssr.helpers 2 Helpers
+@group done-ssr.assets 3 Assets
 -->
 
-[![Build Status](https://travis-ci.org/canjs/can-ssr.svg?branch=master)](https://travis-ci.org/canjs/can-ssr)
-[![npm version](https://badge.fury.io/js/can-ssr.svg)](http://badge.fury.io/js/can-ssr)
+[![Build Status](https://travis-ci.org/donejs/done-ssr.svg?branch=master)](https://travis-ci.org/donejs/done-ssr)
+[![npm version](https://badge.fury.io/js/done-ssr.svg)](http://badge.fury.io/js/done-ssr)
 
-# can-ssr
+# done-ssr
 
 Server-side rendering for CanJS.
 
@@ -18,7 +18,7 @@ Server-side rendering for CanJS.
 To start a full server that hosts your application run:
 
 ```
-npm install can-ssr  
+npm install done-ssr  
 node_modules/.bin/can-serve --port 3030
 ```
 
@@ -34,14 +34,14 @@ Available options:
 
 ## Usage
 
-`can-ssr` can be used either as Express middleware or programatically.
+`done-ssr` can be used either as Express middleware or programatically.
 
 ### Express Middleware
 
 Use the provided middleware to add server-side rendering to an existing Express server:
 
 ```js
-var ssr = require('can-ssr/middleware');
+var ssr = require('done-ssr/middleware');
 
 app.use('/', ssr({
   config: __dirname + '/public/package.json!npm'
@@ -61,13 +61,13 @@ __Note:__ Make sure the ssr middleware is the last middleware in the chain but b
 
 ### Use Programatically
 
-**can-ssr** takes a system configuration object (the same object used by steal-tools to configure building) and returns a function that will render requests.
+**done-ssr** takes a system configuration object (the same object used by steal-tools to configure building) and returns a function that will render requests.
 
 Pass your request into the render function and pipe the resulting stream into the response.
 
 ```js
 var http = require("http");
-var ssr = require("can-ssr");
+var ssr = require("done-ssr");
 var render = ssr();
 
 var server = http.createServer(function(request, response){
@@ -79,7 +79,7 @@ server.listen(8080);
 
 ### Your app
 
-can-ssr exports your code to look like:
+done-ssr exports your code to look like:
 
 ```js
 module.exports = function(request){
@@ -87,7 +87,7 @@ module.exports = function(request){
 };
 ```
 
-More can be found in the [main module docs](https://github.com/canjs/can-ssr/blob/master/docs/main.md).
+More can be found in the [main module docs](https://github.com/donejs/done-ssr/blob/master/docs/main.md).
 
 ## License
 

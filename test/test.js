@@ -1,4 +1,4 @@
-var canSsr = require("../lib/");
+var ssr = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
 var path = require("path");
@@ -7,7 +7,7 @@ var	hasError = /Error:/;
 
 describe("Server-Side Rendering Basics", function(){
 	before(function(){
-		this.render = canSsr({
+		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "progressive/index.stache!done-autorender",
 			paths: {

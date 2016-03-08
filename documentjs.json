@@ -6,7 +6,7 @@
 				"pattern": "{src/**/*,readme,docs/**/*}.{js,md}"
 			},
 			"ignoreTemplateRender": true,
-			"parent" : "can-ssr",
+			"parent" : "done-ssr",
 			"minifyBuild": false
 		}
 	}

@@ -1,4 +1,4 @@
-var canSsr = require("../lib/");
+var ssr = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
 var path = require("path");
@@ -6,12 +6,12 @@ var through = require("through2");
 
 describe("Rendering a JavaScript main", function(){
 	before(function(){
-		this.render = canSsr({
+		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "plain/main",
 			paths: {
 				"$css": "file:" + path.resolve(__dirname + "/tests/less_plugin.js"),
-				"can-ssr/import": "file:" + path.resolve(__dirname + "/../import.js")
+				"done-ssr/import": "file:" + path.resolve(__dirname + "/../import.js")
 			}
 		});
 	});

@@ -1,5 +1,5 @@
-@function can-ssr.renderer renderer
-@parent can-ssr.module
+@function done-ssr.renderer renderer
+@parent done-ssr.module
 
 A renderer function used to generate html from a route.
 

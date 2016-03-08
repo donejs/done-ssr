@@ -1,5 +1,5 @@
-@typedef {{}} can-ssr.helpers.env env
-@parent can-ssr.helpers
+@typedef {{}} done-ssr.helpers.env env
+@parent done-ssr.helpers
 
 An object containing all environmental variables exposed in Node.js through `process.env`.
 

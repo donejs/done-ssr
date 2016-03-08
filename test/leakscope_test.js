@@ -1,11 +1,11 @@
 var path = require("path");
-var canSsr = require("../lib/");
+var ssr = require("../lib/");
 var assert = require("assert");
 var through = require("through2");
 
 describe("In a project using leakScope false", function(){
 	before(function(){
-		this.render = canSsr({
+		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "leakscope/index.stache!done-autorender",
 		});

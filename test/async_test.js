@@ -1,4 +1,4 @@
-var canSsr = require("../lib/");
+var ssr = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
 var path = require("path");
@@ -25,7 +25,7 @@ describe("async rendering", function(){
 			return "Content-Type: application/json";
 		};
 
-		this.render = canSsr({
+		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "async/index.stache!done-autorender",
 			paths: {
