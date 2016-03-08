@@ -1,6 +1,7 @@
 var path = require("path");
 var canSsr = require("../lib/");
 var assert = require("assert");
+var through = require("through2");
 
 describe("In a project using leakScope false", function(){
 	before(function(){
@@ -10,9 +11,12 @@ describe("In a project using leakScope false", function(){
 		});
 	});
 
-	it("works", function(){
-		return this.render("/").then(function(result){
-			assert(/<h1>child<\/h1>/.test(result.html), "it should renders child's template");
-		});
+	it("works", function(done){
+		this.render("/").pipe(through(function(buffer){
+			var html = buffer.toString();
+			assert(/<h1>child<\/h1>/.test(html),
+				   "it should renders child's template");
+			done();
+		}));
 	});
 });

@@ -1,6 +1,7 @@
 var canSsr = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
+var through = require("through2");
 
 describe("rendering an app using envs", function(){
 	before(function(){
@@ -12,8 +13,8 @@ describe("rendering an app using envs", function(){
 	});
 
 	it("works", function(done){
-		this.render("/").then(function(result){
-			var node = helpers.dom(result.html);
+		this.render("/").pipe(through(function(buffer){
+			var node = helpers.dom(buffer.toString());
 
 			var found = [];
 			helpers.traverse(node, function(el){
@@ -22,8 +23,10 @@ describe("rendering an app using envs", function(){
 				}
 			});
 
-			assert.equal(found[0].innerHTML, "hello bar", "envs config was applied");
-		}).then(done);
+			assert.equal(found[0].innerHTML, "hello bar",
+						 "envs config was applied");
+			done();
+		}));
 	});
 
 });

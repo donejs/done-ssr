@@ -61,15 +61,20 @@ __Note:__ Make sure the ssr middleware is the last middleware in the chain but b
 
 ### Use Programatically
 
+**can-ssr** takes a system configuration object (the same object used by steal-tools to configure building) and returns a function that will render requests.
+
+Pass your request into the render function and pipe the resulting stream into the response.
+
 ```js
+var http = require("http");
 var ssr = require("can-ssr");
 var render = ssr();
 
-render("/orders").then(function(result) {
-  // Do something with `result.html`
-  // Get the app state with `result.state`
-  // e.g. for the statusCode in `result.state.attr('statusCode')`
+var server = http.createServer(function(request, response){
+	render(request).pipe(response);
 });
+
+server.listen(8080);
 ```
 
 ### Your app

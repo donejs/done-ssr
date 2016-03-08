@@ -1,5 +1,6 @@
 
 exports.dom = function(html){
+	html = html.replace("<!DOCTYPE html>", "").trim();
 	var doc = new document.constructor();
 	doc.__addSerializerAndParser(document.__serializer, document.__parser);
 	var div = doc.createElement("div");
