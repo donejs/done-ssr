@@ -1,11 +1,11 @@
-var canSsr = require("../lib/");
+var ssr = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
 var through = require("through2");
 
 describe("rendering an app using envs", function(){
 	before(function(){
-		this.render = canSsr({
+		this.render = ssr({
 			config: __dirname + "/tests/package.json!npm",
 			main: "envs/index.stache!done-autorender",
 			env: "someenv"

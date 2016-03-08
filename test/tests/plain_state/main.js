@@ -1,7 +1,7 @@
 import AppViewModel from "./appstate";
 import $ from "jquery";
 
-import importPage from "can-ssr/import";
+import importPage from "done-ssr/import";
 import "./routes";
 
 import headTemplate from "./head.stache!";

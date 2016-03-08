@@ -4,8 +4,7 @@
   "main": "progressive/index.stache!done-autorender",
   "dependencies": {
     "can": "2.3.0-pre.1",
-    "done-autorender": "0.0.7",
-    "can-ssr-plugin-foo": "1.0.0"
+    "done-autorender": "0.0.7"
   },
   "system": {
     "envs": {

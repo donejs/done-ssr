@@ -1,5 +1,5 @@
 {
-  "name": "can-ssr",
+  "name": "done-ssr",
   "version": "0.12.0-pre.0",
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
@@ -19,18 +19,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/canjs/ssr.git"
+    "url": "https://github.com/donejs/done-ssr.git"
   },
   "keywords": [
     "stealjs",
-    "canjs"
+    "canjs",
+    "donejs"
   ],
   "author": "Bitovi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/canjs/ssr/issues"
+    "url": "https://github.com/donejs/done-ssr/issues"
   },
-  "homepage": "https://github.com/canjs/ssr",
+  "homepage": "https://github.com/donejs/done-ssr",
   "devDependencies": {
     "documentjs": "^0.3.0",
     "done-autorender": "git://github.com/donejs/autorender#zones",

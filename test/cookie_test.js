@@ -1,7 +1,7 @@
 var path = require("path");
 var nock = require("nock");
 var assert = require("assert");
-var canSsr = require("../lib/");
+var ssr = require("../lib/");
 var helpers = require("./helpers");
 var through = require("through2");
 
@@ -27,7 +27,7 @@ describe("cookie async rendering", function() {
 			}
 		);
 
-		render = canSsr({
+		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "cookie/index.stache!done-autorender",
 			paths: {
