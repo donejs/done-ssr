@@ -31,13 +31,6 @@ describe('can-serve tests', function() {
 		server.close(done);
 	});
 
-	it('sets XMLHttpRequest polyfill base URL', function(done) {
-		request('http://localhost:5050', function() {
-			assert.equal(XMLHttpRequest.base, 'http://localhost:5050');
-			done();
-		});
-	});
-
 	it('starts SSR with package.json settings and outputs page with 200 status', function(done) {
 		request('http://localhost:5050', function(err, res, body) {
 			assert.equal(res.statusCode, 200);
@@ -104,13 +97,13 @@ describe('can-serve tests', function() {
 			done();
 		});
 	});
-	
+
 	it('can serve only static content', function(done) {
 		var server = serve({
 			path: path.join(__dirname),
 			static: true
 		}).listen(8889);
-		
+
 		server.on('listening', function() {
 			request('http://localhost:8889/server_test.js', function(err, res, body) {
 				assert.ok(res.statusCode === 200);

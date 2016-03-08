@@ -1,9 +1,6 @@
 <html>
 	<head>
 		<title>test page</title>
-
-		{{asset "css"}}
-		{{asset "html5shiv"}}
 	</head>
 	<body>
 		<can-import from="./progressive/routes"/>
@@ -33,7 +30,5 @@
 		{{#if request}}
 			<div>Showing: {{request.url}}</div>
 		{{/if}}
-
-		{{asset "inline-cache"}}
 	</body>
 </html>

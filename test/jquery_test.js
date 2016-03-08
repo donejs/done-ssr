@@ -2,8 +2,9 @@ var canSsr = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
 var path = require("path");
+var through = require("through2");
 
-describe("rendering a jquery app", function(){
+describe("Rendering a jQuery app", function(){
 	before(function(){
 		this.render = canSsr({
 			config: "file:" + path.join(__dirname, "tests/jquery", "package.json!npm"),
@@ -14,8 +15,9 @@ describe("rendering a jquery app", function(){
 	});
 
 	it("works asynchronously", function(done){
-		this.render("/").then(function(result){
-			var node = helpers.dom(result.html);
+		this.render("/").pipe(through(function(buffer){
+			var html = buffer.toString();
+			var node = helpers.dom(html);
 
 			var app = node.getElementById("app");
 			assert(app, "the #app rendered");
@@ -27,6 +29,7 @@ describe("rendering a jquery app", function(){
 
 			assert.equal(helpers.text(future).trim(),
 						 "Hello from the future");
-		}).then(done, done);
+			done();
+		}));
 	});
 });

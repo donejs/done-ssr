@@ -3,8 +3,9 @@ var nock = require("nock");
 var assert = require("assert");
 var canSsr = require("../lib/");
 var helpers = require("./helpers");
+var through = require("through2");
 
-require("../lib/middleware/xhr");
+require("../lib/middleware/xhr")( global );
 
 describe("xhr async rendering", function() {
 	var render;
@@ -29,15 +30,18 @@ describe("xhr async rendering", function() {
 		nock.restore();
 	});
 
-	it("works", function() {
-		assert(!scope.isDone());
+	it("works", function(done) {
+		assert(!scope.isDone(), "request not ready");
 
-		return render("/").then(function(result) {
-			var node = helpers.dom(result.html);
+		var stream = render("/");
+
+		stream.pipe(through(function(buffer) {
+			var node = helpers.dom(buffer.toString());
 			var listItems = node.getElementsByTagName('li');
 
 			assert(scope.isDone(), 'request should be trapped');
 			assert.equal(listItems.length, 5, 'there should be 5 items');
-		});
+			done();
+		}));
 	});
 });

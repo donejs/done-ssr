@@ -1,5 +1,6 @@
 
 exports.dom = function(html){
+	html = html.replace("<!DOCTYPE html>", "").trim();
 	var doc = new document.constructor();
 	doc.__addSerializerAndParser(document.__serializer, document.__parser);
 	var div = doc.createElement("div");
@@ -36,6 +37,22 @@ exports.text = function(node){
 		}
 	});
 	return txt;
+};
+
+exports.getXhrCache = function(node){
+	var script = exports.find(node, function(el){
+		if(el.tagName !== "SCRIPT") { return false; }
+
+		var txt = exports.text(el);
+		return /XHR_CACHE/.test(txt);
+	});
+
+	var txt = exports.text(script).replace(/XHR_CACHE = /, "");
+	var cache = JSON.parse(
+		txt.substr(0, txt.length - 1)
+	);
+
+	return cache;
 };
 
 exports.getInlineCache = function(node){

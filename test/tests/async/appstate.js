@@ -1,4 +1,4 @@
-var AppMap = require("app-map");
+var AppMap = require("can/map/");
 require("can/map/define/");
 
 module.exports = AppMap.extend({

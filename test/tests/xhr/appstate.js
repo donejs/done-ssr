@@ -1,9 +1,9 @@
-var AppMap = require("app-map");
+var Map = require("can/map/");
 
 require("can/map/define/");
 require("can/route/route");
 
-module.exports = AppMap.extend({
+module.exports = Map.extend({
 	define: {
 		list: {
 			get: function(last, set) {

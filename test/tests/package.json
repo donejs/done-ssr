@@ -8,10 +8,9 @@
     "can-ssr-plugin-foo": "1.0.0"
   },
   "system": {
-    "paths": { "./app-map": "../../app-map.js" },
     "envs": {
       "someenv": {
-		"baseURL": "http://example.com/",
+		"renderingBaseURL": "http://example.com/",
 		"FOO": "bar"
       }
     }

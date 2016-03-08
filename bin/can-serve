@@ -17,6 +17,7 @@ program.version(pkg.version)
   .option('--proxy-no-cert-check', 'Turn off SSL certificate verification')
   .option('-l, --no-live-reload', 'Turn off live-reload')
   .option('-s, --static', 'Only serve static files, no server-side rendering')
+  .option('-h, --html5shiv', 'Include html5shiv in the HTML')
   .option('--live-reload-port <port>', 'Port to use for live-reload')
   .option('--steal-tools-path <path>', 'Location of your steal-tools')
   .parse(process.argv);

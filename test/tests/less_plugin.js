@@ -1,10 +1,18 @@
 
+var getDoc = function () {
+	if ( typeof canSsr !== "undefined" && canSsr.globalDocument ) {
+		return canSsr.globalDocument;
+	}
+
+	return document;
+};
+
 if( steal.config('env') === 'production' ) {
 	exports.fetch = function(load) {
 		// return a thenable for fetching (as per specification)
 		// alternatively return new Promise(function(resolve, reject) { ... })
 		var cssFile = load.address;
-
+		var document = getDoc();
 		var link = document.createElement('link');
 		link.rel = 'stylesheet';
 		link.href = cssFile;
@@ -29,6 +37,7 @@ if( steal.config('env') === 'production' ) {
 			source = source.replace(/url\(['"]?([^'"\)]*)['"]?\)/g, function( whole, part ) {
 				return "url(" + steal.joinURIs( load.address, part) + ")";
 			});
+			var document = getDoc();
 
 			if(load.source && typeof document !== "undefined") {
 				var doc = document.head ? document : document.getElementsByTagName ?

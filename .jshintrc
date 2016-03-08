@@ -9,6 +9,7 @@
 		"exports": true,
 		"bundle": true,
 		"can": true,
+		"canSsr": true,
 		"Promise": true,
 		"INLINE_CACHE": true,
 		"canWait": true

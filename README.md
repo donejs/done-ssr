@@ -61,67 +61,33 @@ __Note:__ Make sure the ssr middleware is the last middleware in the chain but b
 
 ### Use Programatically
 
+**can-ssr** takes a system configuration object (the same object used by steal-tools to configure building) and returns a function that will render requests.
+
+Pass your request into the render function and pipe the resulting stream into the response.
+
 ```js
+var http = require("http");
 var ssr = require("can-ssr");
 var render = ssr();
 
-render("/orders").then(function(result) {
-  // Do something with `result.html`
-  // Get the app state with `result.state`
-  // e.g. for the statusCode in `result.state.attr('statusCode')`
+var server = http.createServer(function(request, response){
+	render(request).pipe(response);
 });
+
+server.listen(8080);
 ```
 
-## API
+### Your app
 
-### asset-register
-
-A module used to register assets:
+can-ssr exports your code to look like:
 
 ```js
-var register = require("asset-register");
-
-register("module/name", "css", function(){
-	return HTMLElement;
-});
+module.exports = function(request){
+  // Do whatever is needed to render
+};
 ```
 
-
-#### register(moduleName, type, assetMaker)
-
-Register takes the moduleName to register, a type associated with it, and a function that when called returns an HTMLElement.
-
-#### register(type, assetMaker)
-
-If registering an asset not associated with a particular module, supply only the type and a function that when called returns an HTMLElement.
-
-### asset (helper)
-
-When rendering in Node, a special `asset` helper is included. This is used to append assets within your template:
-
-```html
-<html>
-	<head>
-		\{{asset "css"}}
-	</head>
-	<body>
-		<can-import from="routes"/>
-
-		...
-	</body>
-</html>
-```
-
-In this example, all CSS (either `<style>` or `<link>` elements depending on whether you are in development or production.
-
-```html
-\{{asset type}}
-```
-
-Specify the `type` to insert. Assets can be registered with `asset-register` (docs above). Types provided natively by JavaScriptMVC:
-
-* **css**: Inserts a `<style>` or `<link>`
-* **inline-cache**: If using the can.AppMap will insert data fetched as part of the page lifecycle.
+More can be found in the [main module docs](https://github.com/canjs/can-ssr/blob/master/docs/main.md).
 
 ## License
 
