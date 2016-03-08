@@ -3,6 +3,7 @@ var nock = require("nock");
 var assert = require("assert");
 var canSsr = require("../lib/");
 var helpers = require("./helpers");
+var through = require("through2");
 
 require("../lib/middleware/xhr")( global );
 
@@ -31,16 +32,16 @@ describe("xhr async rendering", function() {
 
 	it("works", function(done) {
 		assert(!scope.isDone(), "request not ready");
-		
-		var renderProm = render("/");
 
-		return renderProm.then(function(result) {
-			var node = helpers.dom(result.html);
+		var stream = render("/");
+
+		stream.pipe(through(function(buffer) {
+			var node = helpers.dom(buffer.toString());
 			var listItems = node.getElementsByTagName('li');
 
 			assert(scope.isDone(), 'request should be trapped');
 			assert.equal(listItems.length, 5, 'there should be 5 items');
 			done();
-		});
+		}));
 	});
 });

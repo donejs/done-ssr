@@ -2,6 +2,7 @@ var canSsr = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
 var path = require("path");
+var through = require("through2");
 var	hasError = /Error:/;
 
 describe("Server-Side Rendering Basics", function(){
@@ -18,8 +19,9 @@ describe("Server-Side Rendering Basics", function(){
 	});
 
 	it("basics works", function(done){
-		this.render("/").then(function(result){
-			var node = helpers.dom(result.html);
+		this.render("/").pipe(through(function(buffer){
+			var html = buffer.toString();
+			var node = helpers.dom(html);
 
 			var foundHome = false;
 			helpers.traverse(node, function(el){
@@ -29,12 +31,16 @@ describe("Server-Side Rendering Basics", function(){
 			});
 
 			assert.equal(foundHome, true, "Found the 'home' element");
-		}).then(done);
+			done();
+		}));
 	});
 
 	it("works with progressively loaded bundles", function(done){
-		this.render("/orders").then(function(result){
-			var node = helpers.dom(result.html);
+		var stream = this.render("/orders");
+
+		var response = through(function(buffer){
+			var html = buffer.toString();
+			var node = helpers.dom(html);
 
 			var found = {};
 			helpers.traverse(node, function(el){
@@ -43,8 +49,8 @@ describe("Server-Side Rendering Basics", function(){
 				}
 			});
 
-			assert.ok(!hasError.test(result.html), 'does not print an error message');
-			assert.equal(result.state.attr('statusCode'), 200);
+			assert.ok(!hasError.test(html), 'does not print an error message');
+			assert.equal(response.statusCode, 200);
 			assert.equal(found["progressive/main.css!$css"], true, "Found the main css");
 			assert.equal(found["progressive/orders/orders.css!$css"], true, "Found the orders bundle css");
 
@@ -53,14 +59,17 @@ describe("Server-Side Rendering Basics", function(){
 			});
 			assert.ok(totalsEl, "an element that was conditionally added in the 'inserted' event is rendered");
 
-		}).then(done);
+			done();
+		});
+
+		stream.pipe(response);
 	});
 
 	it("returns only the css needed for the request", function(done){
 		var render = this.render;
 
-		var checkCount = function(result, expected, message){
-			var node = helpers.dom(result.html);
+		var checkCount = function(html, expected, message){
+			var node = helpers.dom(html);
 
 			var styles = helpers.count(node, function(el){
 				return el.nodeName === "STYLE";
@@ -70,37 +79,49 @@ describe("Server-Side Rendering Basics", function(){
 						 " !== " + expected);
 		};
 
-		render("/orders").then(function(result){
-			checkCount(result, 2, "There should be 2 styles for the orders page");
+		render("/orders").pipe(through(function(buffer){
+			checkCount(buffer.toString(), 2,
+					   "There should be 2 styles for the orders page");
 
-			return render("/");
-		}).then(function(result){
-			checkCount(result, 1, "There should only be 1 style for the root page");
+			render("/").pipe(through(function(buffer){
+				checkCount(buffer.toString(), 1,
+						   "There should only be 1 style for the root page");
 
-			done();
-		});
+				done();
+			}));
+		}));
 	});
 
 	it("sets status to 404 if route was not round", function(done){
-		this.render("/invalid/route").then(function(result){
-			var state = result.state;
+		var stream = this.render("/invalid/route");
+
+		var response = through(function(buffer){
+			var html = buffer.toString();
 			var printsMessage = /Not found/;
 
-			assert.ok(hasError.test(result.html), 'error message is showing');
-			assert.ok(printsMessage.test(result.html), 'Error message is showing on the page');
-			assert.equal(state.attr("statusCode"), 404);
-			assert.equal(state.attr("statusMessage"), "Not found");
-		}).then(done);
+			assert.ok(hasError.test(html), 'error message is showing');
+			assert.ok(printsMessage.test(html),
+					  'Error message is showing on the page');
+			assert.equal(response.statusCode, 404);
+			done();
+		});
+
+		stream.pipe(response);
 	});
 
 	it("renders html5 conditional comment", function(done){
-		this.render("/orders").then(function(result){
-			assert.ok(/<!--\[if lt IE 9\]>/.test(result.html), "beginning comment added");
-			assert.ok(/\/scripts\/html5shiv\.min\.js/.test(result.html), "contains the correct path to html5shiv");
-			assert.ok(/<!\[endif\]-->/.test(result.html), "ending comment added");
+		this.render("/orders").pipe(through(function(buffer){
+			var html = buffer.toString();
+			assert.ok(/<!--\[if lt IE 9\]>/.test(html),
+					  "beginning comment added");
+			assert.ok(/\/scripts\/html5shiv\.min\.js/.test(html),
+					  "contains the correct path to html5shiv");
+			assert.ok(/<!\[endif\]-->/.test(html), "ending comment added");
 
-			assert.ok(/html5\.elements = "can-import order-history"/.test(result.html), "Custom tags added to shim the document");
+			assert.ok(/html5\.elements = "can-import order-history"/.test(html),
+					  "Custom tags added to shim the document");
 
-		}).then(done);
+			done();
+		}));
 	});
 });

@@ -3,6 +3,7 @@ var nock = require("nock");
 var assert = require("assert");
 var canSsr = require("../lib/");
 var helpers = require("./helpers");
+var through = require("through2");
 
 require("../lib/middleware/xhr")( global );
 
@@ -39,10 +40,10 @@ describe("cookie async rendering", function() {
 		nock.restore();
 	});
 
-	it( "works", function ( done ) {
+	it( "works", function(done){
 		assert( !scope.isDone(), "request not ready" );
 
-		var renderProm = render({
+		var stream = render({
 			//mocked up req object
 			url: "/",
 			headers: {
@@ -50,8 +51,9 @@ describe("cookie async rendering", function() {
 			}
 		});
 
-		return renderProm.then( function ( result ) {
-			var node = helpers.dom( result.html );
+		stream.pipe(through(function(buffer){
+			var html = buffer.toString();
+			var node = helpers.dom(html);
 			var cookieAttachedToSSRAjaxReq = node.getElementById( "cookieAttachedToSSRAjaxReq" ).innerHTML;
 			var cookieOnSSRDocument = node.getElementById( "cookieOnCurrentDocument" ).innerHTML;
 
@@ -59,13 +61,13 @@ describe("cookie async rendering", function() {
 
 			//TODO: this assertion should be false unless CORS is enabled ( will need to test both situations once this is handled )
 			assert.equal( cookieAttachedToSSRAjaxReq, "willitcookie=letsfindout", "The cookie was sent with the SSR'd ajax req" );
-			
+
 			assert.equal(
 				cookieOnSSRDocument,
 				"willitcookie=letsfindout; newCookieKey=newCookieValue",
 				"The cookie was on the doc when it was ssr'd and the polyfil works"
 			);
 			done();
-		});
+		}));
 	});
 });

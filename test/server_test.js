@@ -97,13 +97,13 @@ describe('can-serve tests', function() {
 			done();
 		});
 	});
-	
+
 	it('can serve only static content', function(done) {
 		var server = serve({
 			path: path.join(__dirname),
 			static: true
 		}).listen(8889);
-		
+
 		server.on('listening', function() {
 			request('http://localhost:8889/server_test.js', function(err, res, body) {
 				assert.ok(res.statusCode === 200);

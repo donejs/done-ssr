@@ -2,6 +2,7 @@ var canSsr = require("../lib/");
 var helpers = require("./helpers");
 var assert = require("assert");
 var path = require("path");
+var through = require("through2");
 
 describe("async rendering", function(){
 	before(function(){
@@ -38,8 +39,9 @@ describe("async rendering", function(){
 	});
 
 	it("basics works", function(done){
-		this.render("/").then(function(result){
-			var node = helpers.dom(result.html);
+		this.render("/").pipe(through(function(buffer){
+			var html = buffer.toString();
+			var node = helpers.dom(html);
 
 			var message = node.getElementById("orders");
 
@@ -56,6 +58,7 @@ describe("async rendering", function(){
 
 			assert.equal(resp.headers, "Content-Type: application/json",
 						 "Header was added");
-		}).then(done, done);
+			done();
+		}));
 	});
 });
