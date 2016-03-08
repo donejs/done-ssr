@@ -10,8 +10,13 @@ describe("async rendering", function(){
 
 		var XHR = global.XMLHttpRequest = function(){
 			this.onload = null;
+			this.__events = [];
 		};
 		var realSetTimeout = global.setTimeout;
+		XHR.prototype.addEventListener = function(ev, fn){
+			this.__events.push(fn);
+		};
+		XHR.prototype.getResponseHeader = function(){};
 		XHR.prototype.open = function(){};
 		XHR.prototype.send = function(){
 			var onload = this.onload;
@@ -19,6 +24,9 @@ describe("async rendering", function(){
 			realSetTimeout(function(){
 				xhr.responseText = '[ { "a": "a" }, { "b": "b" } ]';
 				onload({ target: xhr });
+				xhr.__events.forEach(function(fn){
+					fn();
+				});
 			}, 40);
 		};
 		XHR.prototype.getAllResponseHeaders = function(){
