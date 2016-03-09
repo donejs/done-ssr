@@ -11,7 +11,7 @@
 
 # done-ssr
 
-Server-side rendering for CanJS.
+Server-side rendering for [DoneJS](https://donejs.com/).
 
 ## Usage
 
