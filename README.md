@@ -13,53 +13,7 @@
 
 Server-side rendering for CanJS.
 
-## Server
-
-To start a full server that hosts your application run:
-
-```
-npm install done-ssr  
-node_modules/.bin/can-serve --port 3030
-```
-
-In your application folder.
-
-Available options:
-
-- __-p, --port__ - Set the port the server should run on
-- __-d, --develop__ - Also starts a live-reload server
-- __-r, --proxy__ <url> - Proxy a local path (default: `/api`) to the given URL (e.g. `http://api.myapp.com`)
-- __-t, --proxy-to <path>__ - Set the proxy endpoint (default: `/api`)
-- __--proxy-no-cert-check__ - Turn off SSL certificate verification
-
 ## Usage
-
-`done-ssr` can be used either as Express middleware or programatically.
-
-### Express Middleware
-
-Use the provided middleware to add server-side rendering to an existing Express server:
-
-```js
-var ssr = require('done-ssr/middleware');
-
-app.use('/', ssr({
-  config: __dirname + '/public/package.json!npm'
-}));
-```
-
-The middleware includes a live-reload utility that can automatically refresh the cache for server-rendered responses. Use the `liveReload` option to enable this feature:
-
-```js
-app.use('/', ssr({
-  config: __dirname + '/public/package.json!npm',
-  liveReload: true
-}));
-```
-
-__Note:__ Make sure the ssr middleware is the last middleware in the chain but before the error handler. Errors when rendering the application will be passed to your Express error handler. Error status codes (e.g. 404s or others set via `appState.status()`) will be rendered with the application.
-
-### Use Programatically
 
 **done-ssr** takes a system configuration object (the same object used by steal-tools to configure building) and returns a function that will render requests.
 
@@ -79,15 +33,31 @@ server.listen(8080);
 
 ### Your app
 
-done-ssr exports your code to look like:
+done-ssr expect's your project's **main** to export a function that renders based on the request parameter. This will work with any module format supported by Steal.
 
 ```js
+var ViewModel = can.Map.extend( { ... });
+
 module.exports = function(request){
+  var params = can.route.deparam(location.pathname);
+  var viewModel = new ViewModel(params);
+
   // Do whatever is needed to render
 };
 ```
 
+The **request** parameter is the raw Node request object so you can do things like get request headers if needed.
+
+Additionally the **location** object is set globally so you can use it like you would in a browser window.
+
 More can be found in the [main module docs](https://github.com/donejs/done-ssr/blob/master/docs/main.md).
+
+### Express Middleware and Development Server
+
+As of *0.12* can-ssr was renamed to done-ssr. The Express middleware and can-serve functionality were moved to their own projects:
+
+* [done-ssr-middleware](https://github.com/donejs/done-ssr-middleware)
+* [done-serve](https://github.com/donejs/done-serve)
 
 ## License
 

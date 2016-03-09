@@ -1,31 +1,26 @@
 var path = require("path");
-var nock = require("nock");
 var assert = require("assert");
 var ssr = require("../lib/");
 var helpers = require("./helpers");
 var through = require("through2");
 
-require("../lib/middleware/xhr")( global );
-
 describe("cookie async rendering", function() {
+	this.timeout(10000);
+
 	var render;
-	var scope;
 	var cookieValue = "";
 
 	before(function() {
-		scope = nock("http://www.example.org", {
-			reqheaders: {
-				cookie: function ( headerValueSentOnRequest ) {
-					cookieValue = headerValueSentOnRequest;
-					return true;
-				}
-			}
-		}).get( "/session" ).delay( 20 ).reply(
-			200,
-			function ( uri, requestBody ) {
-				return cookieValue;
-			}
-		);
+		this.oldXHR = global.XMLHttpRequest;
+		var XHR = global.XMLHttpRequest = helpers.mockXHR(function(){
+			return cookieValue;
+		});
+		XHR.prototype.setRequestHeader = function(name, cookie){
+			cookieValue = cookie;
+		};
+		XHR.prototype.getResponseHeader = function(name){
+			if(name === "Set-Cookie") { return cookieValue; }
+		};
 
 		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
@@ -37,12 +32,10 @@ describe("cookie async rendering", function() {
 	});
 
 	after(function() {
-		nock.restore();
+		global.XMLHttpRequest = this.oldXHR;
 	});
 
 	it( "works", function(done){
-		assert( !scope.isDone(), "request not ready" );
-
 		var stream = render({
 			//mocked up req object
 			url: "/",
@@ -53,11 +46,10 @@ describe("cookie async rendering", function() {
 
 		stream.pipe(through(function(buffer){
 			var html = buffer.toString();
+
 			var node = helpers.dom(html);
 			var cookieAttachedToSSRAjaxReq = node.getElementById( "cookieAttachedToSSRAjaxReq" ).innerHTML;
 			var cookieOnSSRDocument = node.getElementById( "cookieOnCurrentDocument" ).innerHTML;
-
-			assert( scope.isDone(), "request should be trapped" );
 
 			//TODO: this assertion should be false unless CORS is enabled ( will need to test both situations once this is handled )
 			assert.equal( cookieAttachedToSSRAjaxReq, "willitcookie=letsfindout", "The cookie was sent with the SSR'd ajax req" );

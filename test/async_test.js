@@ -5,33 +5,12 @@ var path = require("path");
 var through = require("through2");
 
 describe("async rendering", function(){
+	this.timeout(10000);
+
 	before(function(){
 		this.oldXHR = global.XMLHttpRequest;
-
-		var XHR = global.XMLHttpRequest = function(){
-			this.onload = null;
-			this.__events = [];
-		};
-		var realSetTimeout = global.setTimeout;
-		XHR.prototype.addEventListener = function(ev, fn){
-			this.__events.push(fn);
-		};
-		XHR.prototype.getResponseHeader = function(){};
-		XHR.prototype.open = function(){};
-		XHR.prototype.send = function(){
-			var onload = this.onload;
-			var xhr = this;
-			realSetTimeout(function(){
-				xhr.responseText = '[ { "a": "a" }, { "b": "b" } ]';
-				onload({ target: xhr });
-				xhr.__events.forEach(function(fn){
-					fn();
-				});
-			}, 40);
-		};
-		XHR.prototype.getAllResponseHeaders = function(){
-			return "Content-Type: application/json";
-		};
+		global.XMLHttpRequest = helpers.mockXHR(
+			'[ { "a": "a" }, { "b": "b" } ]');
 
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
