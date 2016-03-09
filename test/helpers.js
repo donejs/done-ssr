@@ -75,3 +75,41 @@ exports.count = function(node, callback){
 	});
 	return count;
 };
+
+// A good enough XHR object
+exports.mockXHR = function(responseFN){
+	if(typeof responseFN === "string") {
+		var responseText = responseFN;
+		responseFN = function(){
+			return responseText;
+		};
+	}
+	var XHR = function(){
+		this.onload = null;
+		this.__events = {};
+	};
+	var realSetTimeout = global.setTimeout;
+	XHR.prototype.addEventListener = function(ev, fn){
+		var evs = this.__events[ev] = this.__events[ev] || [];
+		evs.push(fn);
+	};
+	XHR.prototype.getResponseHeader = function(){};
+	XHR.prototype.open = function(){};
+	XHR.prototype.send = function(){
+		var onload = this.onload;
+		var xhr = this;
+		realSetTimeout(function(){
+			xhr.responseText = responseFN();
+			onload({ target: xhr });
+			var evs = xhr.__events.load || [];
+			evs.forEach(function(fn){
+				fn.call(xhr);
+			});
+		}, 40);
+	};
+	XHR.prototype.setDisableHeaderCheck = function(){};
+	XHR.prototype.getAllResponseHeaders = function(){
+		return "Content-Type: application/json";
+	};
+	return XHR;
+};

@@ -4,6 +4,8 @@ var assert = require("assert");
 var through = require("through2");
 
 describe("rendering an app using envs", function(){
+	this.timeout(10000);
+
 	before(function(){
 		this.render = ssr({
 			config: __dirname + "/tests/package.json!npm",

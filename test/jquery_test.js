@@ -5,6 +5,8 @@ var path = require("path");
 var through = require("through2");
 
 describe("Rendering a jQuery app", function(){
+	this.timeout(10000);
+
 	before(function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests/jquery", "package.json!npm"),

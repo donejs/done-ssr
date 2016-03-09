@@ -1,21 +1,17 @@
 var path = require("path");
-var nock = require("nock");
 var assert = require("assert");
 var ssr = require("../lib/");
 var helpers = require("./helpers");
 var through = require("through2");
 
-require("../lib/middleware/xhr")( global );
-
 describe("xhr async rendering", function() {
+	this.timeout(10000);
+
 	var render;
-	var scope;
 
 	before(function() {
-		scope = nock("http://www.example.org")
-			.get("/api/list")
-			.delay(20)
-			.reply(200, [1, 2, 3, 4, 5]);
+		this.oldXHR = global.XMLHttpRequest;
+		global.XMLHttpRequest = helpers.mockXHR('[1,2,3,4,5]');
 
 		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
@@ -27,19 +23,16 @@ describe("xhr async rendering", function() {
 	});
 
 	after(function() {
-		nock.restore();
+		global.XMLHttpRequest = this.oldXHR;
 	});
 
 	it("works", function(done) {
-		assert(!scope.isDone(), "request not ready");
-
 		var stream = render("/");
 
 		stream.pipe(through(function(buffer) {
 			var node = helpers.dom(buffer.toString());
 			var listItems = node.getElementsByTagName('li');
 
-			assert(scope.isDone(), 'request should be trapped');
 			assert.equal(listItems.length, 5, 'there should be 5 items');
 			done();
 		}));

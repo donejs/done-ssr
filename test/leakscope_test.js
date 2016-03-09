@@ -4,6 +4,8 @@ var assert = require("assert");
 var through = require("through2");
 
 describe("In a project using leakScope false", function(){
+	this.timeout(10000);
+
 	before(function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
