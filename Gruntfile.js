@@ -22,6 +22,11 @@ module.exports = function(grunt){
 					filter: "isFile"
 				}, {
 					expand: true,
+					src:["node_modules/can-zone/**"],
+					dest: "test/tests/",
+					filter: "isFile"
+				}, {
+					expand: true,
 					src:["node_modules/can-wait/**"],
 					dest: "test/tests/node_modules/done-autorender/",
 					filter: "isFile"
