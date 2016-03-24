@@ -17,6 +17,16 @@ module.exports = AppMap.extend({
 		},
 		message: {
 			type: "string"
+		},
+		statusCode: {
+			get: function(val, setVal){
+				if(!setVal) return 200;
+				var page = this.attr("page");
+				setTimeout(function(){
+					var status = page === "fake" ? 404 : 200;
+					setVal(status);
+				}, 50);
+			}
 		}
 	}
 });

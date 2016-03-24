@@ -48,4 +48,14 @@ describe("async rendering", function(){
 			done();
 		}));
 	});
+
+	it("sets a 404 status for bad routes", function(done){
+		var response = through(function(){
+			var statusCode = response.statusCode;
+			assert.equal(statusCode, 404, "Got a 404");
+			done();
+		});
+
+		this.render("/fake").pipe(response);
+	});
 });
