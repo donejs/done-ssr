@@ -77,7 +77,8 @@ exports.count = function(node, callback){
 };
 
 // A good enough XHR object
-exports.mockXHR = function(responseFN){
+exports.mockXHR = function(responseFN, options){
+	options = options || {};
 	if(typeof responseFN === "string") {
 		var responseText = responseFN;
 		responseFN = function(){
@@ -97,16 +98,28 @@ exports.mockXHR = function(responseFN){
 	XHR.prototype.open = function(){};
 	XHR.prototype.send = function(){
 		var onload = this.onload;
+		var onerror = this.onerror;
 		var xhr = this;
 		realSetTimeout(function(){
+			if(options.error) {
+				callEvents(xhr, "error");
+				if(onerror) {
+					onerror({ target: xhr });
+				}
+				return;
+			}
+
 			xhr.responseText = responseFN();
 			onload({ target: xhr });
-			var evs = xhr.__events.load || [];
-			evs.forEach(function(fn){
-				fn.call(xhr);
-			});
+			callEvents(xhr, "load");
 		}, 40);
 	};
+	function callEvents(xhr, ev) {
+		var evs = xhr.__events[ev] || [];
+		evs.forEach(function(fn){
+			fn.call(xhr);
+		});
+	}
 	XHR.prototype.setDisableHeaderCheck = function(){};
 	XHR.prototype.getAllResponseHeaders = function(){
 		return "Content-Type: application/json";
