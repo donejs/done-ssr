@@ -35,16 +35,16 @@
     "documentjs": "^0.3.0",
     "done-autorender": "^0.7.0",
     "es6-promise": "^3.1.2",
-    "jquery": ">=1.9.0 <1.12.0 || >=2.1.0 <2.2.0",
+    "jquery": "~2.2.1",
     "jshint": "^2.8.0",
     "spawn-mochas": "^1.1.0",
-    "steal-tools": "^0.13.0",
+    "steal-tools": "git://github.com/stealjs/steal#meta-deep",
     "through2": "^2.0.1"
   },
   "dependencies": {
     "can": "^2.3.0-pre || ^2.3.0-beta || ^2.3.0",
     "can-zone": "^0.4.0",
-    "steal": "^0.13.0"
+    "steal": "^0.15.0"
   },
   "system": {
     "npmDependencies": [
