@@ -1,0 +1,16 @@
+<html>
+<head>
+	<title>DoneJS project</title>
+</head>
+<body>
+	<can-import from="import-empty/app" export-as="viewModel"/>
+
+	<can-import from='import-empty/pages/home/'>
+	{{#if isResolved}}
+	  <some-page/>
+	{{else}}
+	  <span id="loading">Loading...</span>
+	{{/if}}
+	</can-import>
+</body>
+</html>

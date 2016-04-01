@@ -10,5 +10,6 @@ mochas([
 	"plainjs_test.js",
 	"progressive_test.js",
 	"test_envs.js",
-	"xhr_test.js"
+	"xhr_test.js",
+	"import_empty_test.js"
 ], __dirname);
