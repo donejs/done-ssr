@@ -1,6 +1,7 @@
 var mochas = require("spawn-mochas");
 
 mochas([
+	"unit_test.js",
 	"async_test.js",
 	"cookie_test.js",
 	"jquery_test.js",
