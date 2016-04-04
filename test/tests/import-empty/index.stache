@@ -5,11 +5,15 @@
 <body>
 	<can-import from="import-empty/app" export-as="viewModel"/>
 
-	<can-import from='import-empty/pages/home/'>
-	{{#if isResolved}}
-	  <some-page/>
+	<can-import from="import-empty/pages/home/">
+	{{#if isRejected}}
+		<span id="rejected">Didn't work</span>
 	{{else}}
-	  <span id="loading">Loading...</span>
+		{{#if isResolved}}
+		  <some-page/>
+		{{else}}
+		  <span id="loading">Loading...</span>
+		{{/if}}
 	{{/if}}
 	</can-import>
 </body>

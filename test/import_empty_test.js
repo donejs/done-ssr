@@ -19,11 +19,11 @@ describe("Projects importing a component that doesn't exist", function(){
 			var html = buffer.toString();
 			var node = helpers.dom(html);
 
-			var loading = helpers.find(node, function(el){
-				return el && el.id === "loading";
+			var rej = helpers.find(node, function(el){
+				return el.getAttribute && el.getAttribute("id") === "rejected";
 			});
 
-			assert(loading, "Showing the loading element");
+			assert(rej, "Showing the rejected element");
 			done();
 		}));
 	});
