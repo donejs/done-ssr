@@ -38,7 +38,6 @@
     "jquery": "~2.2.1",
     "jshint": "^2.8.0",
     "spawn-mochas": "^1.1.0",
-    "steal-tools": "git://github.com/stealjs/steal#meta-deep",
     "through2": "^2.0.1"
   },
   "dependencies": {
