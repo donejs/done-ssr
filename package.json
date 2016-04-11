@@ -34,9 +34,11 @@
     "copy-dir": "0.0.8",
     "documentjs": "^0.3.0",
     "done-autorender": "^0.7.0",
+    "done-ssr-middleware": "^0.1.5",
     "es6-promise": "^3.1.2",
     "jquery": "~2.2.1",
     "jshint": "^2.8.0",
+    "nock": "^8.0.0",
     "spawn-mochas": "^1.1.0",
     "through2": "^2.0.1"
   },

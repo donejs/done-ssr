@@ -4,6 +4,7 @@ mochas([
 	"unit_test.js",
 	"async_test.js",
 	"cookie_test.js",
+	"token_test.js",
 	"jquery_test.js",
 	"leakscope_test.js",
 	"plain_state_test.js",
