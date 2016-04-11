@@ -32,5 +32,6 @@
 	"maxerr" : 200,
 	"browser": true,
 	"phantom": true,
-	"node": true
+	"node": true,
+	"scripturl": true
 }
