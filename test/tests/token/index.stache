@@ -1,0 +1,12 @@
+<html>
+	<head>
+		<title>authorization header / token test page</title>
+	</head>
+	<body>
+		<can-import from="token/appstate" as="viewModel" />
+
+		{{#if gotResponse}}
+			<span id="success"></span>
+		{{/if}}
+	</body>
+</html>
