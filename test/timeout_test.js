@@ -11,6 +11,8 @@ describe("Timeouts", function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "timeout/index.stache!done-autorender"
+		}, {
+			timeout: 100
 		});
 	});
 
@@ -21,8 +23,21 @@ describe("Timeouts", function(){
 
 			var result = node.getElementById("result").innerHTML;
 
+			assert.equal(result, "failed", "Timed out");
+			done();
+		}));
+	});
+
+	it("Doesn't timeout if rendered quickly enough", function(done){
+		this.render("/fast").pipe(through(function(buffer){
+			var html = buffer.toString();
+			var node = helpers.dom(html);
+
+			var result = node.getElementById("result").innerHTML;
+
 			assert.equal(result, "passed", "Timed out");
 			done();
 		}));
 	});
+
 });
