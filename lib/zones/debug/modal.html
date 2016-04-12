@@ -32,7 +32,7 @@
      font-size: 20px;
    }
 
-   .ssr-modal-body {
+   #ssr-modal-body {
      padding: 20px;
 	 height: calc(100% - 50px);
 	 overflow: scroll;
@@ -53,8 +53,5 @@
     <a href="javascript://" onclick="this.parentNode.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode.parentNode)">x</a>
   </div>
 
-  <div class="ssr-modal-body">
-    {{body}}
-  </div>
-
+  <div id="ssr-modal-body"></div>
 </div>

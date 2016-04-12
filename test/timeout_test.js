@@ -47,10 +47,11 @@ describe("Timeouts", function(){
 	it("Includes stack trace info when timing out", function(done){
 		this.render("/slow").pipe(through(function(buffer){
 			var html = buffer.toString();
-			var node = helpers.dom(html);
 
-			var debug = node.getElementById("done-ssr-debug").innerHTML;
-			assert.ok(debug, "Got the debug node");
+			assert.ok(/done-ssr-debug/.test(html), "got the debug node");
+			assert.ok(/setTimeout/.test(html),
+					  "Includes the task name that failed");
+
 			done();
 		}));
 	});

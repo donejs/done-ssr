@@ -13,6 +13,23 @@
 
 Server-side rendering for [DoneJS](https://donejs.com/).
 
+- [Install](#install)
+- [Usage](#usage)
+- [API](#api)
+  - <code>[ssr(system, options)](#ssrsystem-options---render)</code>
+    - <code>[system](#system)</code>
+	- <code>[options](#options)</code>
+	  - <code>[timeout](#timeout--5000)</code>
+	  - <code>[debug](#debug--false)</code>
+	  - <code>[html5shiv](#html5shiv--false)</code>
+  - <code>[render(request)](#renderrequest)</code>
+
+## Install
+
+```shell
+npm install done-ssr --save
+```
+
 ## Usage
 
 **done-ssr** takes a system configuration object (the same object used by steal-tools to configure building) and returns a function that will render requests.
@@ -58,6 +75,42 @@ As of *0.12* can-ssr was renamed to done-ssr. The Express middleware and can-ser
 
 * [done-ssr-middleware](https://github.com/donejs/done-ssr-middleware)
 * [done-serve](https://github.com/donejs/done-serve)
+
+## API
+
+### ssr(system, options) -> render
+
+The `ssr` function contains two arguments, one for the **system** object and one is an **options** object:
+
+#### system
+
+Configuration options that are a [SystemConfig](http://stealjs.com/docs/steal-tools.SystemConfig.html). This is the same object that is passed into steal-tools to configure the loader for building.
+
+#### options
+
+##### timeout : 5000
+
+Specify a timeout in milliseconds for how long should be waited before returning whatever HTML has already been rendered. Defaults to **5000**
+
+##### debug : false
+
+Specify to turn on debug mode when used in conjuction with timeout. If rendering times out debugging information will be attached to a modal window in the document. For this reason you only want to use the debug option during development.
+
+![debug output](https://cloud.githubusercontent.com/assets/361671/14474862/08b5f01e-00cd-11e6-8d70-b3f3ba835493.png)
+
+##### html5shiv : false
+
+Specifies where html5shiv should be configured and attached to the document's head. This will automatically register all of the custom can.Component elements for you when using IE8.
+
+### render(request)
+
+The **render** function is returned from the call to [ssr](#ssrsystem-options---render) and is what used to render requests. It returns a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) that can be piped into other streams, using the response stream.
+
+```js
+render(request).pipe(response);
+```
+
+You can use request/response streams from servers created with `require("http")`, or [Express](http://expressjs.com/) and probably most other Node servers.
 
 ## License
 
