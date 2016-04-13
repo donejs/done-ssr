@@ -25,14 +25,15 @@ describe("Server-Side Rendering Basics", function(){
 			var html = buffer.toString();
 			var node = helpers.dom(html);
 
-			var foundHome = false;
-			helpers.traverse(node, function(el){
-				if(el.nodeName === "DIV" && el.getAttribute("id") === "home") {
-					foundHome = true;
-				}
-			});
+			var home = node.getElementById("home");
+			assert.ok(home, "Found the 'home' element");
 
-			assert.equal(foundHome, true, "Found the 'home' element");
+			var location = node.getElementById("location");
+			assert.equal(location.innerHTML, "/", "Got the window.location");
+
+			var docLocation = node.getElementById("doc-location");
+			assert.equal(docLocation.innerHTML, "/", "Got the document.location");
+
 			done();
 		}));
 	});

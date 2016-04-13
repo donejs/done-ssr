@@ -30,5 +30,8 @@
 		{{#if request}}
 			<div>Showing: {{request.url}}</div>
 		{{/if}}
+
+		<div id="location">{{location}}</div>
+		<div id="doc-location">{{docLocation}}</div>
 	</body>
 </html>
