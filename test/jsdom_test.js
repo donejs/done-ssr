@@ -16,7 +16,14 @@ describe("Server-Side Rendering Basics", function(){
 				"$css": "file:" + path.resolve(__dirname + "/tests/less_plugin.js")
 			}
 		}, {
-			html5shiv: true
+			//html5shiv: true
+			dom: function(){
+				var doc = jsdom("<html><body></body></html>");
+				return {
+					document: doc,
+					window: doc.defaultView
+				};
+			}
 		});
 
 		ssr.dom(function(){

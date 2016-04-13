@@ -1,6 +1,5 @@
 var can = require("can");
 var template = require("./orders.stache!");
-require("./orders.css!");
 require("can/map/define/");
 
 var ViewModel = can.Map.extend({

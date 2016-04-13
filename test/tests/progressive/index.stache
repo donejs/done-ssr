@@ -5,7 +5,6 @@
 	<body>
 		<can-import from="./progressive/routes"/>
 		<can-import from="progressive/appstate" as="viewModel" />
-		<can-import from="progressive/main.css!"/>
 
 		{{#eq page "home"}}
 			<div id="home">You are {{page}}</div>
