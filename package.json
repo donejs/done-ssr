@@ -1,6 +1,6 @@
 {
   "name": "done-ssr",
-  "version": "0.12.6",
+  "version": "0.13.0-pre.0",
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
   "scripts": {
@@ -44,7 +44,8 @@
   },
   "dependencies": {
     "can": "^2.3.0-pre || ^2.3.0-beta || ^2.3.0",
-    "can-zone": "^0.4.0",
+    "can-zone": "^0.5.0",
+    "lodash.defaults": "^4.0.1",
     "steal": "^0.15.0"
   },
   "system": {

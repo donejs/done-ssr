@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title>Timeout</title>
+</head>
+<body>
+	<can-import from="timeout/app" export-as="viewModel" />
+
+	<span id="result">{{race}}</span>
+</body>
+</html>
