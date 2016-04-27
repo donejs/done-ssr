@@ -13,5 +13,6 @@ mochas([
 	"test_envs.js",
 	"xhr_test.js",
 	"import_empty_test.js",
-	"timeout_test.js"
+	"timeout_test.js",
+	"startup_err_test.js"
 ], __dirname);
