@@ -7,7 +7,9 @@ var modules = [
 	"simple-html-tokenizer",
 	"jquery",
 	"done-autorender",
-	"can-zone"
+	"can-zone",
+	"can-fixture",
+	"can-set"
 ];
 
 modules.forEach(function(name){
