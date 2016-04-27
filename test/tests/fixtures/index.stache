@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title>test page</title>
+	</head>
+	<body>
+		<can-import from="./fixtures/routes"/>
+		<can-import from="fixtures/appstate" as="viewModel" />
+		<can-import from="fixtures/fixtures"/>
+
+		{{#things}}
+			<div>{{.}}</div>
+		{{/things}}
+	</body>
+</html>
