@@ -15,5 +15,6 @@ mochas([
 	"import_empty_test.js",
 	"timeout_test.js",
 	"startup_err_test.js",
-	"fixture_test.js"
+	"fixture_test.js",
+	"nojquery_test.js"
 ], __dirname);
