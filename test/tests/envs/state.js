@@ -1,9 +1,8 @@
-var AppMap = require("can/map/");
+var Map = require("can-map");
 
-var route = require("can/route/route");
-require("can/route/pushstate/pushstate");
+require("can-route-pushstate");
 
-module.exports = AppMap.extend({
+module.exports = Map.extend({
 	envs: function(){
 		return System.FOO;
 	}

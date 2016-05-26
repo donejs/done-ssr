@@ -1,5 +1,0 @@
-<div id="orders">
-{{#each orders}}
-	<div>order {{%index}}</div>
-{{/each}}
-</div>

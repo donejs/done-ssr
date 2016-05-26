@@ -1,4 +1,4 @@
-var route = require("can/route/route");
-require("can/route/pushstate/pushstate");
+var route = require("can-route");
+require("can-route-pushstate");
 
 route(":page", { page: "home" });

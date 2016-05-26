@@ -1,7 +1,7 @@
-var Map = require("can/map/");
-require("can/map/define/");
-var route = require("can/route/");
-require("can/route/pushstate/");
+var Map = require("can-map");
+require("can-map-define");
+var route = require("can-route");
+require("can-route-pushstate");
 
 module.exports = Map.extend({
 	define: {

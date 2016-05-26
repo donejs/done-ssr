@@ -6,6 +6,8 @@
 		<can-import from="async/routes"/>
 		<can-import from="async/appstate" as="viewModel" />
 
+		{{page}}
+
 		{{#eq page "orders"}}
 			<can-import from="async/orders/">
 				{{#isResolved}}

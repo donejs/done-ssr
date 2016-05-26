@@ -1,3 +1,3 @@
-var Map = require("can/map/");
+var Map = require("can-map");
 
 foo();

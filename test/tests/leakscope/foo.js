@@ -1,6 +1,6 @@
-import Component from 'can/component/';
-import template from './foo.stache!';
-import stache from 'can/view/stache/';
+import Component from "can-component";
+import stache from "can-stache";
+import template from "./foo.stache";
 
 export default Component.extend({
 	template,

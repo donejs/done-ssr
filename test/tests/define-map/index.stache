@@ -1,0 +1,12 @@
+<html>
+<head>
+<title></title>
+</head>
+<body>
+	<can-import from="define-map/vm" export-as="viewModel"/>
+
+	{{#eq page "test"}}
+		<div id="worked">It worked</div>
+	{{/eq}}
+</body>
+</html>

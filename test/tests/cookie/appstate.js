@@ -1,9 +1,9 @@
-var AppMap = require("can/map/");
+var Map = require("can-map");
 
-require("can/map/define/");
-require("can/route/route");
+require("can-map-define");
+require("can-route");
 
-module.exports = AppMap.extend({
+module.exports = Map.extend({
 	define: {
 		xhrResponse: {
 			get: function(last, set) {
@@ -23,7 +23,7 @@ module.exports = AppMap.extend({
 		cookie: {
 			get: function ( last, set ) {
 				document.cookie = "newCookieKey=newCookieValue";
-				set( document.cookie );
+				set(document.cookie);
 			}
 		}
 	}

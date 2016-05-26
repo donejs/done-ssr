@@ -31,10 +31,17 @@
   },
   "homepage": "https://github.com/donejs/done-ssr",
   "devDependencies": {
+    "can-component": "^3.0.0-pre.8",
+    "can-define": "^0.7.4",
     "can-fixture": "^0.1.2",
+    "can-list": "^3.0.0-pre.3",
+    "can-map": "^3.0.0-pre.5",
+    "can-map-define": "^3.0.0-pre.2",
+    "can-route": "^3.0.0-pre.5",
+    "can-route-pushstate": "^3.0.0-pre.4",
     "copy-dir": "0.0.8",
     "documentjs": "^0.3.0",
-    "done-autorender": "^0.7.0",
+    "done-autorender": "^0.9.0-pre.1",
     "done-ssr-middleware": "^0.1.5",
     "es6-promise": "^3.1.2",
     "jquery": "~2.2.1",
@@ -44,7 +51,8 @@
     "through2": "^2.0.1"
   },
   "dependencies": {
-    "can": "^2.3.0-pre || ^2.3.0-beta || ^2.3.0",
+    "can-util": "^3.0.0-pre.23",
+    "can-vdom": "0.0.5",
     "can-zone": "^0.5.0",
     "lodash.defaults": "^4.0.1",
     "steal": "^0.16.0",
