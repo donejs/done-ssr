@@ -6,7 +6,7 @@
     "can": "^2.3.0",
     "can-fixture": "^0.1.2",
 	"jquery": "~2.2.1",
-    "done-autorender": "0.0.7"
+    "done-autorender": "^0.7.0"
   },
   "system": {
     "envs": {
