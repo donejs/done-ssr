@@ -96,7 +96,7 @@ Specify a timeout in milliseconds for how long should be waited before returning
 
 Enables SSR using JavaScript Web Tokens (JWT).  Specifies the cookie name where the SSR server can look to find a JWT token.  That token gets applied as the "Bearer" token in the authorization header of every outgoing XHR.
 
-For example, if the SSR server receives a cookie like `feathers-jwt=<token-goes-here>;`, and the `authCookie` option is `"feathers-jwt"`, outgoing requests from the SSR server will have an `authorization` header of `Bearer <token-goes-here>`
+For example, if the SSR server receives a cookie like `feathers-jwt=<token>;`, and the `authCookie` option is set to `"feathers-jwt"`, outgoing requests from the SSR server will have an `authorization` header of `Bearer <token>`
 
 ##### debug : false
 
