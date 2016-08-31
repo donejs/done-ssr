@@ -92,9 +92,13 @@ Configuration options that are a [SystemConfig](http://stealjs.com/docs/steal-to
 
 Specify a timeout in milliseconds for how long should be waited before returning whatever HTML has already been rendered. Defaults to **5000**
 
+##### authCookie
+
+Enables SSR using JavaScript Web Tokens (JWT).  Specifies the cookie name where the SSR server can look to find a JWT token.  That token gets applied as the "Bearer" token in the authorization header of every outgoing XHR.  For example, if the SSR server receives a cookie like `feathers-jwt=<token-goes-here>;`, and the `authCookie` option is `"feathers-jwt"`, outgoing requests from the SSR server will have an `authorization` header of `Bearer <token-goes-here>`
+
 ##### debug : false
 
-Specify to turn on debug mode when used in conjuction with timeout. If rendering times out debugging information will be attached to a modal window in the document. For this reason you only want to use the debug option during development.
+Specify to turn on debug mode when used in conjunction with timeout. If rendering times out debugging information will be attached to a modal window in the document. For this reason you only want to use the debug option during development.
 
 ![debug output](https://cloud.githubusercontent.com/assets/361671/14474862/08b5f01e-00cd-11e6-8d70-b3f3ba835493.png)
 
