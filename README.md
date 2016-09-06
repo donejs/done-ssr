@@ -92,7 +92,7 @@ Configuration options that are a [SystemConfig](http://stealjs.com/docs/steal-to
 
 Specify a timeout in milliseconds for how long should be waited before returning whatever HTML has already been rendered. Defaults to **5000**
 
-##### auth
+##### auth: {cookie, domains}
 
 An object for enabling JavaScript Web Tokens (JWT) support for XHR requests made by the SSR server. Must contain both of the following values:
 
