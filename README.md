@@ -92,11 +92,15 @@ Configuration options that are a [SystemConfig](http://stealjs.com/docs/steal-to
 
 Specify a timeout in milliseconds for how long should be waited before returning whatever HTML has already been rendered. Defaults to **5000**
 
-##### authCookie
+##### auth
 
-Enables SSR using JavaScript Web Tokens (JWT).  Specifies the cookie name where the SSR server can look to find a JWT token.  That token gets applied as the "Bearer" token in the authorization header of every outgoing XHR.
+An object for enabling JavaScript Web Tokens (JWT) support for XHR requests made by the SSR server. Must contain both of the following values:
 
-For example, if the SSR server receives a cookie like `feathers-jwt=<token>;`, and the `authCookie` option is set to `"feathers-jwt"`, outgoing requests from the SSR server will have an `authorization` header of `Bearer <token>`
+- `cookie`: A string representing the cookie name where the SSR server can look to find a JWT token.  That token gets applied as the "Bearer" token in the authorization header of every outgoing XHR.
+
+> For example, if the SSR server receives a cookie like `feathers-jwt=<token>;`, and the `authCookie` option is set to `"feathers-jwt"`, outgoing requests from the SSR server will have an `authorization` header of `Bearer <token>`
+
+- `domains`: An array of domain names to which the JWT token will be sent.  Any domains not in this list will not receive the JWT token.
 
 ##### debug : false
 

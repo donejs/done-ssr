@@ -25,7 +25,7 @@ describe("xhr async rendering", function() {
 				cookie: 'feathers-jwt',
 				domains: [
 					'canjs.com',
-					'example.org'
+					'donejs.com'
 				]
 			}
 		});
@@ -40,7 +40,7 @@ describe("xhr async rendering", function() {
 
 		xhrOptions.beforeSend = function(xhr){
 			var auth = xhr.getRequestHeader('authorization');
-			assert.equal(auth, "Bearer foobar");
+			assert.equal(auth, undefined);
 			didXhr = true;
 		};
 
