@@ -88,11 +88,18 @@ exports.mockXHR = function(responseFN, options){
 	var XHR = function(){
 		this.onload = null;
 		this.__events = {};
+		this.__headers = {};
 	};
 	var realSetTimeout = global.setTimeout;
 	XHR.prototype.addEventListener = function(ev, fn){
 		var evs = this.__events[ev] = this.__events[ev] || [];
 		evs.push(fn);
+	};
+	XHR.prototype.setRequestHeader = function(name, value){
+		this.__headers[name] = value;
+	};
+	XHR.prototype.getRequestHeader = function(name){
+		return this.__headers[name];
 	};
 	XHR.prototype.getResponseHeader = function(){};
 	XHR.prototype.open = function(){};
@@ -113,6 +120,9 @@ exports.mockXHR = function(responseFN, options){
 			onload({ target: xhr });
 			callEvents(xhr, "load");
 		}, 40);
+		if (options.beforeSend) {
+			options.beforeSend(this);
+		}
 	};
 	function callEvents(xhr, ev) {
 		var evs = xhr.__events[ev] || [];
