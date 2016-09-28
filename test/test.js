@@ -10,6 +10,8 @@ mochas([
 	"progressive_test.js",
 	"test_envs.js",
 	"xhr_test.js",
+	"auth-cookie_test.js",
+	"auth-cookie-failed-domain_test.js",
 	"import_empty_test.js",
 	"timeout_test.js",
 	"startup_err_test.js",
