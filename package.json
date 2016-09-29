@@ -39,6 +39,7 @@
     "can-map-define": "^3.0.0-pre.2",
     "can-route": "^3.0.0-pre.5",
     "can-route-pushstate": "^3.0.0-pre.4",
+    "can-stache": "^3.0.0-pre.5",
     "copy-dir": "0.0.8",
     "documentjs": "^0.3.0",
     "done-autorender": "^0.9.0-pre.1",
@@ -48,6 +49,7 @@
     "jshint": "^2.8.0",
     "nock": "^8.0.0",
     "spawn-mochas": "^1.1.0",
+    "steal-stache": "^3.0.0-pre.3",
     "through2": "^2.0.1"
   },
   "dependencies": {
