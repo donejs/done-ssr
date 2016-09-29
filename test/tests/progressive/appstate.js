@@ -1,4 +1,4 @@
-var Map = require("can/map/");
+var Map = require("can-map");
 
 module.exports = Map.extend({
 	throwError: function() {

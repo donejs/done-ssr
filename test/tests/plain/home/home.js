@@ -1,10 +1,11 @@
-var can = require("can");
-var template = require("./home.stache!");
+var Component = require("can-component");
+var Map = require("can-map");
+var template = require("./home.stache");
 
-var ViewModel = can.Map.extend({
+var ViewModel = Map.extend({
 });
 
-can.Component.extend({
+Component.extend({
 	tag: "home-page",
 	template: template,
 	viewModel: ViewModel

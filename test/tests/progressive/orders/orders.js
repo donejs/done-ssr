@@ -1,18 +1,22 @@
-var can = require("can");
-var template = require("./orders.stache!");
-require("./orders.css!");
-require("can/map/define/");
+var Component = require('can-component');
+var Map = require('can-map');
+var List = require('can-list');
+var template = require("./orders.stache");
+require("./orders.css");
+require("can-map-define");
 
-var ViewModel = can.Map.extend({
+var ViewModel = Map.extend({
 	define: {
 		orders: {
-			Value: can.List,
+			Value: List,
 			get: function(list){
 				var id = "foo";
-				var dfd = new can.Deferred();
 
-				list.replace(dfd);
-				dfd.resolve([ { a: "a", v: 2 }, { b: "b", v: 5 } ]);
+				var promise = new Promise(function(resolve){
+					resolve([ { a: "a", v: 2 }, { b: "b", v: 5 } ]);
+				});
+
+				list.replace(promise);
 
 				return list;
 			}
@@ -33,7 +37,7 @@ var ViewModel = can.Map.extend({
 	}
 });
 
-can.Component.extend({
+Component.extend({
 	tag: "order-history",
 	template: template,
 	viewModel: ViewModel,
