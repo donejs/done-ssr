@@ -48,4 +48,8 @@ describe("Rendering a JavaScript main", function(){
 			}));
 		}));
 	});
+
+	it("should have steal.done() as promise", function(){
+		assert(typeof steal.done() !== 'undefined', 'steal.done() should be a promise, not undefined');
+	});
 });
