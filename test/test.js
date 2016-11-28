@@ -17,5 +17,6 @@ mochas([
 	"timeout_test.js",
 	"startup_err_test.js",
 	"fixture_test.js",
-	"nojquery_test.js"
+	"nojquery_test.js",
+	"stealdone_test.js"
 ], __dirname);
