@@ -23,7 +23,6 @@ describe("Using steal.done() in a module", function(){
 		stream.pipe(through(function(buffer){
 			var html = buffer.toString();
 			var node = helpers.dom(html);
-			console.log(html);
 
 			var tn = helpers.find(node, function(node){
 				return node.nodeType === 3;
