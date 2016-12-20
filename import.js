@@ -10,8 +10,8 @@ module.exports = function(moduleName, options){
 			parentMap[name] = false;
 		}
 
-		if(typeof Zone !== "undefined" && Zone.current){
-			var zoneData = Zone.current.data;
+		if(typeof CanZone !== "undefined" && CanZone.current){
+			var zoneData = CanZone.current.data;
 			var pages = zoneData.pages;
 			if(!pages) {
 				pages = zoneData.pages = [];

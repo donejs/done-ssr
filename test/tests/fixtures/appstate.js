@@ -1,6 +1,6 @@
-var List = require("can/list/");
-var Map = require("can/map/");
-require("can/map/define/");
+var List = require("can-list");
+var Map = require("can-map");
+require("can-map-define");
 
 module.exports = Map.extend({
 	define: {

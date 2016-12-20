@@ -1,7 +1,7 @@
-var AppMap = require("can/map/");
-require("can/map/define/");
+var Map = require("can-map");
+require("can-map-define");
 
-module.exports = AppMap.extend({
+module.exports = Map.extend({
 	define: {
 		page: {
 			set: function(val){

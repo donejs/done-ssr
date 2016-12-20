@@ -1,11 +1,17 @@
-import AppViewModel from "plain/appstate";
+import route from "can-route";
+import "can-route-pushstate";
+
+import AppViewModel from "./appstate";
+
 import $ from "jquery";
+import stache from "can-stache";
 
 import importPage from "done-ssr/import";
-import "plain/routes";
 
-import headTemplate from "plain/head.stache!";
-import bodyTemplate from "plain/body.stache!";
+import headTemplate from "./head.stache";
+import bodyTemplate from "./body.stache";
+
+route(":page", { page: "home" });
 
 var pages = {
 	"home": "<home-page></home-page",
@@ -13,8 +19,9 @@ var pages = {
 };
 
 export default function(request){
-	var props = can.route.deparam(location.pathname);
+	var props = route.deparam(location.pathname);
 	var state = new AppViewModel(props);
+	route.map(state);
 
 	$(document.head).html(headTemplate(state));
 	var body = $(document.body);
@@ -25,7 +32,7 @@ export default function(request){
 
 	importPage(module).then(function(){
 		body.find("#app").html(
-			can.stache(pages[page])(state)
+			stache(pages[page])(state)
 		);
 	});
 }

@@ -4,9 +4,7 @@ mochas([
 	"unit_test.js",
 	"async_test.js",
 	"cookie_test.js",
-	"jquery_test.js",
 	"leakscope_test.js",
-	"plain_state_test.js",
 	"plainjs_test.js",
 	"progressive_test.js",
 	"test_envs.js",
@@ -18,5 +16,7 @@ mochas([
 	"startup_err_test.js",
 	"fixture_test.js",
 	"nojquery_test.js",
-	"stealdone_test.js"
+	"stealdone_test.js",
+	"define_map_test.js",
+	"define_test.js"
 ], __dirname);
