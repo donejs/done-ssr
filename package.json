@@ -44,7 +44,7 @@
     "copy-dir": "0.0.8",
     "documentjs": "^0.4.4",
     "done-autorender": "^1.0.0-alpha.0",
-    "done-ssr-middleware": "^0.4.0-pre.0",
+    "done-ssr-middleware": "^1.0.0-alpha.0",
     "es6-promise": "^3.1.2",
     "jquery": "2.x - 3.x",
     "jshint": "^2.8.0",
