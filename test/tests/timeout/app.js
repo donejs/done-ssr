@@ -26,4 +26,4 @@ module.exports = Map.extend({
 	}
 });
 
-route(":page");
+route("{page}");
