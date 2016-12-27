@@ -2,7 +2,7 @@ var define = require("can-define");
 var route = require("can-route");
 require("can-route-pushstate");
 
-route(":page");
+route("{page}");
 
 function ViewModel() {
 
