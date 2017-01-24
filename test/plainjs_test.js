@@ -12,7 +12,6 @@ describe("Rendering a JavaScript main", function(){
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "plain/main",
 			paths: {
-				"$css": "file:" + path.resolve(__dirname + "/tests/less_plugin.js"),
 				"done-ssr/import": "file:" + path.resolve(__dirname + "/../import.js")
 			}
 		});
