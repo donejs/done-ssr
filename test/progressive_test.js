@@ -11,10 +11,7 @@ describe("Server-Side Rendering Basics", function(){
 	before(function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
-			main: "progressive/index.stache!done-autorender",
-			paths: {
-				"$css": "file:" + path.resolve(__dirname + "/tests/less_plugin.js")
-			}
+			main: "progressive/index.stache!done-autorender"
 		}, {
 			html5shiv: true
 		});
@@ -48,14 +45,14 @@ describe("Server-Side Rendering Basics", function(){
 			var found = {};
 			helpers.traverse(node, function(el){
 				if(el.nodeName === "STYLE" || el.nodeName === "SCRIPT") {
-					found[el.getAttribute("asset-id")] = true;
+					found[el.getAttribute("asset-id").split('!')[0]] = true;
 				}
 			});
 
 			assert.ok(!hasError.test(html), 'does not print an error message');
 			assert.equal(response.statusCode, 200);
-			assert.equal(found["progressive/main.css!$css"], true, "Found the main css");
-			assert.equal(found["progressive/orders/orders.css!$css"], true, "Found the orders bundle css");
+			assert.equal(found["progressive/main.css"], true, "Found the main css");
+			assert.equal(found["progressive/orders/orders.css"], true, "Found the orders bundle css");
 
 			var totalsEl = helpers.find(node, function(el){
 				return el.getAttribute && el.getAttribute("id") === "totals";

@@ -24,10 +24,7 @@ describe("cookie async rendering", function() {
 
 		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
-			main: "cookie/index.stache!done-autorender",
-			paths: {
-				"$css": "file:" + path.resolve(__dirname + "/tests/less_plugin.js")
-			}
+			main: "cookie/index.stache!done-autorender"
 		});
 	});
 

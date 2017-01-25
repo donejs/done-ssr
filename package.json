@@ -4,7 +4,7 @@
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
   "scripts": {
-    "jshint": "jshint lib/.  test/*.js --config",
+    "jshint": "jshint lib/. test/*.js --config",
     "copy": "node scripts/copy.js",
     "test:only": "npm run copy && npm run mocha",
     "test": "npm run jshint && npm run test:only",
@@ -44,6 +44,7 @@
     "copy-dir": "0.0.8",
     "documentjs": "^0.4.4",
     "done-autorender": "^1.0.0-alpha.0",
+    "done-css": "^3.0.0-alpha.3",
     "done-ssr-middleware": "^1.0.0-alpha.0",
     "es6-promise": "^3.1.2",
     "jquery": "2.x - 3.x",

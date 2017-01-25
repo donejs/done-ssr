@@ -14,10 +14,7 @@ describe("async rendering", function(){
 
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
-			main: "async/index.stache!done-autorender",
-			paths: {
-				"$css": "file:" + path.resolve(__dirname + "/tests/less_plugin.js")
-			}
+			main: "async/index.stache!done-autorender"
 		});
 	});
 
