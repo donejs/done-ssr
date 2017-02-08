@@ -1,0 +1,8 @@
+<html>
+	<head>
+		<title>test page</title>
+	</head>
+	<body>
+		<can-import from="lr/state" as="viewModel" />
+	</body>
+</html>
