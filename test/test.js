@@ -18,6 +18,7 @@ mochas([
 	"nojquery_test.js",
 	"stealdone_test.js",
 	"define_map_test.js",
+	"define_map_status_test.js",
 	"define_test.js",
 	"live-reload_test.js"
 ], __dirname);
