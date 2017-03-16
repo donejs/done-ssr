@@ -1,7 +1,7 @@
 var Component = require('can-component');
 var Map = require('can-map');
 var List = require('can-list');
-var template = require("./orders.stache");
+var view = require("./orders.stache");
 require("./orders.css");
 require("can-map-define");
 
@@ -39,7 +39,7 @@ var ViewModel = Map.extend({
 
 Component.extend({
 	tag: "order-history",
-	template: template,
+	view: view,
 	viewModel: ViewModel,
 	events: {
 		inserted: function(){

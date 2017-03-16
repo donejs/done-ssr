@@ -11,7 +11,7 @@ describe("Using can-define/map/map", function(){
 	before(function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
-			main: "define-map/index.stache!done-autorender"
+			main: "define-map-status/index.stache!done-autorender"
 		});
 	});
 
@@ -22,17 +22,13 @@ describe("Using can-define/map/map", function(){
 
 			var worked = node.getElementById("worked");
 
-			Promise.resolve().then(function(){
-				assert.equal(response.statusCode, 200, "Correct response");
-				assert.ok(worked, "rendered the page");
-			})
-			.then(done, done);
-
+			assert.ok(worked, "rendered the page");
+			done();
 		});
 		this.render("/test").pipe(response);
 	});
 
-	it("Returns a 404 when there is no matching route", function(done){
+	it.only("Returns a 404 when there is no matching route", function(done){
 		var response = through(function(){
 			var statusCode = response.statusCode;
 			assert.equal(statusCode, 404, "Got a 404");
