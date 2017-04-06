@@ -11,7 +11,7 @@ import importPage from "done-ssr/import";
 import headTemplate from "./head.stache";
 import bodyTemplate from "./body.stache";
 
-route(":page", { page: "home" });
+route("{page}", { page: "home" });
 
 var pages = {
 	"home": "<home-page></home-page",

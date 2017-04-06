@@ -16,10 +16,7 @@ describe("xhr async rendering", function() {
 
 		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
-			main: "xhr/index.stache!done-autorender",
-			paths: {
-				"$css": "file:" + path.resolve(__dirname + "/tests/less_plugin.js")
-			}
+			main: "xhr/index.stache!done-autorender"
 		}, {
 			auth: {
 				cookie: 'feathers-jwt',
