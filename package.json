@@ -60,7 +60,7 @@
     "can-vdom": "^3.0.1",
     "can-zone": "^0.6.1",
     "lodash.defaults": "^4.0.1",
-    "steal": "^1.0.6",
+    "steal": "1.4.5",
     "websocket": "^1.0.22",
     "xmlhttprequest": "^1.8.0"
   },
