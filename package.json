@@ -37,7 +37,7 @@
     "can-fixture": "^1.0.12",
     "can-list": "^3.0.2",
     "can-map": "^3.0.4",
-    "can-map-define": "^3.0.2",
+    "can-map-define": "3.0.6",
     "can-route": "^3.0.6",
     "can-route-pushstate": "^3.0.3",
     "can-stache": "^3.0.16",
