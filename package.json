@@ -51,7 +51,7 @@
     "jshint": "^2.8.0",
     "nock": "^9.0.11",
     "spawn-mochas": "^1.1.0",
-    "steal-css": "^1.0.0",
+    "steal-css": "^1.2.4",
     "steal-stache": "^3.0.4",
     "through2": "^2.0.1"
   },
