@@ -57,7 +57,7 @@
     "through2": "^2.0.1"
   },
   "dependencies": {
-    "can-util": "^3.2.0",
+    "can-util": "^3.5.1",
     "can-vdom": "^3.0.1",
     "can-zone": "^0.6.1",
     "lodash.defaults": "^4.0.1",
