@@ -14,14 +14,15 @@ import bodyTemplate from "./body.stache";
 route("{page}", { page: "home" });
 
 var pages = {
-	"home": "<home-page></home-page",
+	"home": "<home-page></home-page>",
 	"orders": "<order-history></order-history>"
 };
 
 export default function(request){
 	var props = route.deparam(location.pathname);
 	var state = new AppViewModel(props);
-	route.map(state);
+	
+	route.data = state;
 
 	$(document.head).html(headTemplate(state));
 	var body = $(document.body);
