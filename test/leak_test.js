@@ -1,12 +1,12 @@
+/* jshint esversion: 6 */
 var ssr = require("../lib/");
 var helpers = require("./helpers");
-var assert = require("assert");
 var iterate = require("leakage").iterate;
 var path = require("path");
 var through = require("through2");
 
 describe("Memory leaks", function(){
-	this.timeout(10000);
+	this.timeout(30000);
 
 	before(function(){
 		this.oldXHR = global.XMLHttpRequest;
