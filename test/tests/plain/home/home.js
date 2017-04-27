@@ -8,5 +8,6 @@ var ViewModel = Map.extend({
 Component.extend({
 	tag: "home-page",
 	view: view,
-	viewModel: ViewModel
+	viewModel: ViewModel,
+	leakScope: true
 });
