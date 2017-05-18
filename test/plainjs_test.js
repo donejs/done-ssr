@@ -17,7 +17,7 @@ describe("Rendering a JavaScript main", function(){
 		});
 	});
 
-	it("returns only the css needed for the request", function(done){
+	it.only("returns only the css needed for the request", function(done){
 		var render = this.render;
 
 		var checkCount = function(html, expected, message){
