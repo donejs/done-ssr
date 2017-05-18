@@ -19,5 +19,7 @@
 				<div id="message">{{message}}</div>
 			{{/if}}
 		{{/eq}}
+
+		<div class="language">{{language}}</div>
 	</body>
 </html>
