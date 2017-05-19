@@ -60,6 +60,7 @@
     "can-util": "^3.5.1",
     "can-vdom": "^3.0.1",
     "can-zone": "^0.6.1",
+    "dom-patch": "^2.0.0-alpha.2",
     "lodash.defaults": "^4.0.1",
     "steal": "^1.0.6",
     "websocket": "^1.0.22",
