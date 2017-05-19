@@ -70,7 +70,6 @@ describe("async rendering", function(){
 	it("sets a 404 status for bad routes", function(done){
 		var response = through(function(){
 			var statusCode = response.statusCode;
-			console.log("status is....", statusCode);
 			assert.equal(statusCode, 404, "Got a 404");
 			done();
 		});
