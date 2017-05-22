@@ -33,7 +33,7 @@
   "homepage": "https://github.com/donejs/done-ssr",
   "devDependencies": {
     "can-component": "^3.0.4",
-    "can-define": "^1.0.10",
+    "can-define": "1.0.24",
     "can-fixture": "^1.0.12",
     "can-list": "^3.0.2",
     "can-map": "^3.0.4",
