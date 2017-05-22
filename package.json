@@ -44,7 +44,7 @@
     "copy-dir": "0.0.8",
     "documentjs": "^0.4.4",
     "done-autorender": "^1.0.0-alpha.0",
-    "done-css": "^3.0.0-alpha.3",
+    "done-css": "3.0.0",
     "done-ssr-middleware": "^1.0.0-alpha.0",
     "es6-promise": "^4.1.0",
     "jquery": "2.x - 3.x",
