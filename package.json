@@ -40,7 +40,7 @@
     "can-map-define": "^3.0.2",
     "can-route": "^3.0.6",
     "can-route-pushstate": "^3.0.3",
-    "can-stache": "^3.0.16",
+    "can-stache": "3.0.24",
     "copy-dir": "0.0.8",
     "documentjs": "^0.4.4",
     "done-autorender": "^1.0.0-alpha.0",
