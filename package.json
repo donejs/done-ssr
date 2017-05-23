@@ -1,6 +1,6 @@
 {
   "name": "done-ssr",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
   "scripts": {
@@ -43,16 +43,15 @@
     "can-stache": "^3.0.16",
     "copy-dir": "0.0.8",
     "documentjs": "^0.4.4",
-    "done-autorender": "^1.0.0-alpha.0",
-    "done-css": "^3.0.0-alpha.3",
-    "done-ssr-middleware": "^1.0.0-alpha.0",
+    "done-autorender": "^1.0.0",
+    "done-css": "^3.0.1",
+    "done-ssr-middleware": "^1.0.0",
     "es6-promise": "^4.1.0",
     "jquery": "2.x - 3.x",
     "jshint": "^2.8.0",
     "leakage": "0.3.0-beta",
     "nock": "^9.0.11",
     "spawn-mochas": "^1.1.0",
-    "steal-css": "^1.0.0",
     "steal-stache": "^3.0.4",
     "through2": "^2.0.1"
   },
