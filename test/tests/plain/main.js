@@ -21,7 +21,7 @@ var pages = {
 export default function(request){
 	var props = route.deparam(location.pathname);
 	var state = new AppViewModel(props);
-	
+
 	route.data = state;
 
 	$(document.head).html(headTemplate(state));
