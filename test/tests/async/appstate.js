@@ -33,5 +33,8 @@ module.exports = Map.extend({
 				}, 50);
 			}
 		}
+	},
+	someError: function(){
+		throw new Error("This is an error.");
 	}
 });
