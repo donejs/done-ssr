@@ -76,4 +76,13 @@ describe("async rendering", function(){
 
 		this.render("/fake").pipe(response);
 	});
+
+	it.only("sets a 500 status when there are errors", function(done){
+		var response = through(function(){
+			console.log("WHAT:", response.statusCode);
+			done();
+		});
+
+		this.render("?showError=true").pipe(response);
+	});
 });
