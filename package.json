@@ -67,6 +67,7 @@
     "npm": "^5.0.3",
     "steal": "^1.0.6",
     "text-encoding": "^0.6.4",
+    "useragent": "^2.1.13",
     "websocket": "^1.0.22",
     "xmlhttprequest": "^1.8.0"
   },
