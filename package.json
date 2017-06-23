@@ -65,6 +65,7 @@
     "node-fetch": "^1.7.1",
     "node-web-streams": "^0.2.2",
     "npm": "^5.0.3",
+    "spdy-push": "^1.0.2",
     "steal": "^1.0.6",
     "text-encoding": "^0.6.4",
     "useragent": "^2.1.13",
