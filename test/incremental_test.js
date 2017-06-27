@@ -27,7 +27,7 @@ describe("Incremental rendering", function(){
 		global.XMLHttpRequest = this.oldXHR;
 	});
 
-	it("basics works", function(done){
+	it("Sends the correct rendering instructions", function(done){
 		var request = {
 			url: "/",
 			headers: {
@@ -47,7 +47,7 @@ describe("Incremental rendering", function(){
 					if(++count === 1) {
 						var instr = instrs[4];
 						var route = instr.route;
-						assert.equal(route, "0.2.8");
+						assert.equal(route, "0.2.5");
 					} else {
 						// TODO test this one maybe
 						done();
