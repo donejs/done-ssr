@@ -22,5 +22,6 @@ mochas([
 	"define_test.js",
 	"live-reload_test.js",
 	"cache-normalize_test.js",
-	"leak_test.js"
+	"leak_test.js",
+	"incremental_test.js"
 ], __dirname);
