@@ -14,7 +14,8 @@
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
-    "document": "documentjs"
+    "document": "documentjs",
+	"build:inc": "cd lib/strategies/incremental/client && npm install && node build.js && uglifyjs dist/global/incremental-render-client.js -o dist/global/incremental-render-client.min.js"
   },
   "repository": {
     "type": "git",
@@ -54,7 +55,8 @@
     "spawn-mochas": "^1.1.0",
     "steal-stache": "^3.0.4",
     "steal-tools": "^1.3.5",
-    "through2": "^2.0.1"
+    "through2": "^2.0.1",
+    "uglify-js": "^3.0.20"
   },
   "dependencies": {
     "can-util": "^3.5.1",
@@ -69,7 +71,7 @@
     "text-encoding": "^0.6.4",
     "useragent": "^2.1.13",
     "websocket": "^1.0.22",
-    "xmlhttprequest": "^1.8.0"
+    "xmlhttprequest2": "^1.0.0"
   },
   "greenkeeper": {
     "ignore": [
