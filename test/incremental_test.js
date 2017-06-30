@@ -45,7 +45,7 @@ describe("Incremental rendering", function(){
 					var instrs = JSON.parse(json);
 
 					if(++count === 1) {
-						var instr = instrs[4];
+						var instr = instrs[0];
 						var route = instr.route;
 						assert.equal(route, "0.2.5");
 					} else {
