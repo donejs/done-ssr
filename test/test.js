@@ -15,7 +15,6 @@ mochas([
 	"timeout_test.js",
 	"startup_err_test.js",
 	"fixture_test.js",
-	"nojquery_test.js",
 	"stealdone_test.js",
 	"define_map_test.js",
 	"define_map_status_test.js",

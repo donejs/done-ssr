@@ -12,6 +12,7 @@
     "can-route": "^3.0.6",
     "can-route-pushstate": "^3.0.1",
     "can-stache": "^3.0.16",
+	"can-util": "^3.5.0",
     "done-css": "^3.0.0",
     "done-autorender": "^1.0.0",
     "jquery": "2.x - 3.x",
