@@ -1,9 +1,0 @@
-{
-  "name": "incremental-render-client",
-  "version": "1.0.0",
-  "main": "client.js",
-  "private": true,
-  "dependencies": {
-    "dom-patch": "^2.0.0"
-  }
-}
