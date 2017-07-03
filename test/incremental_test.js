@@ -46,14 +46,14 @@ describe("Incremental rendering", function(){
 			});
 			response.writeHead = noop;
 			response.push = function(){
-				var count = 0;
+				var count = 0, ended = false;
 				return new Writable({
 					write(chunk, enc, next) {
 						var json = chunk.toString();
 						var instrs = JSON.parse(json);
 						result.instructions.push(instrs);
-
-						if(++count > 1) {
+						if(++count === 3 && !ended) {
+							ended = true;
 							done();
 						}
 						next();
