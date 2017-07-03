@@ -14,8 +14,7 @@
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
-    "document": "documentjs",
-	"build:inc": "cd lib/strategies/incremental/client && npm install && node build.js && uglifyjs dist/global/incremental-render-client.js -o dist/global/incremental-render-client.min.js"
+    "document": "documentjs"
   },
   "repository": {
     "type": "git",
@@ -63,6 +62,7 @@
     "can-vdom": "^3.0.1",
     "can-zone": "^0.6.1",
     "dom-patch": "^2.1.0",
+    "done-ssr-incremental-rendering-client": "^1.0.2",
     "lodash.defaults": "^4.0.1",
     "node-fetch": "^1.7.1",
     "node-web-streams": "^0.2.2",
