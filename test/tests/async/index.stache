@@ -3,8 +3,9 @@
 		<title>test page</title>
 	</head>
 	<body>
-		<can-import from="async/routes"/>
+		<can-import from="async/routes" />
 		<can-import from="async/appstate" as="viewModel" />
+		<can-import from="async/styles.css" />
 
 		{{page}}
 

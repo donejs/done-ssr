@@ -27,36 +27,58 @@ describe("Incremental rendering", function(){
 		global.XMLHttpRequest = this.oldXHR;
 	});
 
-	it("Sends the correct rendering instructions", function(done){
-		var request = {
-			url: "/",
-			headers: {
-				"user-agent": chromeUA
-			}
-		};
+	describe("A basic asyc app", function(){
+		before(function(done){
+			var result = this.result = {
+				html: null,
+				instructions: []
+			};
 
-		var response = through(noop);
-		response.writeHead = noop;
-		response.push = function(){
-			var count = 0;
-			return new Writable({
-				write(chunk, enc, next) {
-					var json = chunk.toString();
-					var instrs = JSON.parse(json);
-
-					if(++count === 1) {
-						var instr = instrs[0];
-						var route = instr.route;
-						assert.equal(route, "0.2.5");
-					} else {
-						// TODO test this one maybe
-						done();
-					}
-					next();
+			var request = {
+				url: "/",
+				headers: {
+					"user-agent": chromeUA
 				}
-			});
-		};
+			};
 
-		this.render(request).pipe(response);
+			var response = through(function(buffer, enc, done){
+				result.html = buffer.toString();
+			});
+			response.writeHead = noop;
+			response.push = function(){
+				var count = 0;
+				return new Writable({
+					write(chunk, enc, next) {
+						var json = chunk.toString();
+						var instrs = JSON.parse(json);
+						result.instructions.push(instrs);
+
+						if(++count > 1) {
+							done();
+						}
+						next();
+					}
+				});
+			};
+
+			this.render(request).pipe(response);
+		});
+
+		it("Sends the correct rendering instructions", function(){
+			var instr = this.result.instructions[0][0];
+			var route = instr.route;
+			assert.equal(route, "0.2.7");
+		});
+
+		it("Includes the styles as part of the initial HTML", function(){
+			var dom = helpers.dom(this.result.html);
+			// The script is the first element of the dom
+			var doc = dom.nextSibling;
+			var style = helpers.find(doc, function(el){
+				return el.nodeName === "STYLE";
+			});
+
+			assert.ok(style, "Some styles were included");
+		});
 	});
 });
