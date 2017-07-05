@@ -46,16 +46,12 @@ describe("Incremental rendering", function(){
 			});
 			response.writeHead = noop;
 			response.push = function(){
-				var count = 0, ended = false;
 				return new Writable({
 					write(chunk, enc, next) {
 						var json = chunk.toString();
 						var instrs = JSON.parse(json);
 						result.instructions.push(instrs);
-						if(++count === 3 && !ended) {
-							ended = true;
-							done();
-						}
+						done();
 						next();
 					}
 				});
@@ -65,9 +61,12 @@ describe("Incremental rendering", function(){
 		});
 
 		it("Sends the correct rendering instructions", function(){
-			var instr = this.result.instructions[0][0];
-			var route = instr.route;
-			assert.equal(route, "0.2.7");
+			var instr = this.result.instructions[0][1];
+			assert.equal(instr.route, "0.2.7");
+			
+			// Easier to test
+			var nodeAsJson = JSON.stringify(instr.node);
+			assert.ok(/ORDER-HISTORY/.test(nodeAsJson), "adds the order-history component");
 		});
 
 		it("Includes the styles as part of the initial HTML", function(){
