@@ -15,11 +15,11 @@
 					<order-history></order-history>
 				{{/isResolved}}
 			</can-import>
-
-			{{#if message}}
-				<div id="message">{{message}}</div>
-			{{/if}}
 		{{/eq}}
+
+		{{#if message}}
+			<div id="message">{{message}}</div>
+		{{/if}}
 
 		<div class="language">{{language}}</div>
 	</body>
