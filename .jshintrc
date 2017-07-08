@@ -15,6 +15,7 @@
 		"canWait": true
 	},
 	"curly": true,
+	"esversion": 6,
 	"eqeqeq": true,
 	"freeze": true,
 	"indent": 2,

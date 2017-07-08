@@ -46,6 +46,27 @@ describe("async rendering", function(){
 		}));
 	});
 
+	it("request language is used", function(done){
+		var request = {
+			url: "/",
+			headers: {
+				"accept-language": "en-US"	
+			}
+		};
+		this.render(request).pipe(through(function(buffer){
+			var html = buffer.toString();
+			var node = helpers.dom(html);
+
+			node = helpers.find(node, function(n){
+				return n.className === "language";
+			});
+			var txt = helpers.text(node);
+
+			assert.equal(txt, "en-US", "used the accept-langauge header");
+			done();
+		}));
+	});
+
 	it("sets a 404 status for bad routes", function(done){
 		var response = through(function(){
 			var statusCode = response.statusCode;
@@ -54,5 +75,19 @@ describe("async rendering", function(){
 		});
 
 		this.render("/fake").pipe(response);
+	});
+
+	it("sets a 500 status when there are errors", function(done){
+		var response = through(function(){
+			assert.ok(false, "Should not have gotten here");
+			done();
+		});
+
+		var renderStream = this.render("?showError=true");
+		renderStream.pipe(response);
+		renderStream.on("error", function(err){
+			assert.ok(true, "Got an error");
+			done();
+		});
 	});
 });

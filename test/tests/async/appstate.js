@@ -15,6 +15,11 @@ module.exports = Map.extend({
 				return val;
 			}
 		},
+		language: {
+			value: function(){
+				return navigator.language;
+			}
+		},
 		message: {
 			type: "string"
 		},
@@ -28,5 +33,8 @@ module.exports = Map.extend({
 				}, 50);
 			}
 		}
+	},
+	someError: function(){
+		throw new Error("This is an error.");
 	}
 });

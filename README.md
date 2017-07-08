@@ -11,6 +11,8 @@
 
 # done-ssr
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/donejs/done-ssr.svg)](https://greenkeeper.io/)
+
 Server-side rendering for [DoneJS](https://donejs.com/).
 
 - [Install](#install)

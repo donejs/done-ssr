@@ -1,6 +1,6 @@
 {
   "name": "done-ssr",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
   "scripts": {
@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/donejs/done-ssr",
   "devDependencies": {
-    "can-component": "^3.0.4",
+    "can-component": "^3.2.1",
     "can-define": "^1.0.10",
     "can-fixture": "^1.0.12",
     "can-list": "^3.0.2",
@@ -43,25 +43,30 @@
     "can-stache": "^3.0.16",
     "copy-dir": "0.0.8",
     "documentjs": "^0.4.4",
-    "done-autorender": "^1.0.0-alpha.0",
-    "done-css": "^3.0.0-alpha.3",
-    "done-ssr-middleware": "^1.0.0-alpha.0",
-    "es6-promise": "^3.1.2",
+    "done-autorender": "^1.0.0",
+    "done-css": "^3.0.1",
+    "done-ssr-middleware": "^1.0.0",
+    "es6-promise": "^4.1.0",
     "jquery": "2.x - 3.x",
     "jshint": "^2.8.0",
-    "nock": "^8.0.0",
+    "leakage": "0.3.0-beta",
+    "nock": "^9.0.11",
     "spawn-mochas": "^1.1.0",
-    "steal-css": "^1.0.0",
     "steal-stache": "^3.0.4",
     "through2": "^2.0.1"
   },
   "dependencies": {
-    "can-util": "^3.2.0",
+    "can-util": "^3.5.1",
     "can-vdom": "^3.0.1",
-    "can-zone": "^0.6.1",
+    "can-zone": "^0.6.8",
     "lodash.defaults": "^4.0.1",
     "steal": "^1.0.6",
     "websocket": "^1.0.22",
     "xmlhttprequest": "^1.8.0"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "copy-dir"
+    ]
   }
 }
