@@ -29,7 +29,7 @@ next();
 function next() {
 	if(i !== 100) {
 		//console.log(Object.keys(System._loader.modules));
-		var len = Object.keys(System._loader.modules['can-util@3.3.5#dom/data/core'].module.default._data).length;
+		var len = Object.keys(System._loader.modules['can-util@3.9.6#dom/data/core'].module.default._data).length;
 		console.log("Keys:",len);
 	}
 
