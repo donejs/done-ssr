@@ -61,7 +61,7 @@ describe("Incremental rendering", function(){
 		});
 
 		it("Sends the correct rendering instructions", function(){
-			var instr = this.result.instructions[0][1];
+			var instr = this.result.instructions[0][0];
 			assert.equal(instr.route, "0.2.7");
 			
 			// Easier to test

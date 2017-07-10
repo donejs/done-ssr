@@ -76,4 +76,18 @@ describe("async rendering", function(){
 
 		this.render("/fake").pipe(response);
 	});
+
+	it("sets a 500 status when there are errors", function(done){
+		var response = through(function(){
+			assert.ok(false, "Should not have gotten here");
+			done();
+		});
+
+		var renderStream = this.render("?showError=true");
+		renderStream.pipe(response);
+		renderStream.on("error", function(err){
+			assert.ok(true, "Got an error");
+			done();
+		});
+	});
 });
