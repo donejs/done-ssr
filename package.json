@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "can-util": "^3.5.1",
-    "can-vdom": "^3.0.1",
+    "can-vdom": "^3.1.1",
     "can-zone": "^0.6.8",
     "dom-patch": "^2.1.1",
     "done-ssr-incremental-rendering-client": "^1.0.2",
