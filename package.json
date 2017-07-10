@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/donejs/done-ssr",
   "devDependencies": {
-    "can-component": "^3.0.4",
+    "can-component": "^3.2.1",
     "can-define": "^1.0.10",
     "can-fixture": "^1.0.12",
     "can-list": "^3.0.2",
@@ -60,7 +60,7 @@
   "dependencies": {
     "can-util": "^3.5.1",
     "can-vdom": "^3.0.1",
-    "can-zone": "^0.6.1",
+    "can-zone": "^0.6.8",
     "dom-patch": "^2.1.1",
     "done-ssr-incremental-rendering-client": "^1.0.2",
     "lodash.defaults": "^4.0.1",

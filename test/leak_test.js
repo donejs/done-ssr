@@ -8,7 +8,7 @@ var through = require("through2");
 describe("Memory leaks", function(){
 	this.timeout(30000);
 
-	before(function(){
+	before(function(done){
 		this.oldXHR = global.XMLHttpRequest;
 		global.XMLHttpRequest = helpers.mockXHR(
 			'[ { "a": "a" }, { "b": "b" } ]');
@@ -27,6 +27,9 @@ describe("Memory leaks", function(){
 				render(pth).pipe(stream);
 			});
 		};
+
+		// Render once so that everything is loaded
+		this.render("/").then(_ => done());
 	});
 
 	after(function(){
