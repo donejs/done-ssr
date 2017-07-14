@@ -4,16 +4,26 @@ var assert = require("assert");
 var path = require("path");
 var Writable = require("stream").Writable;
 var through = require("through2");
+var createXHR = require("../lib/polyfills/xhr");
 var noop = Function.prototype;
 var chromeUA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.109 Safari/537.36";
+
+function emptyWritable() {
+	return new Writable({write(c,e,next){next();}});
+}
 
 describe("Incremental rendering", function(){
 	this.timeout(10000);
 
 	before(function(){
 		this.oldXHR = global.XMLHttpRequest;
-		global.XMLHttpRequest = helpers.mockXHR(
+		var MockXHR = helpers.mockXHR(
 			'[ { "a": "a" }, { "b": "b" } ]');
+		global.XMLHttpRequest = createXHR(function(){
+			MockXHR.apply(this, arguments);
+			this.open = MockXHR.prototype.open.bind(this);
+			this.send = MockXHR.prototype.send.bind(this);
+		});
 
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
@@ -45,16 +55,29 @@ describe("Incremental rendering", function(){
 				result.html = buffer.toString();
 			});
 			response.writeHead = noop;
-			response.push = function(){
+
+			function instructions() {
 				return new Writable({
 					write(chunk, enc, next) {
 						var json = chunk.toString();
 						var instrs = JSON.parse(json);
 						result.instructions.push(instrs);
-						done();
 						next();
 					}
 				});
+			}
+
+			var pushes = 2;
+			response.push = function(url){
+				pushes--;
+				if(pushes === 0) {
+					setTimeout(done, 10);
+				}
+				if(/donessr_instructions/.test(url)) {
+					return instructions();
+				} else if(url === "foo://bar") {
+					return emptyWritable();
+				}
 			};
 
 			this.render(request).pipe(response);
