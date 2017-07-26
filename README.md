@@ -18,8 +18,8 @@ Server-side rendering for [DoneJS](https://donejs.com/).
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
-  - <code>[ssr(system, options)](#ssrsystem-options---render)</code>
-    - <code>[system](#system)</code>
+  - <code>[ssr(steal, options)](#ssrsteal-options---render)</code>
+    - <code>[steal](#steal)</code>
 	- <code>[options](#options)</code>
 	  - <code>[timeout](#timeout--5000)</code>
 	  - <code>[debug](#debug--false)</code>
@@ -34,7 +34,7 @@ npm install done-ssr --save
 
 ## Usage
 
-**done-ssr** takes a system configuration object (the same object used by steal-tools to configure building) and returns a function that will render requests.
+**done-ssr** takes a *steal* configuration object (the same object used by steal-tools to configure building) and returns a function that will render requests.
 
 Pass your request into the render function and pipe the resulting stream into the response.
 
@@ -80,11 +80,11 @@ As of *0.12* can-ssr was renamed to done-ssr. The Express middleware and can-ser
 
 ## API
 
-### ssr(system, options) -> render
+### ssr(steal, options) -> render
 
-The `ssr` function contains two arguments, one for the **system** object and one is an **options** object:
+The `ssr` function contains two arguments, one for the **steal** object and one is an **options** object:
 
-#### system
+#### steal
 
 Configuration options that are a [SystemConfig](http://stealjs.com/docs/steal-tools.SystemConfig.html). This is the same object that is passed into steal-tools to configure the loader for building.
 
@@ -110,13 +110,23 @@ Specify to turn on debug mode when used in conjunction with timeout. If renderin
 
 ![debug output](https://cloud.githubusercontent.com/assets/361671/14474862/08b5f01e-00cd-11e6-8d70-b3f3ba835493.png)
 
+##### strategy: 'safe'
+
+Specify the rendering strategy. In done-ssr 1.1.0 the new incremental rendering strategy was added which works by returning initial HTML immediately and incrementally updating the DOM in the client. To enable incremental rendering set this option:
+
+```js
+var render = ssr(steal, {
+  strategy: "incremental"
+});
+```
+
 ##### html5shiv : false
 
 Specifies where html5shiv should be configured and attached to the document's head. This will automatically register all of the custom can.Component elements for you when using IE8.
 
 ### render(request)
 
-The **render** function is returned from the call to [ssr](#ssrsystem-options---render) and is what used to render requests. It returns a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) that can be piped into other streams, using the response stream.
+The **render** function is returned from the call to [ssr](#ssrsteal-options---render) and is what used to render requests. It returns a [readable stream](https://nodejs.org/api/stream.html#stream_class_stream_readable) that can be piped into other streams, using the response stream.
 
 ```js
 render(request).pipe(response);
