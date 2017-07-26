@@ -136,3 +136,7 @@ exports.mockXHR = function(responseFN, options){
 	};
 	return XHR;
 };
+
+exports.ua = {
+	chrome: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.109 Safari/537.36"
+};

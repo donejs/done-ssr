@@ -4,39 +4,25 @@ var assert = require("assert");
 var path = require("path");
 var Writable = require("stream").Writable;
 var through = require("through2");
-var createXHR = require("../lib/polyfills/xhr");
 var noop = Function.prototype;
+var path = require("path");
 
-function emptyWritable() {
-	return new Writable({write(c,e,next){next();}});
-}
-
-describe("Incremental rendering", function(){
+describe("Incremental rendering - plain JS", function(){
 	this.timeout(10000);
 
 	before(function(){
-		this.oldXHR = global.XMLHttpRequest;
-		var MockXHR = helpers.mockXHR(
-			'[ { "a": "a" }, { "b": "b" } ]');
-		global.XMLHttpRequest = createXHR(function(){
-			MockXHR.apply(this, arguments);
-			this.open = MockXHR.prototype.open.bind(this);
-			this.send = MockXHR.prototype.send.bind(this);
-		});
-
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
-			main: "async/index.stache!done-autorender"
+			main: "plain/main",
+			paths: {
+				"done-ssr/import": "file:" + path.resolve(__dirname + "/../import.js")
+			}
 		}, {
 			strategy: "incremental"
 		});
 	});
 
-	after(function(){
-		global.XMLHttpRequest = this.oldXHR;
-	});
-
-	describe("A basic async app", function(){
+	describe("A basic asyc app", function(){
 		before(function(done){
 			var result = this.result = {
 				html: null,
@@ -56,7 +42,7 @@ describe("Incremental rendering", function(){
 			response.writeHead = noop;
 
 			function instructions() {
-				return new Writable({
+				var writable = new Writable({
 					write(chunk, enc, next) {
 						var json = chunk.toString();
 						var instrs = JSON.parse(json);
@@ -64,31 +50,26 @@ describe("Incremental rendering", function(){
 						next();
 					}
 				});
+
+				var end = writable.end;
+				writable.end = function(){
+					done();
+					return end.apply(this, arguments);
+				};
+
+				return writable;
 			}
 
-			var pushes = 2;
-			response.push = function(url){
-				pushes--;
-				if(pushes === 0) {
-					setTimeout(done, 10);
-				}
-				if(/donessr_instructions/.test(url)) {
-					return instructions();
-				} else if(url === "foo://bar") {
-					return emptyWritable();
-				}
+			response.push = function(){
+				return instructions();
 			};
 
 			this.render(request).pipe(response);
 		});
 
-		it("Sends the correct rendering instructions", function(){
-			var instr = this.result.instructions[0][0];
-			assert.equal(instr.route, "0.2.7");
-			
-			// Easier to test
-			var nodeAsJson = JSON.stringify(instr.node);
-			assert.ok(/ORDER-HISTORY/.test(nodeAsJson), "adds the order-history component");
+		it("Sends back rendering instructions", function(){
+			var instrs = this.result.instructions[0];
+			assert.ok(instrs.length > 0, "Some instructions were returned");
 		});
 
 		it("Includes the styles as part of the initial HTML", function(){
