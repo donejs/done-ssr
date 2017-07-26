@@ -1,8 +1,8 @@
 import Component from 'can-component';
-import template from './bar.stache!';
+import view from './bar.stache!';
 
 export default Component.extend({
-	template,
+	view,
 	leakScope: false,
 	tag: 'app-bar'
 });
