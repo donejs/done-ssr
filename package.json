@@ -42,7 +42,7 @@
     "can-route-pushstate": "^3.0.3",
     "can-stache": "^3.0.16",
     "copy-dir": "0.0.8",
-    "documentjs": "^0.4.4",
+    "documentjs": "^0.5.0",
     "done-autorender": "^1.1.0",
     "done-css": "^3.0.1",
     "done-ssr-middleware": "^1.0.0",
