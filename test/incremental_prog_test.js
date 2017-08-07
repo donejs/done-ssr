@@ -30,40 +30,25 @@ describe("Incremental rendering", function(){
 		global.XMLHttpRequest = this.oldXHR;
 	});
 
-	describe("A basic async app", function(){
+	describe("A progressively loaded page", function(){
 		before(function(done){
 			var {
 				request,
 				response,
 				result,
 				complete
-			} = incHelpers.mock("/", 2);
+			} = incHelpers.mock("/orders", 2);
 
 			this.result = result;
 			this.render(request).pipe(response);
 
-			// Complete is a promise that resolves when rendering is done
 			complete.then(done);
 		});
 
-		it("Sends the correct rendering instructions", function(){
-			var instr = this.result.instructions[0][1];
-			assert.equal(instr.route, "0.2.7");
-			
-			// Easier to test
-			var nodeAsJson = JSON.stringify(instr.node);
-			assert.ok(/ORDER-HISTORY/.test(nodeAsJson), "adds the order-history component");
-		});
-
-		it("Includes the styles as part of the initial HTML", function(){
-			var dom = helpers.dom(this.result.html);
-			// The script is the first element of the dom
-			var doc = dom.nextSibling;
-			var style = helpers.find(doc, function(el){
-				return el.nodeName === "STYLE";
-			});
-
-			assert.ok(style, "Some styles were included");
+		it("Pushed a mutation to insert styles", function(){
+			var instr = this.result.instructions[0][0];
+			assert.equal(instr.type, "insert", "Inserting an element");
+			assert.equal(instr.node[3], "STYLE", "Inserting a style tag");
 		});
 	});
 });

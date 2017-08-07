@@ -23,5 +23,6 @@ mochas([
 	"cache-normalize_test.js",
 	"leak_test.js",
 	"incremental_test.js",
-	"incremental_plain_test.js"
+	"incremental_plain_test.js",
+	"incremental_prog_test.js"
 ], __dirname);
