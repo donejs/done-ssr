@@ -31,16 +31,17 @@ describe("Timeouts", function(){
 
 	it("Doesn't timeout if rendered quickly enough", function(done){
 		this.render("/fast").pipe(through(function(buffer){
-			var html = buffer.toString();
-			var node = helpers.dom(html);
+			Promise.resolve().then(function(){
+				var html = buffer.toString();
+				var node = helpers.dom(html);
 
-			var result = node.getElementById("result").innerHTML;
+				var result = node.getElementById("result").innerHTML;
+				assert.equal(result, "passed", "Timed out");
 
-			assert.equal(result, "passed", "Timed out");
-
-			var debug = node.getElementById("done-ssr-debug");
-			assert.ok(!debug, "debug node not present");
-			done();
+				var debug = node.getElementById("done-ssr-debug");
+				assert.ok(!debug, "debug node not present");
+			})
+			.then(done, done);
 		}));
 	});
 
