@@ -25,5 +25,5 @@ var ViewModel = Map.extend({
 Component.extend({
 	tag: "order-history",
 	view: view,
-	viewModel: ViewModel
+	ViewModel: ViewModel
 });

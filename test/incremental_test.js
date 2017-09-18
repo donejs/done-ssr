@@ -49,7 +49,7 @@ describe("Incremental rendering", function(){
 		it("Sends the correct rendering instructions", function(){
 			var instr = this.result.instructions[0][1];
 			assert.equal(instr.route, "0.2.7");
-			
+
 			// Easier to test
 			var nodeAsJson = JSON.stringify(instr.node);
 			assert.ok(/ORDER-HISTORY/.test(nodeAsJson), "adds the order-history component");

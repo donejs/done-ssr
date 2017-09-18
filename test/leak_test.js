@@ -21,7 +21,7 @@ describe("Memory leaks", function(){
 		this.render = function(pth){
 			return new Promise(function(resolve, reject){
 				var stream = through(function(buffer){
-					resolve(buffer);
+					setTimeout(resolve, 300);
 				});
 				stream.on("error", reject);
 				render(pth).pipe(stream);
@@ -37,6 +37,7 @@ describe("Memory leaks", function(){
 	});
 
 	it("do not happen", function(done){
+
 		iterate(10, () => {
 			return this.render("/");
 		})

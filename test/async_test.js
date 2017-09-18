@@ -24,25 +24,27 @@ describe("async rendering", function(){
 
 	it("basics works", function(done){
 		this.render("/").pipe(through(function(buffer){
-			var html = buffer.toString();
-			var node = helpers.dom(html);
+			Promise.resolve().then(function(){
+				var html = buffer.toString();
+				var node = helpers.dom(html);
 
-			var message = node.getElementById("orders");
+				var message = node.getElementById("orders");
 
-			assert(message, "Found the message element that was rendered" +
-				   "asynchronously");
+				assert(message, "Found the message element that was rendered" +
+					   "asynchronously");
 
-			var cache = helpers.getXhrCache(node);
+				var cache = helpers.getXhrCache(node);
 
-			assert.equal(cache.length, 1, "There is one item in cache");
-			assert.equal(cache[0].request.url, "foo://bar", "correct request url");
+				assert.equal(cache.length, 1, "There is one item in cache");
+				assert.equal(cache[0].request.url, "foo://bar", "correct request url");
 
-			var resp = cache[0].response;
+				var resp = cache[0].response;
 
 
-			assert.equal(resp.headers, "Content-Type: application/json",
-						 "Header was added");
-			done();
+				assert.equal(resp.headers, "Content-Type: application/json",
+							 "Header was added");
+			})
+			.then(done, done);
 		}));
 	});
 
@@ -50,7 +52,7 @@ describe("async rendering", function(){
 		var request = {
 			url: "/",
 			headers: {
-				"accept-language": "en-US"	
+				"accept-language": "en-US"
 			}
 		};
 		this.render(request).pipe(through(function(buffer){
