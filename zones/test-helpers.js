@@ -21,9 +21,8 @@ exports.Request = class extends http.IncomingMessage {
 };
 
 exports.Response = class extends Writable {
-	constructor(...args) {
-		super(...args);
-
+	constructor(options) {
+		super(options);
 		this.data = {};
 	}
 
@@ -33,7 +32,7 @@ exports.Response = class extends Writable {
 		pushes.push(push);
 		return new Writable({
 			write: function(data, enc, next){
-				push[2].push(data.toString());
+				push[2].push(data);
 				next();
 			}
 		});

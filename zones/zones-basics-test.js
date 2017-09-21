@@ -38,7 +38,7 @@ describe("SSR Zones - Basics", function(){
 						dom(request),
 
 						pushFetch(response),
-						pushImages(response)
+						pushImages(response, __dirname + "/tests/basics")
 					]
 				});
 
@@ -59,17 +59,21 @@ describe("SSR Zones - Basics", function(){
 
 		it("Data from the fetch requests was pushed", function(){
 			var pushes = this.response.data.pushes;
-			var [url, opts, data] = pushes[0];
+			var [url, opts, data] = pushes[1];
 
 			assert.equal(url, "/api/todos", "Todos api");
 
-			var todos = JSON.parse(data[0]);
+			var todos = JSON.parse(data[0].toString());
 			assert.equal(todos[0], "eat");
 			assert.equal(todos[1], "sleep");
 		});
 
 		it("Images from the request were pushed", function(){
+			var pushes = this.response.data.pushes;
+			var [url, opts, data] = pushes[0];
 
+			assert.equal(url, "/images/cat.png");
+			assert.ok(data.length, "Got the data too");
 		});
 	});
 });

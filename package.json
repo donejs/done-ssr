@@ -64,6 +64,7 @@
     "dom-patch": "^2.1.1",
     "done-ssr-incremental-rendering-client": "^1.0.2",
     "lodash.defaults": "^4.0.1",
+    "mime-types": "^2.1.17",
     "node-fetch": "^1.7.1",
     "node-web-streams": "^0.2.2",
     "npm": "^5.0.3",
