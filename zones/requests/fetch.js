@@ -40,28 +40,13 @@ module.exports = function(request){
 			response.text = resp.text.bind(resp);
 			return response;
 		});
-	};
+	}
 
-
-	return function(data){
-		var overrides;
-
-		return {
-			created: function(){
-				overrides = Override.all(
-					["ReadableStream", webStreams.ReadableStream],
-					["TextDecoder", TextDecoder],
-					["fetch", fetch]
-				);
-			},
-
-			beforeTask: function(){
-				overrides.on();
-			},
-
-			afterTask: function(){
-				overrides.off();
-			}
-		};
+	return {
+		globals: {
+			ReadableStream: webStreams.ReadableStream,
+			TextDecoder: TextDecoder,
+			fetch: fetch
+		}
 	};
 };

@@ -3,6 +3,7 @@ var requests = require("./requests");
 var dom = require("./can-simple-dom");
 var pushFetch = require("./push-fetch");
 var pushImages = require("./push-images");
+var pushXHR = require("./push-xhr");
 
 var assert = require("assert");
 var {
@@ -15,7 +16,15 @@ var main = require("./tests/basics/main");
 
 var spinUpServer = function(cb){
 	return createServer(8070, function(req, res){
-		res.end(JSON.stringify(["eat", "sleep"]));
+		switch(req.url) {
+			case "/api/todos":
+				var data = ["eat", "sleep"];
+				break;
+			case "/api/cart":
+				var data = { count: 22 };
+				break;
+		}
+		res.end(JSON.stringify(data));
 	})
 	.then(server => {
 		return cb().then(() => server.close());
@@ -38,7 +47,8 @@ describe("SSR Zones - Basics", function(){
 						dom(request),
 
 						pushFetch(response),
-						pushImages(response, __dirname + "/tests/basics")
+						pushImages(response, __dirname + "/tests/basics"),
+						pushXHR(response)
 					]
 				});
 
@@ -56,6 +66,10 @@ describe("SSR Zones - Basics", function(){
 
 			assert.equal(first, "eat", "got the first li");
 			assert.equal(second, "sleep", "got the second li");
+
+			var cart = helpers.find(dom, node => node.getAttribute &&
+				node.getAttribute("id") === "cart");
+			assert.equal(cart.firstChild.nodeValue, "Count: 22", "XHR works");
 		});
 
 		it("Data from the fetch requests was pushed", function(){
@@ -67,6 +81,16 @@ describe("SSR Zones - Basics", function(){
 			var todos = JSON.parse(data[0].toString());
 			assert.equal(todos[0], "eat");
 			assert.equal(todos[1], "sleep");
+		});
+
+		it("Data from the XHR requests was pushed", function(){
+			var pushes = this.response.data.pushes;
+			var [url, opts, data] = pushes[2];
+
+			assert.equal(url, "/api/cart", "Cart api");
+
+			var cart = JSON.parse(data[0].toString());
+			assert.equal(cart.count, 22, "Have the cart!");
 		});
 
 		it("Images from the request were pushed", function(){

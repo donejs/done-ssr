@@ -15,7 +15,19 @@ module.exports = function(){
 			ul.appendChild(li);
 		});
 	})
-	.then(null, err => console.log(err))
+	.then(null, err => console.log(err));
+
+	var cartDiv = document.createElement("div");
+	cartDiv.setAttribute("id", "cart");
+	main.appendChild(cartDiv);
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "/api/cart", true);
+	xhr.onload = function(){
+		var data = JSON.parse(xhr.responseText);
+		cartDiv.textContent = `Count: ${data.count}`;
+	};
+	xhr.send();
 
 	document.body.appendChild(main);
 };

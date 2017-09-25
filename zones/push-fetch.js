@@ -16,17 +16,15 @@ module.exports = function(response){
 		});
 	}
 
-	return function(){
-		return {
-			created: function(){
-				override = Override.global("fetch", fetch);
-			},
-			beforeTask: function(){
-				override.on();
-			},
-			afterTask: function(){
-				override.off();
-			}
-		};
+	return {
+		created: function(){
+			override = Override.global("fetch", fetch);
+		},
+		beforeTask: function(){
+			override.on();
+		},
+		afterTask: function(){
+			override.off();
+		}
 	};
 };
