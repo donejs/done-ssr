@@ -10,6 +10,7 @@ module.exports = function(response, root){
 	return function(data){
 		var images = new Set();
 		var oldCreateElement;
+		var document;
 
 		function pushImage(img) {
 			var mimeType = mime.lookup(img.src);
@@ -34,10 +35,8 @@ module.exports = function(response, root){
 
 		function onChanges(changes) {
 			for(let img of images) {
-				if(img.inDocument) {
-					images.delete(img);
-					pushImage(img);
-				}
+				images.delete(img);
+				pushImage(img);
 			}
 		}
 
@@ -51,7 +50,7 @@ module.exports = function(response, root){
 
 		return {
 			created: function(){
-				var document = data.document;
+				document = data.document;
 				domPatch(document, onChanges);
 			},
 			beforeTask: function(){

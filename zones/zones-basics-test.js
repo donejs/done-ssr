@@ -47,6 +47,7 @@ describe("SSR Zones - Basics", function(){
 		});
 
 		it("Includes the right HTML", function(){
+			assert(this.zone.data.html);
 			var dom = helpers.dom(this.zone.data.html);
 			var ul = helpers.find(dom, node => node.nodeName === "UL");
 

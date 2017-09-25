@@ -1,3 +1,5 @@
+var makeWindow = require("can-vdom/make-window/make-window");
+var document = makeWindow({}).document;
 
 exports.dom = function(html){
 	html = html.replace("<!DOCTYPE html>", "").trim();
