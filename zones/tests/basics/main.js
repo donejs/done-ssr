@@ -11,7 +11,7 @@ module.exports = function(){
 	fetch("/api/todos").then(res => res.json()).then(todos => {
 		todos.forEach(todo => {
 			var li = document.createElement("li");
-			li.textContent = todo;
+			li.appendChild(document.createTextNode(todo));
 			ul.appendChild(li);
 		});
 	})
