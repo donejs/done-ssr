@@ -12,9 +12,9 @@ exports.createServer = function(port, cb){
 };
 
 exports.Request = class extends http.IncomingMessage {
-	constructor() {
+	constructor(url) {
 		super();
-		this.url = "/";
+		this.url = url || "/";
 		this.protocol = "http";
 		this.get = name => "localhost:8070";
 	}
