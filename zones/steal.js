@@ -35,7 +35,6 @@ module.exports = function(cfg){
 					if(mains.has(cfg.main)) {
 						startup = mains.get(cfg.main);
 					} else {
-						//startup = this.waitFor(configureAndRun)();
 						startup = configureAndRun();
 						mains.set(cfg.main, startup);
 					}
@@ -44,8 +43,8 @@ module.exports = function(cfg){
 						if(runFn) {
 							runFn();
 						} else {
+							zone.data.modules = modules;
 							var main = modules.main;
-							debugger;
 							(main.default || main)(data.request);
 						}
 

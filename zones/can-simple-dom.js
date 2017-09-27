@@ -6,7 +6,8 @@ module.exports = function(request){
 		// Create the document
 		var window = makeWindow({});
 		window.window = Object.assign({}, global, window);
-		window.location = window.document.location = url.parse(request.url, true);
+		window.location = window.document.location = window.window.location =
+		 url.parse(request.url, true);
 		if(!window.location.protocol) {
 			window.location.protocol = "http:";
 		}
