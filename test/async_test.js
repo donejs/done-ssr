@@ -36,7 +36,7 @@ describe("async rendering", function(){
 				var cache = helpers.getXhrCache(node);
 
 				assert.equal(cache.length, 1, "There is one item in cache");
-				assert.equal(cache[0].request.url, "foo://bar", "correct request url");
+				assert.equal(cache[0].request.url, "http://localhost:8070/bar", "correct request url");
 
 				var resp = cache[0].response;
 

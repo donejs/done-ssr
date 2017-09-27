@@ -1,5 +1,6 @@
-var Steal = require("steal");
+var makeRender = require("../lib/make_render");
 var ReloadableStartup = require("../lib/reloadable-startup");
+var Steal = require("steal");
 
 var mains = new Map();
 
@@ -44,8 +45,11 @@ module.exports = function(cfg){
 							runFn();
 						} else {
 							zone.data.modules = modules;
-							var main = modules.main;
-							(main.default || main)(data.request);
+							debugger;
+
+							var render = makeRender(modules.main, modules.can);
+							render(data.request);
+
 							zone.execHook("afterStealMain")
 						}
 
@@ -59,7 +63,8 @@ module.exports = function(cfg){
 			created: function(){
 				this.run = makeRun(this);
 				data.steal = steal;
-			}
+			},
+			hooks: ["afterStealMain"]
 		};
 	};
 };

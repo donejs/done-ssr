@@ -17,13 +17,15 @@ module.exports = function(data){
 		},
 
 		beforeTask: function() {
-			if(canRoute) {
-				oldRouteData = canRoute.data;
+			if(canRoute && routeData) {
+				try {
+					oldRouteData = canRoute.data;
+				} catch(e) {}
 				canRoute.data = routeData;
 			}
 		},
 		afterTask: function(){
-			if(canRoute) {
+			if(canRoute && oldRouteData) {
 				canRoute.data = oldRouteData;
 			}
 		}
