@@ -46,6 +46,7 @@ module.exports = function(cfg){
 							zone.data.modules = modules;
 							var main = modules.main;
 							(main.default || main)(data.request);
+							zone.execHook("afterStealMain")
 						}
 
 					});
