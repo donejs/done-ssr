@@ -9,18 +9,31 @@ describe("xhr async rendering", function() {
 
 	var render;
 
-	before(function() {
-		this.oldXHR = global.XMLHttpRequest;
-		global.XMLHttpRequest = helpers.mockXHR('[1,2,3,4,5]');
-
+	before(function(done) {
 		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "xhr/index.stache!done-autorender"
 		});
+
+		helpers.createServer(8070, function(req, res){
+			switch(req.url) {
+				case "/api/list":
+					var data = [1,2,3,4,5];
+					break;
+				default:
+					throw new Error("No route for " + req.url);
+			}
+			res.setHeader("Content-Type", "application/json");
+			res.end(JSON.stringify(data));
+		})
+		.then(server => {
+			this.server = server;
+			done();
+		});
 	});
 
 	after(function() {
-		global.XMLHttpRequest = this.oldXHR;
+		this.server.close();
 	});
 
 	it("works", function(done) {

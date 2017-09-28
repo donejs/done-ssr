@@ -23,14 +23,6 @@ module.exports = function(request, options){
 				var domainIsApproved = options.auth.domains.reduce(function(prev, domain){
 					return prev || reqURL.host.indexOf(domain) >= 0;
 				}, false);
-
-				// If on an approved domain copy the jwt from a cookie to the request headers.
-				if (domainIsApproved) {
-					var jwtCookie = cookieReg.exec(cookie);
-					if(jwtCookie && !this.getRequestHeader('authorization')){
-						this.setRequestHeader('authorization', 'Bearer ' + jwtCookie[1]);
-					}
-				}
 			}
 
 			// fix: if proxy is specified, use proxy-hostname instead of request-hostname for xhrURL
@@ -43,7 +35,18 @@ module.exports = function(request, options){
 			) {
 				args[1] = url.resolve(options.proxy, xhrURL);
 			}
-			return oldOpen.apply(this, args);
+			var res = oldOpen.apply(this, args);
+
+			// If on an approved domain copy the jwt from a cookie to the request headers.
+			if (domainIsApproved) {
+				debugger;
+				var jwtCookie = cookieReg.exec(cookie);
+				if(jwtCookie && !this.getRequestHeader('authorization')){
+					this.setRequestHeader('authorization', 'Bearer ' + jwtCookie[1]);
+				}
+			}
+
+			return res;
 		};
 
 		var send = function(){

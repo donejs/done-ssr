@@ -14,7 +14,7 @@ module.exports = Map.extend({
 					set(results);
 				});
 
-				xhr.open("GET", "http://www.example.org/api/list");
+				xhr.open("GET", "http://localhost:8070/api/list");
 				xhr.send();
 			}
 		}
