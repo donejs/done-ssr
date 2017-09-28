@@ -1,5 +1,7 @@
 var makeWindow = require("can-vdom/make-window/make-window");
+var once = require("once");
 var url = require("url");
+var zoneRegister = require("can-zone/register");
 
 module.exports = function(request){
 	return function(data){
@@ -12,11 +14,16 @@ module.exports = function(request){
 			window.location.protocol = "http:";
 		}
 
+		if(request.headers && request.headers["accept-language"]) {
+			window.navigator.language = request.headers["accept-language"];
+		}
+
 		return {
 			globals: window,
 			created: function(){
 				data.document = window.document;
 				data.request = request;
+				registerNode(window);
 			},
 			ended: function(){
 				data.html = data.document.documentElement.outerHTML;
@@ -24,3 +31,12 @@ module.exports = function(request){
 		};
 	};
 };
+
+// Calls to can-zone/register so that Node.prototype.addEventListener is wrapped.
+// This only needs to happen once, ever.
+var registerNode = once(function(window) {
+	var oldNode = global.Node;
+	global.Node = window.Node;
+	zoneRegister();
+	global.Node = oldNode;
+});

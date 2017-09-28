@@ -45,15 +45,19 @@ module.exports = function(cfg){
 							runFn();
 						} else {
 							zone.data.modules = modules;
-							debugger;
 
 							var render = makeRender(modules.main, modules.can);
 							render(data.request);
 
 							zone.execHook("afterStealMain")
 						}
-
-					});
+					}).catch(function(error){
+						// This prevents the error from being unhandled, but
+						// is still part of the Zone
+						setTimeout(function(){
+							throw error;
+						});
+					})
 				});
 			};
 		}

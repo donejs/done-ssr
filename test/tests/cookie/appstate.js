@@ -10,13 +10,15 @@ module.exports = Map.extend({
 				var xhr = new XMLHttpRequest();
 
 				xhr.addEventListener("load", function() {
+					debugger;
+					console.log("IN IT?", !!CanZone.current);
 					set( this.responseText );
 				});
 				xhr.addEventListener("error", function() {
 					console.log( "err", this, arguments );
 				});
 
-				xhr.open("GET", "http://www.example.org/session");
+				xhr.open("GET", "http://localhost:8070/session");
 				xhr.send();
 			}
 		},

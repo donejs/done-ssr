@@ -1,3 +1,5 @@
+var canReflect = require("can-reflect");
+var noop = Function.prototype;
 
 module.exports = function(data){
 	var canRoute, routeData,
@@ -8,11 +10,13 @@ module.exports = function(data){
 		afterStealMain: function(){
 			canRoute = data.modules.can.route;
 			routeData = canRoute.data;
+			routeData.addEventListener("statusCode", noop);
 		},
 		afterRun: function(){
 			try {
 				canRoute = require("can-route");
 				routeData = canRoute.data;
+				routeData.addEventListener("statusCode", noop);
 			} catch(e){}
 		},
 
@@ -27,6 +31,12 @@ module.exports = function(data){
 		afterTask: function(){
 			if(canRoute && oldRouteData) {
 				canRoute.data = oldRouteData;
+			}
+		},
+		ended: function(){
+			if(routeData) {
+				data.statusCode = canReflect.getKeyValue(routeData, "statusCode");
+				routeData.removeEventListener("statusCode", noop);
 			}
 		}
 	};

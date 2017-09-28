@@ -1,5 +1,7 @@
+var once = require("once");
 var resolveUrl = require("../../lib/util/resolve_url");
 var XMLHttpRequest2 = require("xmlhttprequest2").XMLHttpRequest;
+var zoneRegister = require("can-zone/register");
 
 module.exports = function(request){
 	function makeXHR(xhr) {
@@ -39,9 +41,22 @@ module.exports = function(request){
 		return XHR;
 	}
 
+	var XMLHttpRequest = makeXHR(XMLHttpRequest2)
+
 	return {
 		globals: {
-			XMLHttpRequest: makeXHR(XMLHttpRequest2)
+			XMLHttpRequest: XMLHttpRequest
+		},
+		created: function(){
+			registerXHR(XMLHttpRequest);
 		}
 	};
 };
+
+// Calls to can-zone/register so that XHR is wrapped.
+// This only needs to happen once, ever.
+var registerXHR = once(function(XMLHttpRequest) {
+	global.XMLHttpRequest = XMLHttpRequest;
+	zoneRegister();
+	delete global.XMLHttpRequest;
+});

@@ -58,6 +58,7 @@
     "uglify-js": "^3.0.20"
   },
   "dependencies": {
+    "can-reflect": "^1.4.1",
     "can-util": "^3.5.1",
     "can-vdom": "^3.1.1",
     "can-zone": "^0.6.11",
@@ -69,6 +70,7 @@
     "node-fetch": "^1.7.1",
     "node-web-streams": "^0.2.2",
     "npm": "^5.0.3",
+    "once": "^1.4.0",
     "steal": "^1.0.6",
     "text-encoding": "^0.6.4",
     "useragent": "^2.1.13",

@@ -17,6 +17,9 @@ var ViewModel = Map.extend({
 						var data = JSON.parse(xhr.responseText);
 						resolve(data);
 					};
+					xhr.onerror = function(err){
+						console.error(err);
+					}
 					xhr.send();
 				});
 
