@@ -18,12 +18,10 @@ describe("cookie async rendering", function() {
 			switch(req.url) {
 				case "/session":
 					value = cookieValue;
-					//var data = [ { "a": "a" }, { "b": "b" } ];
 					break;
 				default:
 					throw new Error("No route for " + req.url);
 			}
-			console.log("COOKIE IS",cookieValue)
 			res.setHeader("Set-Cookie", cookieValue);
 			res.end(value);
 		})
@@ -31,20 +29,6 @@ describe("cookie async rendering", function() {
 			this.server = server;
 			done();
 		});
-
-
-		/*
-		this.oldXHR = global.XMLHttpRequest;
-		var XHR = global.XMLHttpRequest = helpers.mockXHR(function(){
-			return cookieValue;
-		});
-		XHR.prototype.setRequestHeader = function(name, cookie){
-			cookieValue = cookie;
-		};
-		XHR.prototype.getResponseHeader = function(name){
-			if(name === "Set-Cookie") { return cookieValue; }
-		};
-		*/
 
 		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),

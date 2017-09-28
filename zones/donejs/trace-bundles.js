@@ -1,5 +1,19 @@
+var bundleHelpers;
 
-module.exports = function(loader){
+module.exports = function(data){
+	return {
+		beforeStealStartup: function(){
+			bundleHelpers = traceBundles(data.steal.loader)
+		},
+		created: function(){
+			Object.defineProperty(data, "bundleHelpers", {
+				get: function() { return bundleHelpers }
+			});
+		}
+	}
+};
+
+function traceBundles(loader){
 	var bundles = {"@global": {}};
 	var parentMap = loader.__ssrParentMap = {};
 

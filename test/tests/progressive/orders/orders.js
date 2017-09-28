@@ -40,7 +40,7 @@ var ViewModel = Map.extend({
 Component.extend({
 	tag: "order-history",
 	view: view,
-	viewModel: ViewModel,
+	ViewModel: ViewModel,
 	events: {
 		inserted: function(){
 			this.viewModel.attr("showTotals", true);

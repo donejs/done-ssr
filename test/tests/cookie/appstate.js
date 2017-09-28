@@ -10,8 +10,6 @@ module.exports = Map.extend({
 				var xhr = new XMLHttpRequest();
 
 				xhr.addEventListener("load", function() {
-					debugger;
-					console.log("IN IT?", !!CanZone.current);
 					set( this.responseText );
 				});
 				xhr.addEventListener("error", function() {

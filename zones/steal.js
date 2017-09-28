@@ -9,9 +9,7 @@ module.exports = function(cfg){
 		cfg = { main: cfg };
 	}
 
-	var startup, steal;
-
-	function configureAndRun(){
+	function configureAndStartup(zone){
 		steal = Steal.clone();
 		var loader = global.System = steal.System;
 
@@ -21,6 +19,9 @@ module.exports = function(cfg){
 		});
 
 		steal.config(cfg);
+
+		zone.data.steal = steal;
+		zone.execHook("beforeStealStartup");
 
 		// Start her up
 		var startup = new ReloadableStartup(steal);
@@ -36,20 +37,21 @@ module.exports = function(cfg){
 					if(mains.has(cfg.main)) {
 						startup = mains.get(cfg.main);
 					} else {
-						startup = configureAndRun();
+						startup = configureAndStartup(zone);
 						mains.set(cfg.main, startup);
 					}
 
+					data.steal = startup.steal;
 					startup.promise.then(function(modules){
+						zone.data.modules = modules;
+						zone.execHook("afterStealDone");
 						if(runFn) {
 							runFn();
 						} else {
-							zone.data.modules = modules;
-
 							var render = makeRender(modules.main, modules.can);
 							render(data.request);
 
-							zone.execHook("afterStealMain")
+							zone.execHook("afterStealMain");
 						}
 					}).catch(function(error){
 						// This prevents the error from being unhandled, but
@@ -66,9 +68,12 @@ module.exports = function(cfg){
 		return {
 			created: function(){
 				this.run = makeRun(this);
-				data.steal = steal;
 			},
-			hooks: ["afterStealMain"]
+			hooks: [
+				"beforeStealStartup",
+				"afterStealDone",
+				"afterStealMain"
+			]
 		};
 	};
 };

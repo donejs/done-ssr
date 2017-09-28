@@ -3,6 +3,8 @@ var resolveUrl = require("../../lib/util/resolve_url");
 var XMLHttpRequest2 = require("xmlhttprequest2").XMLHttpRequest;
 var zoneRegister = require("can-zone/register");
 
+var XHR_WAITING = Symbol("xhr-resolve.waiting");
+
 module.exports = function(request){
 	function makeXHR(xhr) {
 		var XHR = function() {
@@ -12,6 +14,12 @@ module.exports = function(request){
 
 			this._hackOpen = this.open;
 			this.open = XHR.prototype.open;
+
+			this._hackAEL = this.addEventListener;
+			this.addEventListener = XHR.prototype.addEventListener;
+
+			this._hackREL = this.removeEventListener;
+			this.removeEventListener = XHR.prototype.removeEventListener;
 
 			// In browsers these default to null
 			this.onload = null;
@@ -36,6 +44,26 @@ module.exports = function(request){
 
 		XHR.prototype.send = function () {
 			return this._hackSend.apply(this, arguments);
+		};
+
+		XHR.prototype.addEventListener = function(name, cb){
+			if(name === "load") {
+				var orig = cb;
+				orig[XHR_WAITING] = true;
+				cb = CanZone.waitFor(function(){
+					orig[XHR_WAITING] = false;
+					return orig.apply(this, arguments);
+				});
+			}
+
+			return this._hackAEL.call(this, name, cb);
+		};
+
+		XHR.prototype.removeEventListener = function(name, cb){
+			if(name === "load" && cb[XHR_WAITING]) {
+				CanZone.current.removeWait();
+			}
+			return this._hackREL.call(this, name, cb);
 		};
 
 		return XHR;
