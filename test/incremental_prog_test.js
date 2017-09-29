@@ -3,19 +3,25 @@ var helpers = require("./helpers");
 var incHelpers = require("./inc_helpers");
 var assert = require("assert");
 var path = require("path");
-var createXHR = require("../lib/polyfills/xhr");
 
 describe("Incremental rendering", function(){
 	this.timeout(10000);
 
-	before(function(){
-		this.oldXHR = global.XMLHttpRequest;
-		var MockXHR = helpers.mockXHR(
-			'[ { "a": "a" }, { "b": "b" } ]');
-		global.XMLHttpRequest = createXHR(function(){
-			MockXHR.apply(this, arguments);
-			this.open = MockXHR.prototype.open.bind(this);
-			this.send = MockXHR.prototype.send.bind(this);
+	before(function(done){
+		helpers.createServer(8070, function(req, res){
+			switch(req.url) {
+				case "/bar":
+					var data = [ { "a": "a" }, { "b": "b" } ];
+					break;
+				default:
+					throw new Error("No route for " + req.url);
+			}
+			res.setHeader("Content-Type", "application/json");
+			res.end(JSON.stringify(data));
+		})
+		.then(server => {
+			this.server = server;
+			done();
 		});
 
 		this.render = ssr({
@@ -27,7 +33,7 @@ describe("Incremental rendering", function(){
 	});
 
 	after(function(){
-		global.XMLHttpRequest = this.oldXHR;
+		this.server.close();
 	});
 
 	describe("A progressively loaded page", function(){

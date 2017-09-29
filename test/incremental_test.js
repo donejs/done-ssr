@@ -3,7 +3,6 @@ var helpers = require("./helpers");
 var incHelpers = require("./inc_helpers");
 var assert = require("assert");
 var path = require("path");
-var createXHR = require("../lib/polyfills/xhr");
 
 describe("Incremental rendering", function(){
 	this.timeout(10000);

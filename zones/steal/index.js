@@ -73,7 +73,10 @@ module.exports = function(cfg){
 		}
 
 		return {
-			plugins: [require("./cache-normalize")],
+			plugins: [
+				require("./cache-normalize"),
+				require("./render-base-url")
+			],
 			created: function(){
 				data.ready = ready;
 				this.run = makeRun(this);
