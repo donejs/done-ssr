@@ -1,10 +1,10 @@
 
-module.exports = function(){
+module.exports = function(response){
 	return function(data){
 		return {
 			plugins: [
 				require("./globals"),
-				require("./route")
+				require("./route")(response)
 			]
 		};
 	};

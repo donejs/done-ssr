@@ -21,6 +21,7 @@ module.exports = function(request){
 		return {
 			globals: window,
 			created: function(){
+				data.window = window;
 				data.document = window.document;
 				data.request = request;
 				registerNode(window);

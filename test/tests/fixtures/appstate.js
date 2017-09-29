@@ -7,6 +7,7 @@ module.exports = Map.extend({
 		things: {
 			Value: List,
 			get: function(list){
+				debugger;
 				var xhr = new XMLHttpRequest();
 				xhr.open("GET", "http://www.example.org/stuff");
 				xhr.addEventListener("load", function(){

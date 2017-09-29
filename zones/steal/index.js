@@ -1,5 +1,5 @@
-var makeRender = require("../lib/make_render");
-var ReloadableStartup = require("../lib/reloadable-startup");
+var makeRender = require("../../lib/make_render");
+var ReloadableStartup = require("../../lib/reloadable-startup");
 var Steal = require("steal");
 
 var mains = new Map();
@@ -64,8 +64,8 @@ module.exports = function(cfg){
 			};
 		}
 
-		// TODO the crazy steal tracing stuff
 		return {
+			plugins: [require("./cache-normalize")],
 			created: function(){
 				this.run = makeRun(this);
 			},

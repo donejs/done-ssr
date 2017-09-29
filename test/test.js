@@ -20,7 +20,6 @@ mochas([
 	"define_map_status_test.js",
 	"define_test.js",
 	"live-reload_test.js",
-	"cache-normalize_test.js",
 	"leak_test.js",
 	"incremental_test.js",
 	"incremental_plain_test.js",

@@ -1,0 +1,57 @@
+<div class="ssr-modal-dialog">
+  <style>
+   #done-ssr-debug {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background: rgba(0, 0, 0, 0.6);
+	 font-family: 'Helvetica', arial;
+   }
+
+   .ssr-modal-dialog {
+     position: fixed;
+     top: 10px;
+     left: 10px;
+     right: 10px;
+     bottom: 10px;
+     padding: 5px;
+     background: #fefefe;
+     border: #333 solid 1px;
+     border-radius: 5px;
+   }
+
+   .ssr-modal-header {
+     border-bottom: #eee solid 1px;
+     padding: 10px 20px;
+     height: 50px;
+   }
+
+   .ssr-modal-header h2 {
+     font-size: 20px;
+   }
+
+   #ssr-modal-body {
+     padding: 20px;
+	 height: calc(100% - 50px);
+	 overflow: scroll;
+   }
+
+   .ssr-modal-header > a {
+     color: #aaa;
+     font-size: 30px;
+     text-decoration: none;
+     position: absolute;
+     right: 5px;
+     top: 0;
+   }
+  </style>
+
+  <div class="ssr-modal-header">
+    <h2>Timeout</h2>
+    <a href="javascript://" onclick="this.parentNode.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode.parentNode)">x</a>
+  </div>
+
+  <div id="ssr-modal-body"></div>
+</div>
