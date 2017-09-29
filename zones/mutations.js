@@ -47,6 +47,9 @@ module.exports = function(response, url){
 			afterRun: function(){
 				data.html = data.document.documentElement.outerHTML;
 			},
+			afterStealMain: function(){
+				data.html = data.document.documentElement.outerHTML;
+			},
 			ended: function(){
 				domPatch.flush();
 				domPatch.unbind(data.document, onChanges);

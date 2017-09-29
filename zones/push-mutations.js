@@ -15,12 +15,25 @@ module.exports = function(response, url){
 		script.setAttribute("data-streamurl", url);
 		script.appendChild(document.createTextNode(clientScript));
 
-		var fc = document.head.firstChild;
-		if(fc) {
-			document.head.insertBefore(script, fc);
-		} else {
-			document.head.appendChild(script);
-		}
+		var appendToHead = function(){
+			var fc = document.head.firstChild;
+			if(fc) {
+				document.head.insertBefore(script, fc);
+			} else {
+				document.head.appendChild(script);
+			}
+		};
+
+		// If the documentElement is replaced (done-autorender),
+		// move the script over to the new <head> element.
+		var rc = document.replaceChild;
+		document.replaceChild = function(newDocEl){
+			var res = rc.apply(this, arguments);
+			appendToHead();
+			return res;
+		};
+
+		appendToHead();
 	}
 
 
@@ -31,6 +44,7 @@ module.exports = function(response, url){
 			plugins: [mutations(response)],
 
 			created: function(){
+				debugger;
 				injectScript(data.document);
 
 				instrStream = response.push(url, {

@@ -8,14 +8,21 @@ var createXHR = require("../lib/polyfills/xhr");
 describe("Incremental rendering", function(){
 	this.timeout(10000);
 
-	before(function(){
-		this.oldXHR = global.XMLHttpRequest;
-		var MockXHR = helpers.mockXHR(
-			'[ { "a": "a" }, { "b": "b" } ]');
-		global.XMLHttpRequest = createXHR(function(){
-			MockXHR.apply(this, arguments);
-			this.open = MockXHR.prototype.open.bind(this);
-			this.send = MockXHR.prototype.send.bind(this);
+	before(function(done){
+		helpers.createServer(8070, function(req, res){
+			switch(req.url) {
+				case "/bar":
+					var data = [ { "a": "a" }, { "b": "b" } ];
+					break;
+				default:
+					throw new Error("No route for " + req.url);
+			}
+			res.setHeader("Content-Type", "application/json");
+			res.end(JSON.stringify(data));
+		})
+		.then(server => {
+			this.server = server;
+			done();
 		});
 
 		this.render = ssr({
@@ -27,7 +34,7 @@ describe("Incremental rendering", function(){
 	});
 
 	after(function(){
-		global.XMLHttpRequest = this.oldXHR;
+		this.server.close();
 	});
 
 	describe("A basic async app", function(){
@@ -55,11 +62,19 @@ describe("Incremental rendering", function(){
 			assert.ok(/ORDER-HISTORY/.test(nodeAsJson), "adds the order-history component");
 		});
 
+		it("Includes the reattachment script element", function(){
+			var dom = helpers.dom(this.result.html);
+			var script = helpers.find(dom, function(el){
+				return el.nodeName === "SCRIPT" &&
+					el.hasAttribute("data-streamurl");
+			});
+
+			assert.ok(script, "Reattachment script included.");
+		});
+
 		it("Includes the styles as part of the initial HTML", function(){
 			var dom = helpers.dom(this.result.html);
-			// The script is the first element of the dom
-			var doc = dom.nextSibling;
-			var style = helpers.find(doc, function(el){
+			var style = helpers.find(dom, function(el){
 				return el.nodeName === "STYLE";
 			});
 

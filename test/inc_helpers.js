@@ -51,11 +51,11 @@ exports.mock = function(url, expectedPushes){
 	response.push = function(url){
 		pushes--;
 		if(pushes === 0) {
-			setTimeout(dfd.resolve, 10);
+			setTimeout(dfd.resolve, 20);
 		}
 		if(/donessr_instructions/.test(url)) {
 			return instructions();
-		} else if(url === "foo://bar") {
+		} else if(url === "http://localhost:8070/bar") {
 			return emptyWritable();
 		}
 	};

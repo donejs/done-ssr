@@ -29,6 +29,12 @@ module.exports = function(cfg){
 	}
 
 	return function(data){
+		var doneResolve, doneReject;
+		var ready = new Promise(function(resolve, reject){
+			doneResolve = resolve;
+			doneReject = reject;
+		});
+
 		function makeRun(zone) {
 			var run = zone.run;
 			return function(runFn){
@@ -53,7 +59,9 @@ module.exports = function(cfg){
 
 							zone.execHook("afterStealMain");
 						}
-					}).catch(function(error){
+					})
+					.then(doneResolve, doneReject)
+					.catch(function(error){
 						// This prevents the error from being unhandled, but
 						// is still part of the Zone
 						setTimeout(function(){
@@ -67,6 +75,7 @@ module.exports = function(cfg){
 		return {
 			plugins: [require("./cache-normalize")],
 			created: function(){
+				data.ready = ready;
 				this.run = makeRun(this);
 			},
 			hooks: [
