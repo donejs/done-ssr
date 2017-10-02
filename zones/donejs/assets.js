@@ -1,0 +1,53 @@
+
+module.exports = function(data){
+	var inserted = new Set();
+
+	return {
+		plugins: [
+			require("./global-document"),
+			require("./trace-bundles"),
+			require("./can-import")
+		],
+
+		beforeRun: function(){
+			data.applyPages = function(){
+				var pages = data.pages || [];
+				return applyPages(data.document, data.bundleHelpers,
+					pages, inserted);
+			};
+		},
+
+		ended: function(){
+			// If anything is added, update the HTML
+			if(data.applyPages()) {
+				data.html = data.document.documentElement.outerHTML;
+			}
+		}
+	};
+};
+
+function applyPages(document, bundleHelpers, pages, inserted){
+	var findBundle = bundleHelpers.findBundle;
+	var bundles = bundleHelpers.bundles;
+
+	var head = document.head;
+
+	var changes = 0;
+	pages.forEach(function(moduleName){
+		var bundle = findBundle(moduleName) || bundles[moduleName];
+
+		if(bundle) {
+			Object.keys(bundle).forEach(function(childName){
+				var asset = bundle[childName];
+				if(asset && !inserted.has(asset.id)) {
+					changes++;
+					inserted.add(asset.id);
+					var node = asset.value();
+					node.setAttribute("asset-id", asset.id);
+					head.insertBefore(node, head.lastChild);
+				}
+			});
+		}
+	});
+	return changes;
+}

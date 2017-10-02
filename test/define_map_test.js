@@ -34,10 +34,11 @@ describe("Using can-define/map/map", function(){
 
 	it("Returns a 404 when there is no matching route", function(done){
 		var response = through(function(){
-			var statusCode = response.statusCode;
-			assert.equal(statusCode, 404, "Got a 404");
-			done();
+			Promise.resolve().then(function(){
+				var statusCode = response.statusCode;
+				assert.equal(statusCode, 404, "Got a 404");
+			}).then(done, done);
 		});
-		this.render("/test/").pipe(response);
+		this.render("/test/ing").pipe(response);
 	});
 });

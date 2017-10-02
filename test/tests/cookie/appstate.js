@@ -9,6 +9,8 @@ module.exports = Map.extend({
 			get: function(last, set) {
 				var xhr = new XMLHttpRequest();
 
+				debugger;
+
 				xhr.addEventListener("load", function() {
 					set( this.responseText );
 				});
@@ -16,7 +18,7 @@ module.exports = Map.extend({
 					console.log( "err", this, arguments );
 				});
 
-				xhr.open("GET", "http://www.example.org/session");
+				xhr.open("GET", "http://localhost:8070/session");
 				xhr.send();
 			}
 		},

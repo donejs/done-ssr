@@ -12,10 +12,13 @@ var ViewModel = Map.extend({
 			get: function(list){
 				var promise = new Promise(function(resolve){
 					var xhr = new XMLHttpRequest();
-					xhr.open("GET", "foo://bar");
+					xhr.open("GET", "http://localhost:8070/bar");
 					xhr.onload = function(){
 						var data = JSON.parse(xhr.responseText);
 						resolve(data);
+					};
+					xhr.onerror = function(err){
+						console.error(err);
 					};
 					xhr.send();
 				});

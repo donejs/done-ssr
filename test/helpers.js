@@ -1,6 +1,9 @@
+var makeWindow = require("can-vdom/make-window/make-window");
+var document = makeWindow({}).document;
+var http = require("http");
 
 exports.dom = function(html){
-	html = html.replace("<!DOCTYPE html>", "").trim();
+	html = html.replace("<!doctype html>", "").trim();
 	var doc = new document.constructor();
 	doc.__addSerializerAndParser(document.__serializer, document.__parser);
 	var div = doc.createElement("div");
@@ -139,4 +142,14 @@ exports.mockXHR = function(responseFN, options){
 
 exports.ua = {
 	chrome: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.109 Safari/537.36"
+};
+
+exports.createServer = function(port, cb){
+	var server = http.createServer(cb).listen(port);
+
+	return new Promise((resolve, reject) => {
+		server.on("listening", function(){
+			resolve(server);
+		});
+	});
 };

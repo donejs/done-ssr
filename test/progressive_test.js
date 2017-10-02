@@ -12,8 +12,6 @@ describe("Server-Side Rendering Basics", function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "progressive/index.stache!done-autorender"
-		}, {
-			html5shiv: true
 		});
 	});
 
@@ -107,21 +105,5 @@ describe("Server-Side Rendering Basics", function(){
 		});
 
 		stream.pipe(response);
-	});
-
-	it("renders html5 conditional comment", function(done){
-		this.render("/orders").pipe(through(function(buffer){
-			var html = buffer.toString();
-			assert.ok(/<!--\[if lt IE 9\]>/.test(html),
-					  "beginning comment added");
-			assert.ok(/\/scripts\/html5shiv\.min\.js/.test(html),
-					  "contains the correct path to html5shiv");
-			assert.ok(/<!\[endif\]-->/.test(html), "ending comment added");
-
-			assert.ok(/html5\.elements = "can-import order-history"/.test(html),
-					  "Custom tags added to shim the document");
-
-			done();
-		}));
 	});
 });

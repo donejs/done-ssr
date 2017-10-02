@@ -1,7 +1,7 @@
 var mochas = require("spawn-mochas");
 
 mochas([
-	"unit_test.js",
+	"../zones/zones-test.js",
 	"async_test.js",
 	"cookie_test.js",
 	"leakscope_test.js",
@@ -20,8 +20,7 @@ mochas([
 	"define_map_status_test.js",
 	"define_test.js",
 	"live-reload_test.js",
-	"cache-normalize_test.js",
-	"leak_test.js",
+	//"leak_test.js",
 	"incremental_test.js",
 	"incremental_plain_test.js",
 	"incremental_prog_test.js"

@@ -7,7 +7,7 @@ var through = require("through2");
 describe("Timeouts", function(){
 	this.timeout(10000);
 
-	before(function(){
+	before(function(done){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "timeout/index.stache!done-autorender"
@@ -15,17 +15,25 @@ describe("Timeouts", function(){
 			timeout: 100,
 			debug: true
 		});
+
+		// Do a warm-up so steal is loaded
+		this.render("/fast").pipe(through(function(){
+			setTimeout(function(){
+				done();
+			}, 2000);
+		}));
 	});
 
-	it("App times out after the specified time", function(done){
+	it.only("App times out after the specified time", function(done){
 		this.render("/slow").pipe(through(function(buffer){
-			var html = buffer.toString();
-			var node = helpers.dom(html);
+			Promise.resolve().then(function(){
+				var html = buffer.toString();
+				var node = helpers.dom(html);
+				
+				var result = node.getElementById("result").innerHTML;
 
-			var result = node.getElementById("result").innerHTML;
-
-			assert.equal(result, "failed", "Timed out");
-			done();
+				assert.equal(result, "failed", "Timed out");
+			}).then(done, done);
 		}));
 	});
 

@@ -74,9 +74,7 @@ describe("Incremental rendering - plain JS", function(){
 
 		it("Includes the styles as part of the initial HTML", function(){
 			var dom = helpers.dom(this.result.html);
-			// The script is the first element of the dom
-			var doc = dom.nextSibling;
-			var style = helpers.find(doc, function(el){
+			var style = helpers.find(dom, function(el){
 				return el.nodeName === "STYLE";
 			});
 

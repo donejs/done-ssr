@@ -4,16 +4,12 @@ var ssr = require("../lib/");
 var helpers = require("./helpers");
 var through = require("through2");
 
-describe("xhr async rendering", function() {
+describe("auth cookies - failed domain", function() {
 	this.timeout(10000);
 
-	var render;
-	var xhrOptions = {};
+	var render, authHeader;
 
-	before(function() {
-		this.oldXHR = global.XMLHttpRequest;
-		global.XMLHttpRequest = helpers.mockXHR('[1,2,3,4,5]', xhrOptions);
-
+	before(function(done) {
 		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "xhr/index.stache!done-autorender"
@@ -26,21 +22,30 @@ describe("xhr async rendering", function() {
 				]
 			}
 		});
+
+		helpers.createServer(8070, function(req, res){
+			authHeader = req.headers.authorization;
+			switch(req.url) {
+				case "/api/list":
+					var data = [1,2,3,4,5];
+					break;
+				default:
+					throw new Error("No route for " + req.url);
+			}
+			res.setHeader("Content-Type", "application/json");
+			res.end(JSON.stringify(data));
+		})
+		.then(server => {
+			this.server = server;
+			done();
+		});
 	});
 
 	after(function() {
-		global.XMLHttpRequest = this.oldXHR;
+		this.server.close();
 	});
 
 	it("works", function(done) {
-		var didXhr = false;
-
-		xhrOptions.beforeSend = function(xhr){
-			var auth = xhr.getRequestHeader('authorization');
-			assert.equal(auth, undefined);
-			didXhr = true;
-		};
-
 		var stream = render({
 			url: '/',
 			headers: {
@@ -49,8 +54,9 @@ describe("xhr async rendering", function() {
 		});
 
 		stream.pipe(through(function(buffer) {
-			assert.ok(didXhr);
-			done();
+			Promise.resolve().then(function(){
+				assert.equal(authHeader, undefined);
+			}).then(done, done);
 		}));
 	});
 });

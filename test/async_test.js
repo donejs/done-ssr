@@ -7,19 +7,31 @@ var through = require("through2");
 describe("async rendering", function(){
 	this.timeout(10000);
 
-	before(function(){
-		this.oldXHR = global.XMLHttpRequest;
-		global.XMLHttpRequest = helpers.mockXHR(
-			'[ { "a": "a" }, { "b": "b" } ]');
-
+	before(function(done){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "async/index.stache!done-autorender"
 		});
+
+		helpers.createServer(8070, function(req, res){
+			switch(req.url) {
+				case "/bar":
+					var data = [ { "a": "a" }, { "b": "b" } ];
+					break;
+				default:
+					throw new Error("No route for " + req.url);
+			}
+			res.setHeader("Content-Type", "application/json");
+			res.end(JSON.stringify(data));
+		})
+		.then(server => {
+			this.server = server;
+			done();
+		});
 	});
 
 	after(function(){
-		global.XMLHttpRequest = this.oldXHR;
+		this.server.close();
 	});
 
 	it("basics works", function(done){
@@ -36,12 +48,12 @@ describe("async rendering", function(){
 				var cache = helpers.getXhrCache(node);
 
 				assert.equal(cache.length, 1, "There is one item in cache");
-				assert.equal(cache[0].request.url, "foo://bar", "correct request url");
+				assert.equal(cache[0].request.url, "http://localhost:8070/bar", "correct request url");
 
 				var resp = cache[0].response;
+				var ct = resp.headers.split("\n")[0].trim();
 
-
-				assert.equal(resp.headers, "Content-Type: application/json",
+				assert.equal(ct, "content-type: application/json",
 							 "Header was added");
 			})
 			.then(done, done);
@@ -56,24 +68,26 @@ describe("async rendering", function(){
 			}
 		};
 		this.render(request).pipe(through(function(buffer){
-			var html = buffer.toString();
-			var node = helpers.dom(html);
+			Promise.resolve().then(function(){
+				var html = buffer.toString();
+				var node = helpers.dom(html);
 
-			node = helpers.find(node, function(n){
-				return n.className === "language";
-			});
-			var txt = helpers.text(node);
+				node = helpers.find(node, function(n){
+					return n.className === "language";
+				});
+				var txt = helpers.text(node);
 
-			assert.equal(txt, "en-US", "used the accept-langauge header");
-			done();
+				assert.equal(txt, "en-US", "used the accept-langauge header");
+			}).then(done, done);
 		}));
 	});
 
 	it("sets a 404 status for bad routes", function(done){
 		var response = through(function(){
-			var statusCode = response.statusCode;
-			assert.equal(statusCode, 404, "Got a 404");
-			done();
+			Promise.resolve().then(function(){
+				var statusCode = response.statusCode;
+				assert.equal(statusCode, 404, "Got a 404");
+			}).then(done, done);
 		});
 
 		this.render("/fake").pipe(response);

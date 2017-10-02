@@ -15,9 +15,13 @@ describe("Projects importing a component that doesn't exist", function(){
 	});
 
 	it("finishes rendering", function(done){
-		this.render("/").pipe(through(function(buffer){
+		var renderStream = this.render("/");
+
+		renderStream.pipe(through(function(buffer){
 			var html = buffer.toString();
 			var node = helpers.dom(html);
+
+			console.log(html);
 
 			var rej = helpers.find(node, function(el){
 				return el.getAttribute && el.getAttribute("id") === "rejected";
