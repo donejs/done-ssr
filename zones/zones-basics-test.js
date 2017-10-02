@@ -74,7 +74,7 @@ describe("SSR Zones - Basics", function(){
 
 		it("Data from the fetch requests was pushed", function(){
 			var pushes = this.response.data.pushes;
-			var [url, opts, data] = pushes[1];
+			var [url, opts, data] = pushes.filter(p => p[0] === "/api/todos")[0];
 
 			assert.equal(url, "/api/todos", "Todos api");
 
@@ -85,7 +85,7 @@ describe("SSR Zones - Basics", function(){
 
 		it("Data from the XHR requests was pushed", function(){
 			var pushes = this.response.data.pushes;
-			var [url, opts, data] = pushes[2];
+			var [url, opts, data] = pushes.filter(p => p[0] === "/api/cart")[0];
 
 			assert.equal(url, "/api/cart", "Cart api");
 
