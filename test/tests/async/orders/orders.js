@@ -19,7 +19,7 @@ var ViewModel = Map.extend({
 					};
 					xhr.onerror = function(err){
 						console.error(err);
-					}
+					};
 					xhr.send();
 				});
 

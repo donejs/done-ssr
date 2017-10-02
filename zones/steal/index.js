@@ -60,14 +60,17 @@ module.exports = function(cfg){
 							zone.execHook("afterStealMain");
 						}
 					})
-					.then(doneResolve, doneReject)
+					.then(doneResolve, function(err){
+						doneReject(err);
+						return Promise.reject(err);
+					})
 					.catch(function(error){
 						// This prevents the error from being unhandled, but
 						// is still part of the Zone
 						setTimeout(function(){
 							throw error;
 						});
-					})
+					});
 				});
 			};
 		}
@@ -75,7 +78,7 @@ module.exports = function(cfg){
 		return {
 			plugins: [
 				require("./cache-normalize"),
-				require("./render-base-url")
+				require("./rendering-base-url")
 			],
 			created: function(){
 				data.ready = ready;

@@ -69,36 +69,14 @@ module.exports = function(request){
 		return XHR;
 	}
 
-	var XMLHttpRequest = makeXHR(XMLHttpRequest2);
-	var open = XMLHttpRequest.prototype.open;
-	var send = XMLHttpRequest.prototype.send;
-	var oldOpen, oldSend;
-	
 	return {
-		globals: {
-			XMLHttpRequest: XMLHttpRequest
-		},
-		beforeTask: function(){
-			oldOpen = global.XMLHttpRequest.prototype.open;
-			global.XMLHttpRequest.prototype.open = open;
-
-			oldSend = global.XMLHttpRequest.prototype.send;
-			global.XMLHttpRequest.prototype.send = send;
-		},
-		afterTask: function(){
-			global.XMLHttpRequest.prototype.open = oldOpen;
-			global.XMLHttpRequest.prototype.send = oldSend;
-		},
 		created: function(){
-			registerXHR(XMLHttpRequest);
+			registerXHR(makeXHR(XMLHttpRequest2));
 		}
 	};
 };
 
-// Calls to can-zone/register so that XHR is wrapped.
-// This only needs to happen once, ever.
 var registerXHR = once(function(XMLHttpRequest) {
 	global.XMLHttpRequest = XMLHttpRequest;
-	zoneRegister();
-	delete global.XMLHttpRequest;
+	require("can-zone/register")();
 });

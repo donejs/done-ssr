@@ -9,7 +9,7 @@ module.exports = function(request, options){
 	}
 
 	return function(data){
-		var oldSend, oldOpen;
+		var oldXHR, oldSend, oldOpen;
 
 		// Override open to attach auth header if the domain is approved.
 		var open = function(httpMethod, xhrURL){
@@ -39,7 +39,6 @@ module.exports = function(request, options){
 
 			// If on an approved domain copy the jwt from a cookie to the request headers.
 			if (domainIsApproved) {
-				debugger;
 				var jwtCookie = cookieReg.exec(cookie);
 				if(jwtCookie && !this.getRequestHeader('authorization')){
 					this.setRequestHeader('authorization', 'Bearer ' + jwtCookie[1]);
@@ -88,6 +87,7 @@ module.exports = function(request, options){
 
 		return {
 			beforeTask: function(){
+				oldXHR = XMLHttpRequest;
 				oldOpen = XMLHttpRequest.prototype.open;
 				XMLHttpRequest.prototype.open = open;
 
@@ -96,8 +96,10 @@ module.exports = function(request, options){
 			},
 
 			afterTask: function(){
-				XMLHttpRequest.prototype.open = oldOpen;
-				XMLHttpRequest.prototype.send = oldSend;
+				if(oldXHR === XMLHttpRequest) {
+					XMLHttpRequest.prototype.open = oldOpen;
+					XMLHttpRequest.prototype.send = oldSend;
+				}
 			}
 		};
 	};

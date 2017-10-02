@@ -37,7 +37,6 @@ describe("cookie async rendering", function() {
 	});
 
 	after(function() {
-		//global.XMLHttpRequest = this.oldXHR;
 		this.server.close();
 	});
 

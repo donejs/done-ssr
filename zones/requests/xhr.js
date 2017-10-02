@@ -5,8 +5,8 @@ var xhrCache = require("./xhr-cache");
 module.exports = function(request, options){
 	return {
 		plugins: [
-			xhrCache,
 			xhrResolveUrl(request),
+			xhrCache,
 			xhrCookies(request, options || {})
 		]
 	};

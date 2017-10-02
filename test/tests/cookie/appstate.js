@@ -9,6 +9,8 @@ module.exports = Map.extend({
 			get: function(last, set) {
 				var xhr = new XMLHttpRequest();
 
+				debugger;
+
 				xhr.addEventListener("load", function() {
 					set( this.responseText );
 				});
