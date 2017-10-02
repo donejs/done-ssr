@@ -1,6 +1,6 @@
 {
   "name": "done-ssr",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
   "scripts": {
@@ -69,7 +69,6 @@
     "mime-types": "^2.1.17",
     "node-fetch": "^1.7.1",
     "node-web-streams": "^0.2.2",
-    "npm": "^5.0.3",
     "once": "^1.4.0",
     "steal": "^1.0.6",
     "text-encoding": "^0.6.4",
