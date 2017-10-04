@@ -64,7 +64,7 @@ describe("SSR Zones - Basics", function(){
 
 		it("Contains mutations", function(){
 			var pushes = this.response.data.pushes;
-			var liMutation = JSON.parse(pushes[0][2][1].toString());
+			var liMutation = JSON.parse(pushes[0][2][0].toString());
 
 			assert.equal(liMutation[0].type, "insert", "Inserting a li");
 			assert.equal(liMutation[0].node[3], "LI", "Inserting a li");

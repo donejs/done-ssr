@@ -44,7 +44,6 @@ module.exports = function(response, url){
 			plugins: [mutations(response)],
 
 			created: function(){
-				debugger;
 				injectScript(data.document);
 
 				instrStream = response.push(url, {

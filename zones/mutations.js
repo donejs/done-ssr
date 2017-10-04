@@ -35,7 +35,8 @@ module.exports = function(response, url){
 			created() {
 				assert(data.document, "The mutations zone requires a document.");
 				data.mutations = mutationStream;
-
+			},
+			afterRun: function(){
 				// If another plugin has a Promise for delaying mutations,
 				// wait for that to resolve.
 				if(isPromise(data.startMutations)) {
@@ -43,8 +44,7 @@ module.exports = function(response, url){
 				} else {
 					startListeningToMutations();
 				}
-			},
-			afterRun: function(){
+
 				data.html = data.document.documentElement.outerHTML;
 			},
 			afterStealMain: function(){
