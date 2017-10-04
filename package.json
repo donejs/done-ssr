@@ -1,6 +1,6 @@
 {
   "name": "done-ssr",
-  "version": "1.2.0-beta.0",
+  "version": "1.2.0-beta.1",
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
   "scripts": {
@@ -35,6 +35,7 @@
     "can-component": "^3.2.1",
     "can-define": "^1.0.10",
     "can-fixture": "^1.0.12",
+    "can-globals": "^0.2.3",
     "can-list": "^3.0.2",
     "can-map": "^3.0.4",
     "can-map-define": "^3.0.2",
