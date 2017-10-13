@@ -12,6 +12,16 @@ exports.dom = function(html){
 	return div.firstChild;
 };
 
+exports.preventWeirdSrcDocBug = function(){
+	var proto = Object.getPrototypeOf(document.createElement("div"));
+	var setAttribute = proto.setAttribute;
+	proto.setAttribute = function(key){
+		if(key === "srcdoc") { return; }
+		return setAttribute.apply(this, arguments);
+	};
+	exports.preventWeirdSrcDocBug = Function.prototype; // noop
+};
+
 exports.traverse = function(node, callback){
 	var cur = node.firstChild;
 

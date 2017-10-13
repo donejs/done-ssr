@@ -9,6 +9,7 @@ var path = require("path");
 
 describe("Incremental rendering - plain JS", function(){
 	this.timeout(10000);
+	helpers.preventWeirdSrcDocBug();
 
 	before(function(){
 		this.render = ssr({
