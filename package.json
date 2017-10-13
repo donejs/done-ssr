@@ -64,7 +64,7 @@
     "can-vdom": "^3.1.1",
     "can-zone": "^0.6.11",
     "dom-patch": "^2.1.1",
-    "done-ssr-incremental-rendering-client": "^1.0.2",
+    "done-ssr-incremental-rendering-client": "^2.0.1",
     "is-promise": "^2.1.0",
     "lodash.defaults": "^4.0.1",
     "mime-types": "^2.1.17",
