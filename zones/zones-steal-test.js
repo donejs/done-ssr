@@ -34,6 +34,8 @@ var spinUpServer = function(cb){
 };
 
 describe("SSR Zones - Steal application", function(){
+	this.timeout(10000);
+
 	before(function(){
 		return spinUpServer(() => {
 			var request = new Request("/home");
