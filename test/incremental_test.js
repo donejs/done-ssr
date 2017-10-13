@@ -7,6 +7,9 @@ var path = require("path");
 describe("Incremental rendering", function(){
 	this.timeout(10000);
 
+	// Hack because can-view-parse can't parse attributes that contain HTML.
+	helpers.preventWeirdSrcDocBug();
+
 	before(function(done){
 		helpers.createServer(8070, function(req, res){
 			switch(req.url) {
@@ -61,14 +64,14 @@ describe("Incremental rendering", function(){
 			assert.ok(/ORDER-HISTORY/.test(nodeAsJson), "adds the order-history component");
 		});
 
-		it("Includes the reattachment script element", function(){
+		it("Includes the incremental rendering iframe", function(){
 			var dom = helpers.dom(this.result.html);
-			var script = helpers.find(dom, function(el){
-				return el.nodeName === "SCRIPT" &&
-					el.hasAttribute("data-streamurl");
+			var iframe = helpers.find(dom, function(el){
+				return el.nodeName === "IFRAME" &&
+					el.getAttribute("id") === "donessr-iframe";
 			});
 
-			assert.ok(script, "Reattachment script included.");
+			assert.ok(iframe, "Incremental rendering iframe included.");
 		});
 
 		it("Includes the styles as part of the initial HTML", function(){
