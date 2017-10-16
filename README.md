@@ -86,7 +86,7 @@ The `ssr` function contains two arguments, one for the **steal** object and one 
 
 #### steal
 
-Configuration options that are a [SystemConfig](http://stealjs.com/docs/steal-tools.SystemConfig.html). This is the same object that is passed into steal-tools to configure the loader for building.
+Configuration options that are a [StealConfig](https://stealjs.com/docs/steal-tools.StealConfig.html). This is the same object that is passed into steal-tools to configure the loader for building.
 
 #### options
 
