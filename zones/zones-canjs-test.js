@@ -30,7 +30,7 @@ var spinUpServer = function(cb){
 	});
 };
 
-describe("SSR Zones - Steal application", function(){
+describe("SSR Zones - CanJS application", function(){
 	before(function(){
 		return spinUpServer(() => {
 			var request = new Request("/home");

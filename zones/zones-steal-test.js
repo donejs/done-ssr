@@ -71,3 +71,44 @@ describe("SSR Zones - Steal application", function(){
 		assert.equal(home.firstChild.nodeValue, "You are home", "Rendered it");
 	});
 });
+
+describe("SSR Zones - Steal application with main exec", function(){
+	this.timeout(10000);
+
+	before(function(){
+		return spinUpServer(() => {
+			var request = new Request("/home");
+			var response = this.response = new Response();
+
+			var zone = this.zone = new Zone({
+				plugins: [
+					// Sets up a DOM
+					dom(request),
+
+					steal({
+						config: __dirname + "/../test/tests/package.json!npm",
+						main: "reexec/main"
+					})
+				]
+			});
+
+			return zone.run();
+		});
+	});
+
+	it("Includes the right HTML", function(){
+		assert(this.zone.data.html);
+		var dom = helpers.dom(this.zone.data.html);
+		var body = dom.firstChild.nextSibling;
+
+		var count = 0, node = body.firstChild;
+		while(node) {
+			if(node.className === "content") {
+				count++;
+			}
+			node = node.nextSibling;
+		}
+
+		assert.equal(count, 1, ".content was rendered");
+	});
+});
