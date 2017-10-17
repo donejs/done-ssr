@@ -32,7 +32,7 @@ var spinUpServer = function(cb){
 	});
 };
 
-describe("SSR Zones - Basics", function(){
+describe("SSR Zones - Incremental Rendering", function(){
 	describe("An app using fetch and PUSH", function(){
 		before(function(){
 			return spinUpServer(() => {
