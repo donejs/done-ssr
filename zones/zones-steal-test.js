@@ -76,7 +76,7 @@ describe("SSR Zones - Steal application with main exec", function(){
 	this.timeout(10000);
 
 	before(function(){
-		return spinUpServer(() => {
+		function runRequest() {
 			var request = new Request("/home");
 			var response = this.response = new Response();
 
@@ -93,6 +93,14 @@ describe("SSR Zones - Steal application with main exec", function(){
 			});
 
 			return zone.run();
+		}
+
+		return spinUpServer(() => {
+			return runRequest.call(this)
+			.then(() => {
+				// A second time.
+				return runRequest.call(this);
+			})
 		});
 	});
 
