@@ -1,10 +1,17 @@
 var REEXECUTE_MAIN = Symbol("done-ssr-reexecutemain");
+var MAIN_EXEC = Symbol("done-ssr-mainexec");
 
 module.exports = function(data){
 	return {
 		beforeStealStartup: function(){
 			if(!data.steal.loader[REEXECUTE_MAIN]) {
 				addReexecuteMain(data.steal.loader, data);
+			}
+		},
+		afterStealDone: function(){
+			var loader = data.steal.loader;
+			if(loader[MAIN_EXEC]) {
+				data.mainExecute = loader[MAIN_EXEC];
 			}
 		}
 	};
@@ -19,7 +26,7 @@ function addReexecuteMain(loader, data) {
 
 	interceptDeclaration(loader, getName, function(declare, args){
 		var decl = declare.apply(this, args);
-		data.mainExecute = decl.execute;
+		loader[MAIN_EXEC] = decl.execute;
 		return decl;
 	});
 
