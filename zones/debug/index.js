@@ -15,7 +15,16 @@ module.exports = function(/*doc, */timeoutZone){
 				div.setAttribute("id", "done-ssr-debug");
 				div.innerHTML = modal;
 
-				var modalBody = div.getElementById("ssr-modal-body");
+				var modalBody;
+				var n = div.firstChild.lastChild;
+				while(n) {
+					if(n.getAttribute && n.getAttribute("id") === "ssr-modal-body") {
+						modalBody = n;
+						break;
+					}
+					n = n.previousSibling;
+				}
+
 				info.forEach(function(d){
 					var div = doc.createElement("div");
 					div.innerHTML = infoh.replace("{{title}}", d.task);
