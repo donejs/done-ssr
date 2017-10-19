@@ -1,7 +1,10 @@
 var makeWindow = require("can-vdom/make-window/make-window");
+var makeDocument = require("can-vdom/make-document/make-document");
 var once = require("once");
 var url = require("url");
 var zoneRegister = require("can-zone/register");
+
+var globalDocument = makeDocument();
 
 module.exports = function(request){
 	return function(data){
@@ -25,6 +28,11 @@ module.exports = function(request){
 				data.document = window.document;
 				data.request = request;
 				registerNode(window);
+			},
+			beforeTask: function(){
+				if(global.doneSsr) {
+					global.doneSsr.globalDocument = globalDocument;
+				}
 			},
 			ended: function(){
 				data.html = data.document.documentElement.outerHTML;
