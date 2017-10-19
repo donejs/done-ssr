@@ -29,7 +29,7 @@ describe("Timeouts", function(){
 			Promise.resolve().then(function(){
 				var html = buffer.toString();
 				var node = helpers.dom(html);
-				
+
 				var result = node.getElementById("result").innerHTML;
 
 				assert.equal(result, "failed", "Timed out");
