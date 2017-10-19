@@ -36,6 +36,8 @@ describe("Server-Side Rendering Basics", function(){
 	it("works with progressively loaded bundles", function(done){
 		var stream = this.render("/orders");
 
+		stream.on("error", done);
+
 		var response = through(function(buffer){
 			var html = buffer.toString();
 			var node = helpers.dom(html);
