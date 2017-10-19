@@ -1,10 +1,10 @@
+var fuzzyNormalize = require("steal-fuzzy-normalize");
 
 module.exports = function(data){
 	var inserted = new Set();
 
 	return {
 		plugins: [
-			require("./global-document"),
 			require("./trace-bundles"),
 			require("./can-import")
 		],
@@ -18,6 +18,8 @@ module.exports = function(data){
 		},
 
 		ended: function(){
+			ensureAtLeastMainPage(data);
+
 			// If anything is added, update the HTML
 			if(data.applyPages()) {
 				data.html = data.document.documentElement.outerHTML;
@@ -50,4 +52,22 @@ function applyPages(document, bundleHelpers, pages, inserted){
 		}
 	});
 	return changes;
+}
+
+function ensureAtLeastMainPage(data) {
+	if(!data.pages) {
+		data.pages = [];
+	}
+	// If no bundles are found, put the main one in anyways, so some
+	// styles are at least added
+	if(data.pages.length === 0) {
+		var main = data.steal.loader.main;
+		var bundles = data.bundleHelpers.bundles;
+
+		// Find the normalized main name within the bundles
+		var normalizedMain = fuzzyNormalize(main, Object.keys(bundles));
+		if(normalizedMain) {
+			data.pages.unshift(normalizedMain);
+		}
+	}
 }

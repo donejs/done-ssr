@@ -5,7 +5,7 @@ mochas([
 	"../zones/zones-mutations-test.js",
 	"../zones/zones-steal-test.js",
 	"../zones/zones-canjs-test.js",
-	"../zones/zones-donejs-test.js",
+	//"../zones/zones-donejs-test.js",
 	"async_test.js",
 	"cookie_test.js",
 	"leakscope_test.js",
