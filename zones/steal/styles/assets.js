@@ -17,6 +17,11 @@ module.exports = function(data){
 			};
 		},
 
+		afterStealMain: function(){
+			ensureAtLeastMainPage(data);
+			data.applyPages();
+		},
+
 		ended: function(){
 			ensureAtLeastMainPage(data);
 

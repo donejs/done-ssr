@@ -71,7 +71,7 @@ module.exports = function(url){
 
 		return {
 			afterRun: function(){
-				if(isPromise(data.startMutations)) {
+				if(!isPromise(data.startMutations)) {
 					injectStuff();
 				}
 			},
