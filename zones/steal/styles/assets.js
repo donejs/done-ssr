@@ -35,6 +35,8 @@ function applyPages(document, bundleHelpers, pages, inserted){
 	var head = document.head;
 
 	var changes = 0;
+	var oldDoc = global.document;
+	global.document = document;
 	pages.forEach(function(moduleName){
 		var bundle = findBundle(moduleName) || bundles[moduleName];
 
@@ -51,6 +53,7 @@ function applyPages(document, bundleHelpers, pages, inserted){
 			});
 		}
 	});
+	global.document = oldDoc;
 	return changes;
 }
 
@@ -65,9 +68,10 @@ function ensureAtLeastMainPage(data) {
 		var bundles = data.bundleHelpers.bundles;
 
 		// Find the normalized main name within the bundles
-		var normalizedMain = fuzzyNormalize(main, Object.keys(bundles));
-		if(normalizedMain) {
-			data.pages.unshift(normalizedMain);
-		}
+		var names = Object.keys(bundles);
+		// remove the main in case it's not normalized, find a better match.
+		names.splice(names.indexOf(main), 1);
+		var normalizedMain = fuzzyNormalize(main, names) || main;
+		data.pages.unshift(normalizedMain);
 	}
 }
