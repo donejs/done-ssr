@@ -1,7 +1,11 @@
 var mochas = require("spawn-mochas");
 
 mochas([
-	"../zones/zones-test.js",
+	"../zones/zones-basics-test.js",
+	"../zones/zones-mutations-test.js",
+	"../zones/zones-steal-test.js",
+	"../zones/zones-canjs-test.js",
+	"../zones/zones-donejs-test.js",
 	"async_test.js",
 	"cookie_test.js",
 	"leakscope_test.js",

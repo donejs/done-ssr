@@ -24,11 +24,29 @@ function addReexecuteMain(loader, data) {
 		return loader.main;
 	}
 
+	// For declarative modules (ES modules)
 	interceptDeclaration(loader, getName, function(declare, args){
 		var decl = declare.apply(this, args);
 		loader[MAIN_EXEC] = decl.execute;
 		return decl;
 	});
+
+	// For dynamic modules (cjs, amd, etc)
+	var instantiate = loader.instantiate;
+	loader.instantiate = function(load){
+		if(load.name === getName()) {
+			var p = Promise.resolve(instantiate.apply(this, arguments));
+			return p.then(function(result){
+				if(result && result.execute) {
+					var entry = loader.defined[load.name];
+					loader[MAIN_EXEC] = makeDynamicExecuter(loader, entry);
+				}
+				return result;
+			});
+		} else {
+			return instantiate.apply(this, arguments);
+		}
+	};
 
 }
 
@@ -52,5 +70,24 @@ function interceptDeclaration(loader, getName, callback) {
 		}
 
 		return push.apply(this, arguments);
+	};
+}
+
+function makeDynamicExecuter(loader, entry) {
+	var execute = entry.execute;
+	var deps = entry.deps;
+	var normalizedDeps = entry.normalizedDeps;
+	var module = Object.assign({}, entry.module);
+
+	return function(){
+		module.exports = Object.create(null);
+		var output = execute.call(loader.global, function(name) {
+		for (var i = 0, l = deps.length; i < l; i++) {
+			if (entry.deps[i] != name)
+				continue;
+			return loader.get(normalizedDeps[i]);
+		}
+		throw new TypeError('Module ' + name + ' not declared as a dependency.');
+		}, exports, module);
 	};
 }

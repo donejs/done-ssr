@@ -75,48 +75,100 @@ describe("SSR Zones - Steal application", function(){
 describe("SSR Zones - Steal application with main exec", function(){
 	this.timeout(10000);
 
-	before(function(){
-		function runRequest() {
-			var request = new Request("/home");
-			var response = this.response = new Response();
+	describe("ES Module main", function(){
+		before(function(){
+			function runRequest() {
+				var request = new Request("/home");
+				var response = this.response = new Response();
 
-			var zone = this.zone = new Zone({
-				plugins: [
-					// Sets up a DOM
-					dom(request),
+				var zone = this.zone = new Zone({
+					plugins: [
+						// Sets up a DOM
+						dom(request),
 
-					steal({
-						config: __dirname + "/../test/tests/package.json!npm",
-						main: "reexec/main"
-					})
-				]
-			});
+						steal({
+							config: __dirname + "/../test/tests/package.json!npm",
+							main: "reexec/main"
+						})
+					]
+				});
 
-			return zone.run();
-		}
-
-		return spinUpServer(() => {
-			return runRequest.call(this)
-			.then(() => {
-				// A second time.
-				return runRequest.call(this);
-			})
-		});
-	});
-
-	it("Includes the right HTML", function(){
-		assert(this.zone.data.html);
-		var dom = helpers.dom(this.zone.data.html);
-		var body = dom.firstChild.nextSibling;
-
-		var count = 0, node = body.firstChild;
-		while(node) {
-			if(node.className === "content") {
-				count++;
+				return zone.run();
 			}
-			node = node.nextSibling;
-		}
 
-		assert.equal(count, 1, ".content was rendered");
-	});
+			return spinUpServer(() => {
+				return runRequest.call(this)
+				.then(() => {
+					// A second time.
+					return runRequest.call(this);
+				})
+			});
+		});
+
+		it("Includes the right HTML", function(){
+			assert(this.zone.data.html);
+			var dom = helpers.dom(this.zone.data.html);
+			var body = dom.firstChild.nextSibling;
+
+			var count = 0, node = body.firstChild;
+			while(node) {
+				if(node.className === "content") {
+					count++;
+				}
+				node = node.nextSibling;
+			}
+
+			assert.equal(count, 1, ".content was rendered");
+		});
+	})
+
+	describe("Dynamic module main", function(){
+		before(function(){
+			function runRequest() {
+				var request = new Request("/home");
+				var response = this.response = new Response();
+
+				var zone = this.zone = new Zone({
+					plugins: [
+						// Sets up a DOM
+						dom(request),
+
+						steal({
+							config: __dirname + "/../test/tests/package.json!npm",
+							main: "reexec/amd"
+						})
+					]
+				});
+
+				return zone.run();
+			}
+
+			return spinUpServer(() => {
+				return runRequest.call(this)
+				.then(() => {
+					// A second time.
+					return runRequest.call(this);
+				})
+			});
+		});
+
+		it("Includes the right HTML", function(){
+			assert(this.zone.data.html);
+			var dom = helpers.dom(this.zone.data.html);
+			var body = dom.firstChild.nextSibling;
+
+			var count = 0, node = body.firstChild;
+			var content;
+			while(node) {
+				if(node.className === "content") {
+					content = node;
+					count++;
+				}
+				node = node.nextSibling;
+			}
+
+			assert.equal(count, 1, ".content was rendered");
+			assert.equal(content.firstChild.nodeValue, "AMD Module");
+		});
+	})
 });

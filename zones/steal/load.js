@@ -50,6 +50,7 @@ module.exports = function(cfg){
 
 					data.steal = startup.steal;
 					startup.promise.then(function(modules){
+						debugger;
 						zone.data.modules = modules;
 						zone.execHook("afterStealDone");
 						if(runFn) {
