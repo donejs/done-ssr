@@ -72,6 +72,53 @@ describe("SSR Zones - Steal application", function(){
 	});
 });
 
+describe("SSR Zones - Steal application with CSS", function(){
+	this.timeout(10000);
+
+	function render() {
+		var request = new Request("/home");
+		var response = this.response = new Response();
+
+		var zone = this.zone = new Zone({
+			plugins: [
+				// Sets up a DOM
+				dom(request),
+
+				steal({
+					config: __dirname + "/../test/tests/package.json!npm",
+					main: "single_bundle/main"
+				})
+			]
+		});
+
+		return zone.run();
+	}
+
+	before(function(){
+		return spinUpServer(() => {
+			return render.call(this)
+			.then(() => {
+				return render.call(this);
+			});
+		});
+	});
+
+	it("Includes the right HTML", function(){
+		assert(this.zone.data.html);
+		var dom = helpers.dom(this.zone.data.html);
+		var main = helpers.find(dom, node => node.nodeName === "MAIN");
+
+		assert(main, "Got the main element");
+		assert.equal(main.firstChild.nodeValue, "hello world", "Rendered it");
+	});
+
+	it("Includes the basic style", function(){
+		var dom = helpers.dom(this.zone.data.html);
+		var style = helpers.find(dom, node => node.nodeName === "STYLE");
+		assert(style, "There is the style on the page");
+	});
+});
+
 describe("SSR Zones - Steal application with main exec", function(){
 	this.timeout(10000);
 

@@ -72,6 +72,7 @@
     "node-web-streams": "^0.2.2",
     "once": "^1.4.0",
     "steal": "^1.0.6",
+    "steal-fuzzy-normalize": "^1.0.0",
     "text-encoding": "^0.6.4",
     "useragent": "^2.1.13",
     "websocket": "^1.0.22",
