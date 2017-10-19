@@ -48,7 +48,7 @@ describe("SSR Zones - DoneJS application", function(){
 					donejs({
 						config: __dirname + "/../test/tests/package.json!npm",
 						main: "async/index.stache!done-autorender"
-					})
+					}, response)
 				]
 			});
 
