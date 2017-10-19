@@ -1,5 +1,6 @@
 var REEXECUTE_MAIN = Symbol("done-ssr-reexecutemain");
 var MAIN_EXEC = Symbol("done-ssr-mainexec");
+var npmModuleRegEx = /@.+\..+\..+#/;
 
 module.exports = function(data){
 	return {
@@ -24,6 +25,13 @@ function addReexecuteMain(loader, data) {
 		return loader.main;
 	}
 
+	function isMain(name) {
+		var main = getName();
+		if(name === main) return true;
+		var n = name.replace(npmModuleRegEx, "/");
+		return main === n;
+	}
+
 	// For declarative modules (ES modules)
 	interceptDeclaration(loader, getName, function(declare, args){
 		var decl = declare.apply(this, args);
@@ -34,7 +42,7 @@ function addReexecuteMain(loader, data) {
 	// For dynamic modules (cjs, amd, etc)
 	var instantiate = loader.instantiate;
 	loader.instantiate = function(load){
-		if(load.name === getName()) {
+		if(isMain(load.name)) {
 			var p = Promise.resolve(instantiate.apply(this, arguments));
 			return p.then(function(result){
 				if(result && result.execute) {
