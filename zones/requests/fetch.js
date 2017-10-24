@@ -1,6 +1,7 @@
 var assert = require("assert");
 var https = require("https");
 var nodeFetch = require("node-fetch");
+var PassThrough = require("stream").PassThrough;
 var resolveUrl = require("../../lib/util/resolve_url");
 var TextDecoder = require("text-encoding").TextDecoder;
 var webStreams = require("node-web-streams");
@@ -35,7 +36,8 @@ module.exports = function(request){
 
 			// Convert the Node.js Readable stream to a WHATWG stream.
 			response._readableBody = resp.body;
-			response.body = toWebReadableStream(resp.body);
+			var body = resp.body.pipe(new PassThrough());
+			response.body = toWebReadableStream(body);
 			response.json = resp.json.bind(resp);
 			response.text = resp.text.bind(resp);
 			return response;
