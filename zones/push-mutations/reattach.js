@@ -69,6 +69,7 @@ module.exports = function(url){
 			`;
 			appendToHead(doc, closeScript);
 			doc.body.setAttribute("style", "visibility: hidden;");
+			doc.documentElement.setAttribute("data-incrementally-rendered", "");
 		}
 
 		return {
