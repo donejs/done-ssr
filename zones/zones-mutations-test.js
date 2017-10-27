@@ -57,8 +57,10 @@ describe("SSR Zones - Incremental Rendering", function(){
 
 		it("Contains the correct initial HTML", function(){
 			var dom = helpers.dom(this.zone.data.initialHTML);
-			var ul = helpers.find(dom, node => node.nodeName === "UL");
+			assert.equal(dom.getAttribute("data-incrementally-rendered"), "",
+				"contains the flag that incrementally rendering is used");
 
+			var ul = helpers.find(dom, node => node.nodeName === "UL");
 			assert.ok(!ul.firstChild, "There are no child LIs yet");
 		});
 
