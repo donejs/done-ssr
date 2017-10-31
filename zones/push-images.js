@@ -2,7 +2,6 @@
 module.exports = function(response, root){
 	root = root || process.cwd();
 
-	var domPatch = require("dom-patch");
 	var fs = require("fs");
 	var mime = require("mime-types");
 	var url = require("url");
@@ -33,10 +32,12 @@ module.exports = function(response, root){
 			}
 		}
 
-		function onChanges(changes) {
+		function pushAddedImages() {
 			for(let img of images) {
-				images.delete(img);
-				pushImage(img);
+				if(document.documentElement.contains(img)) {
+					images.delete(img);
+					pushImage(img);
+				}
 			}
 		}
 
@@ -51,7 +52,6 @@ module.exports = function(response, root){
 		return {
 			created: function(){
 				document = data.document;
-				domPatch(document, onChanges);
 			},
 			beforeTask: function(){
 				oldCreateElement = document.createElement;
@@ -59,9 +59,7 @@ module.exports = function(response, root){
 			},
 			afterTask: function(){
 				document.createElement = oldCreateElement;
-			},
-			ended: function(){
-				domPatch.unbind(document, onChanges);
+				pushAddedImages();
 			}
 		};
 	};

@@ -7,7 +7,7 @@ domPatch.collapseTextNodes = true;
 var patchTypes = ["attribute", "replace", "insert",
 	"remove", "text", "prop", "style"].reduce(truthyObject, {});
 
-module.exports = function(response, url){
+module.exports = function(){
 	return function(data){
 		var mutationStream = new Readable({
 			read() {

@@ -68,13 +68,13 @@ module.exports = function(){
 
 done-ssr provides the following (expanding) list of zones:
 
-* __done-ssr/zones/requests__: Provides XMLHttpRequest and fetch polyfills. Overrides requests so that they are made to the server handling the node.js Request. This zone collects the following:
+* __[done-ssr/zones/requests](https://github.com/donejs/done-ssr/blob/master/docs/zones/requests.md)__: Provides XMLHttpRequest and fetch polyfills. Overrides requests so that they are made to the server handling the node.js Request. This zone collects the following:
   * __done-ssr/zones/xhr__: Overrides XMLHttpRequest, rerouting requests to the Node.js server running.
   * __done-ssr-zones/fetch__: Overrides fetch, rerouting requests to the Node.js server running.
 
-* __done-ssr/zones/push-fetch__: When using an HTTP/2 server like [spdy](https://github.com/spdy-http2/node-spdy) (support for http2 in Node 8 coming soon), will PUSH any fetches made to the server. This will speed up any repetitive requests that exist in the client.
-* __done-ssr/zones/push-xhr__: When using an HTTP/2 server like [spdy](https://github.com/spdy-http2/node-spdy) (support for http2 in Node 8 coming soon), will PUSH any XHR requests made to the server. This will speed up any repetitive requests that exist in the client.
-* __done-ssr/zones/push-images__: Like the 2 above zones, but will PUSH images. So if your code adds images to the DOM like:
+* __[done-ssr/zones/push-fetch](https://github.com/donejs/done-ssr/blob/master/docs/zones/push-fetch.md)__: When using an HTTP/2 server like [spdy](https://github.com/spdy-http2/node-spdy) (support for http2 in Node 8 coming soon), will PUSH any fetches made to the server. This will speed up any repetitive requests that exist in the client.
+* __[done-ssr/zones/push-xhr](https://github.com/donejs/done-ssr/blob/master/docs/zones/ush-xhr.md)__: When using an HTTP/2 server like [spdy](https://github.com/spdy-http2/node-spdy) (support for http2 in Node 8 coming soon), will PUSH any XHR requests made to the server. This will speed up any repetitive requests that exist in the client.
+* __[done-ssr/zones/push-images](https://github.com/donejs/done-ssr/blob/master/docs/zones/push-images.md)__: Like the 2 above zones, but will PUSH images. So if your code adds images to the DOM like:
 
 ```js
 var img = document.createElement("img");
@@ -91,7 +91,7 @@ var zone = new Zone([
 	pushImages(response)
 ])
 ```
-* __done-ssr/zones/push-mutations__: This is used internally by done-ssr's incremental rendering strategy. Use this if you want to skip waiting on the Zone to complete, but rather want to stream out mutations to the client as they happen.
+* __[done-ssr/zones/push-mutations](https://github.com/donejs/done-ssr/blob/master/docs/zones/requests.md)__: This is used internally by done-ssr's incremental rendering strategy. Use this if you want to skip waiting on the Zone to complete, but rather want to stream out mutations to the client as they happen.
 
 This Zone (like the other PUSH zones) requires an HTTP/2 server.
 
@@ -117,5 +117,7 @@ require("spdy").createServer(options, function(request, response){
 });
 ```
 
-* __can-zone-jsdom__: Uses [jsdom](https://www.npmjs.com/package/jsdom) to provide a global document. This should usually be the first plugin listed, as it is used by other zones like `done-ssr/zones/push-images`.
-* __done-ssr/zones/can-simple-dom__: Use [can-simple-dom](https://github.com/canjs/can-simple-dom) to provide a global `document` and `window`. This is like jsdom but is not spec compatible. It provides only a minimal DOM needed for most applications (and is the default DOM used by done-ssr).
+* __[can-zone-jsdom](https://github.com/canjs/can-zone-jsdom)__: Uses [jsdom](https://www.npmjs.com/package/jsdom) to provide a global document. This should usually be the first plugin listed, as it is used by other zones like `done-ssr/zones/push-images`.
+* __[done-ssr/zones/can-simple-dom](https://github.com/donejs/done-ssr/blob/master/docs/zones/can-simple-dom.md)__: Use [can-simple-dom](https://github.com/canjs/can-simple-dom) to provide a global `document` and `window`. This is like jsdom but is not spec compatible. It provides only a minimal DOM needed for most applications (and is the default DOM used by done-ssr).
+
+* __done-ssr/zones/canjs](https://github.com/donejs/done-ssr/blob/master/docs/zones/requests.md)__: Makes sure globals within a canjs application are configured for each zone task, and sets the `response.statusCode` when `route.data.statusCode` is a number.
