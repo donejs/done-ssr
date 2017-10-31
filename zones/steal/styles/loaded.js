@@ -39,7 +39,12 @@ module.exports = function(){
 
 				Promise.all(promises)
 					.then(renderStylesIntoDocument)
-					.then(loadedResolve, loadedReject);
+					.then(function(){
+						if(data.document) {
+							data.html = data.document.documentElement.outerHTML;
+						}
+						loadedResolve(data);
+					}, loadedReject);
 			},
 			beforeTask: function(){
 				if(can) {
