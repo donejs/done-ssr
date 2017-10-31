@@ -4,7 +4,8 @@ module.exports = function(response){
 		return {
 			plugins: [
 				require("./globals"),
-				require("./route")(response)
+				require("./route")(response),
+				require("./cleanup")
 			]
 		};
 	};

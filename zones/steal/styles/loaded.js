@@ -39,7 +39,9 @@ module.exports = function(){
 
 				Promise.all(promises)
 					.then(renderStylesIntoDocument)
-					.then(loadedResolve, loadedReject);
+					.then(function(){
+						loadedResolve(data);
+					}, loadedReject);
 			},
 			beforeTask: function(){
 				if(can) {

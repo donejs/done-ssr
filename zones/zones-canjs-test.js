@@ -49,8 +49,13 @@ describe("SSR Zones - CanJS application", function(){
 				canRoute("{page}", {});
 				var loc = LOCATION();
 
+				var zone = Zone.current;
+
 				var params = canRoute.deparam(loc.pathname);
 				var main = document.createElement("main");
+				main.addEventListener("removed", function(){
+					zone.data.removeCalled = true;
+				});
 				main.textContent = params.page;
 				document.body.appendChild(main);
 			});
@@ -63,5 +68,9 @@ describe("SSR Zones - CanJS application", function(){
 		var main = helpers.find(dom, node => node.nodeName === "MAIN");
 
 		assert.equal(main.firstChild.nodeValue, "home");
+	});
+
+	it("Cleans up after rendering", function(){
+		assert(this.zone.data.removeCalled, "The <main> element's removed event was called");
 	});
 });
