@@ -34,7 +34,7 @@ describe("SSR Zones - DoneJS application", function(){
 	this.timeout(10000);
 
 	before(function(){
-		return spinUpServer(() => {
+		function runRequest() {
 			var request = new Request("/orders");
 			var response = this.response = new Response();
 
@@ -53,6 +53,12 @@ describe("SSR Zones - DoneJS application", function(){
 			});
 
 			return zone.run();
+		}
+
+		return spinUpServer(() => {
+			return runRequest.call(this).then(() => {
+				return runRequest.call(this);
+			});
 		});
 	});
 
@@ -76,5 +82,13 @@ describe("SSR Zones - DoneJS application", function(){
 
 		assert.equal(ct, "content-type: application/json",
 					 "Header was added");
+	});
+
+	it("Includes the right number of styles", function(){
+		assert(this.zone.data.html);
+		var node = helpers.dom(this.zone.data.html);
+
+		var styles = node.getElementsByTagName("style");
+		assert.equal(styles.length, 2, "2 styles are included");
 	});
 });

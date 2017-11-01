@@ -26,17 +26,22 @@ module.exports = function(data){
 		oldCanImport.apply(this, arguments);
 	};
 
+	function maybeApplyOverride() {
+		if(can) {
+			oldCanImport = can.view.callbacks._tags["can-import"];
+			if(oldCanImport) {
+				can.view.callbacks._tags["can-import"] = canImport;
+			}
+		}
+	}
+
 	return {
 		afterStealDone: function(){
 			can = data.modules.can;
+			maybeApplyOverride();
 		},
 		beforeTask: function(){
-			if(can) {
-				oldCanImport = can.view.callbacks._tags["can-import"];
-				if(oldCanImport) {
-					can.view.callbacks._tags["can-import"] = canImport;
-				}
-			}
+			maybeApplyOverride();
 		},
 		afterTask: function(){
 			if(can && oldCanImport) {
