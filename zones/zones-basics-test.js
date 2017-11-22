@@ -70,6 +70,10 @@ describe("SSR Zones - Basics", function(){
 			var cart = helpers.find(dom, node => node.getAttribute &&
 				node.getAttribute("id") === "cart");
 			assert.equal(cart.firstChild.nodeValue, "Count: 22", "XHR works");
+
+			var globalDiv = helpers.find(dom, node => node.getAttribute &&
+				node.getAttribute("id") === "the-global");
+			assert.equal(globalDiv.firstChild.nodeValue, "true", "The window is the global object");
 		});
 
 		it("Data from the fetch requests was pushed", function(){

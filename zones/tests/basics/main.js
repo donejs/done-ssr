@@ -29,5 +29,13 @@ module.exports = function(){
 	};
 	xhr.send();
 
+	// Verify that the `window` is the global object.
+	var realGlobal = (function(){ return this; })();
+	var areTheSame = realGlobal === window;
+	var globalDiv = document.createElement("div");
+	globalDiv.setAttribute("id", "the-global");
+	globalDiv.appendChild(document.createTextNode(areTheSame.toString()));
+	main.appendChild(globalDiv);
+
 	document.body.appendChild(main);
 };
