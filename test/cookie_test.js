@@ -44,7 +44,9 @@ describe("cookie async rendering", function() {
 		var stream = render({
 			//mocked up req object
 			url: "/",
+			connection: {},
 			headers: {
+				host: "localhost",
 				cookie: "willitcookie=letsfindout"
 			}
 		});

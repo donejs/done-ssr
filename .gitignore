@@ -2,3 +2,4 @@ node_modules/
 test/tests/node_modules/
 doc/
 .idea/
+package-lock.json

@@ -5,7 +5,7 @@ var path = require("path");
 var through = require("through2");
 
 describe("Timeouts", function(){
-	this.timeout(10000);
+	this.timeout(30000);
 
 	before(function(done){
 		this.render = ssr({
@@ -20,11 +20,11 @@ describe("Timeouts", function(){
 		this.render("/fast").pipe(through(function(){
 			setTimeout(function(){
 				done();
-			}, 2000);
+			}, 10000);
 		}));
 	});
 
-	it.only("App times out after the specified time", function(done){
+	it("App times out after the specified time", function(done){
 		this.render("/slow").pipe(through(function(buffer){
 			Promise.resolve().then(function(){
 				var html = buffer.toString();

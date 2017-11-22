@@ -65,6 +65,7 @@
     "can-zone": "^0.6.11",
     "dom-patch": "^2.1.1",
     "done-ssr-incremental-rendering-client": "^2.0.1",
+    "full-url": "^1.0.0",
     "is-promise": "^2.1.0",
     "lodash.defaults": "^4.0.1",
     "mime-types": "^2.1.17",
@@ -76,6 +77,7 @@
     "text-encoding": "^0.6.4",
     "useragent": "^2.1.13",
     "websocket": "^1.0.22",
+    "whatwg-url": "^6.3.0",
     "xmlhttprequest2": "^1.0.0"
   },
   "greenkeeper": {
