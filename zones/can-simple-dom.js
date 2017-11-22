@@ -2,7 +2,7 @@ var fullUrl = require("full-url");
 var makeWindow = require("can-vdom/make-window/make-window");
 var makeDocument = require("can-vdom/make-document/make-document");
 var once = require("once");
-var URL = require("url").URL;
+var URL = (require("url").URL || require("whatwg-url").URL);
 var zoneRegister = require("can-zone/register");
 
 var globalDocument = makeDocument();
