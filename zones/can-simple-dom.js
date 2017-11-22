@@ -1,7 +1,8 @@
+var fullUrl = require("full-url");
 var makeWindow = require("can-vdom/make-window/make-window");
 var makeDocument = require("can-vdom/make-document/make-document");
 var once = require("once");
-var url = require("url");
+var URL = require("url").URL;
 var zoneRegister = require("can-zone/register");
 
 var globalDocument = makeDocument();
@@ -12,7 +13,7 @@ module.exports = function(request){
 		var window = makeWindow({});
 		window.window = Object.assign({}, global, window);
 		window.location = window.document.location = window.window.location =
-		 url.parse(request.url, true);
+			new URL(fullUrl(request));
 		if(!window.location.protocol) {
 			window.location.protocol = "http:";
 		}

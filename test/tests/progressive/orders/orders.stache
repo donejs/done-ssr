@@ -1,6 +1,6 @@
 <div id="orders">
 {{#each orders}}
-	<div>order {{%index}}</div>
+	<div>order {{scope.index}}</div>
 {{/each}}
 </div>
 

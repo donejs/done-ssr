@@ -5,9 +5,9 @@ module.exports = Map.extend({
 		throw Error('Something went wrong');
 	},
 	location: function(){
-		return location.href;
+		return location.pathname;
 	},
 	docLocation: function(){
-		return document.location.href;
+		return document.location.pathname;
 	}
 });

@@ -23,7 +23,7 @@ describe("Incremental rendering - plain JS", function(){
 		});
 	});
 
-	describe("A basic asyc app", function(){
+	describe("A basic async app", function(){
 		before(function(done){
 			var result = this.result = {
 				html: null,
@@ -32,7 +32,9 @@ describe("Incremental rendering - plain JS", function(){
 
 			var request = {
 				url: "/",
+				connection: {},
 				headers: {
+					host: "localhost",
 					"user-agent": helpers.ua.chrome
 				}
 			};

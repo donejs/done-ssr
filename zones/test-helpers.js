@@ -16,6 +16,8 @@ exports.Request = class extends http.IncomingMessage {
 		super();
 		this.url = url || "/";
 		this.protocol = "http";
+		this.connection = {};
+		this.headers = {host:"localhost"};
 		this.get = name => "localhost:8070";
 	}
 };

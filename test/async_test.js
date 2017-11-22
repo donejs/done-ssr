@@ -63,7 +63,9 @@ describe("async rendering", function(){
 	it("request language is used", function(done){
 		var request = {
 			url: "/",
+			connection: {},
 			headers: {
+				"host": "localhost",
 				"accept-language": "en-US"
 			}
 		};

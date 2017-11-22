@@ -48,7 +48,9 @@ describe("auth cookies - failed domain", function() {
 	it("works", function(done) {
 		var stream = render({
 			url: '/',
+			connection: {},
 			headers: {
+				host: "localhost",
 				cookie: "feathers-jwt=foobar;"
 			}
 		});

@@ -17,19 +17,20 @@ describe("Server-Side Rendering Basics", function(){
 
 	it("basics works", function(done){
 		this.render("/").pipe(through(function(buffer){
-			var html = buffer.toString();
-			var node = helpers.dom(html);
+			Promise.resolve().then(function(){
+				var html = buffer.toString();
+				var node = helpers.dom(html);
 
-			var home = node.getElementById("home");
-			assert.ok(home, "Found the 'home' element");
+				var home = node.getElementById("home");
+				assert.ok(home, "Found the 'home' element");
 
-			var location = node.getElementById("location");
-			assert.equal(location.innerHTML, "/", "Got the window.location");
+				var location = node.getElementById("location");
+				assert.equal(location.innerHTML, "/", "Got the window.location");
 
-			var docLocation = node.getElementById("doc-location");
-			assert.equal(docLocation.innerHTML, "/", "Got the document.location");
-
-			done();
+				var docLocation = node.getElementById("doc-location");
+				assert.equal(docLocation.innerHTML, "/", "Got the document.location");
+			})
+			.then(done, done);
 		}));
 	});
 
@@ -38,8 +39,7 @@ describe("Server-Side Rendering Basics", function(){
 
 		stream.on("error", done);
 
-		var response = through(function(buffer){
-			var html = buffer.toString();
+		function check(html) {
 			var node = helpers.dom(html);
 
 			var found = {};
@@ -58,8 +58,12 @@ describe("Server-Side Rendering Basics", function(){
 				return el.getAttribute && el.getAttribute("id") === "totals";
 			});
 			assert.ok(totalsEl, "an element that was conditionally added in the 'inserted' event is rendered");
+		}
 
-			done();
+		var response = through(function(buffer){
+			Promise.resolve()
+			.then(check.bind(null, buffer.toString()))
+			.then(done, done);
 		});
 
 		stream.pipe(response);
