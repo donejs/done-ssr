@@ -35,7 +35,7 @@
     "can-component": "^3.2.1",
     "can-define": "^1.0.10",
     "can-fixture": "^1.0.12",
-    "can-globals": "^0.3.0",
+    "can-globals": "<2.0.0",
     "can-list": "^3.0.2",
     "can-map": "^3.0.4",
     "can-map-define": "^3.0.2",
