@@ -1,10 +1,7 @@
 var Zone = require("can-zone");
 var path = require("path");
-var fetch = require("./requests/fetch");
+var xhr = require("./requests/xhr");
 var dom = require("./can-simple-dom");
-var pushFetch = require("./push-fetch");
-var pushImages = require("./push-images");
-var pushXHR = require("./push-xhr");
 var steal = require("./steal");
 
 var assert = require("assert");
@@ -24,6 +21,9 @@ var spinUpServer = function(cb){
 				break;
 			case "/api/cart":
 				var data = { count: 22 };
+				break;
+			case "/bar":
+				var data = [ { "a": "a" }, { "b": "b" } ];
 				break;
 		}
 		res.end(JSON.stringify(data));
@@ -113,6 +113,58 @@ describe("SSR Zones - Steal application with CSS", function(){
 	});
 
 	it("Includes the basic style", function(){
+		var dom = helpers.dom(this.zone.data.html);
+		var style = helpers.find(dom, node => node.nodeName === "STYLE");
+		assert(style, "There is the style on the page");
+	});
+});
+
+describe.only("SSR Zones - Production Mode", function(){
+	this.timeout(10000);
+
+	function render() {
+		var request = new Request("/orders");
+		var response = this.response = new Response();
+
+		var zone = this.zone = new Zone({
+			plugins: [
+				// Sets up a DOM
+				dom(request),
+
+				xhr(request),
+
+				steal({
+					config: __dirname + "/../test/tests/package.json!npm",
+					main: "async/index.stache!done-autorender",
+					bundlesPath: "async/dist/bundles",
+					env: "production"
+				})
+			]
+		});
+
+		return zone.run();
+	}
+
+	before(function(){
+		return spinUpServer(() => {
+			return render.call(this);
+		});
+	});
+
+	it("Includes CSS in the correct order", function(){
+		console.log(this.zone.data.html);
+	});
+
+	it.skip("Includes the right HTML", function(){
+		assert(this.zone.data.html);
+		var dom = helpers.dom(this.zone.data.html);
+		var main = helpers.find(dom, node => node.nodeName === "MAIN");
+
+		assert(main, "Got the main element");
+		assert.equal(main.firstChild.nodeValue, "hello world", "Rendered it");
+	});
+
+	it.skip("Includes the basic style", function(){
 		var dom = helpers.dom(this.zone.data.html);
 		var style = helpers.find(dom, node => node.nodeName === "STYLE");
 		assert(style, "There is the style on the page");
