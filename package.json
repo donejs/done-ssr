@@ -43,7 +43,6 @@
     "documentjs": "^0.5.0",
     "done-autorender": "^2.0.0-pre.1",
     "done-css": "^3.0.1",
-    "done-ssr-middleware": "^1.0.0",
     "es6-promise": "^4.1.0",
     "jquery": "2.x - 3.x",
     "jshint": "^2.8.0",
