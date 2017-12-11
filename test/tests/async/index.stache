@@ -4,12 +4,12 @@
 	</head>
 	<body>
 		<can-import from="async/routes" />
-		<can-import from="async/appstate" as="viewModel" />
+		<can-import from="async/appstate" export-as="viewModel" />
 		<can-import from="async/styles.css" />
 
 		{{page}}
 
-		{{#eq page "orders"}}
+		{{#eq(page, "orders")}}
 			<can-import from="async/orders/">
 				{{#isResolved}}
 					<order-history></order-history>
@@ -24,7 +24,7 @@
 		<div class="language">{{language}}</div>
 
 		{{#if showError}}
-			<span>{{someError}}</span>
+			<span>{{someError()}}</span>
 		{{/if}}
 	</body>
 </html>

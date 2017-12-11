@@ -21,8 +21,6 @@ describe("Projects importing a component that doesn't exist", function(){
 			var html = buffer.toString();
 			var node = helpers.dom(html);
 
-			console.log(html);
-
 			var rej = helpers.find(node, function(el){
 				return el.getAttribute && el.getAttribute("id") === "rejected";
 			});

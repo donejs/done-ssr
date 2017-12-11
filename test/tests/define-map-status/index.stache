@@ -5,7 +5,7 @@
 <body>
 	<can-import from="define-map-status/vm" export-as="viewModel"/>
 
-	{{#eq page "test"}}
+	{{#eq(page, "test")}}
 		<div id="worked">It worked</div>
 	{{/eq}}
 </body>

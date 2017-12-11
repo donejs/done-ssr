@@ -5,7 +5,7 @@ module.exports = function(data){
 
 	var canImport = function(el, tagData){
 		var moduleName = el.getAttribute("from");
-		var templateModule = tagData.options.get("helpers.module");
+		var templateModule = tagData.scope.get("scope.helpers.module");
 		var parentName = templateModule ? templateModule.id : undefined;
 
 		var isAPage = !!tagData.subtemplate;

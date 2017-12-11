@@ -23,12 +23,13 @@ export default function(request){
 	var state = new AppViewModel(props);
 
 	route.data = state;
+	route.start();
 
 	$(document.head).html(headTemplate(state));
 	var body = $(document.body);
 	body.html(bodyTemplate(state));
 
-	var page = state.attr("page");
+	var page = state.page;
 	var module = "plain/" + page + "/";
 
 	importPage(module).then(function(){

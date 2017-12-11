@@ -1,9 +1,9 @@
-var Map = require("can-define/map/map");
+var DefineMap = require("can-define/map/map");
 var route = require("can-route");
 require("can-route-pushstate");
 
 route("{page}");
 
-module.exports = Map.extend({
+module.exports = DefineMap.extend({
 	page: "string"
 });

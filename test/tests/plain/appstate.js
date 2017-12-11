@@ -1,5 +1,5 @@
-var Map = require("can-map");
+var DefineMap = require("can-define/map/map");
 
-module.exports = Map.extend({
+module.exports = DefineMap.extend({
 
 });
