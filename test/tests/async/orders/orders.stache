@@ -1,5 +1,5 @@
 <div id="orders">
-{{#each orders}}
+{{#orders}}
 	<div>order {{scope.index}}</div>
-{{/each}}
+{{/orders}}
 </div>
