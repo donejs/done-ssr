@@ -1,4 +1,3 @@
-var makeRender = require("../../lib/make_render");
 var ReloadableStartup = require("../../lib/reloadable-startup");
 var Steal = require("steal");
 
@@ -55,7 +54,7 @@ module.exports = function(cfg){
 						if(runFn) {
 							runFn();
 						} else {
-							var render = makeRender(modules.main, modules.can);
+							var render = modules.main.default || modules.main;
 							if(typeof render === "function") {
 								render(data.request);
 							} else if(typeof data.mainExecute === "function" &&

@@ -1,5 +1,5 @@
 import Component from 'can-component';
-import view from './bar.stache!';
+import view from './bar.stache';
 
 export default Component.extend({
 	view,

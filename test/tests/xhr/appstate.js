@@ -1,22 +1,18 @@
-var Map = require("can-map");
-
-require("can-map-define");
+var DefineMap = require("can-define/map/map");
 require("can-route");
 
-module.exports = Map.extend({
-	define: {
-		list: {
-			get: function(last, set) {
-				var xhr = new XMLHttpRequest();
+module.exports = DefineMap.extend({
+	list: {
+		get: function(last, resolve) {
+			var xhr = new XMLHttpRequest();
 
-				xhr.addEventListener("load", function() {
-					var results = JSON.parse(this.responseText);
-					set(results);
-				});
+			xhr.addEventListener("load", function() {
+				var results = JSON.parse(this.responseText);
+				resolve(results);
+			});
 
-				xhr.open("GET", "http://localhost:8070/api/list");
-				xhr.send();
-			}
+			xhr.open("GET", "http://localhost:8070/api/list");
+			xhr.send();
 		}
 	}
 });

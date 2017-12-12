@@ -3,6 +3,6 @@
 		<title>test page</title>
 	</head>
 	<body>
-		<can-import from="lr/state" as="viewModel" />
+		<can-import from="lr/state" export-as="viewModel" />
 	</body>
 </html>

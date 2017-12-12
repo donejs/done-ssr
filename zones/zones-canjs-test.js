@@ -40,7 +40,7 @@ describe("SSR Zones - CanJS application", function(){
 				plugins: [
 					// Sets up a DOM
 					dom(request),
-					canjs(),
+					canjs(response),
 				]
 			});
 

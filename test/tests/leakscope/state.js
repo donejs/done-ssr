@@ -1,5 +1,4 @@
-var Map = require("can-map");
-
+var DefineMap = require("can-define/map/map");
 require("can-route-pushstate");
 
-module.exports = Map.extend({});
+module.exports = DefineMap.extend({});

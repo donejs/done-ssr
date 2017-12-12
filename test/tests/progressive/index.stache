@@ -4,30 +4,31 @@
 	</head>
 	<body>
 		<can-import from="./progressive/routes"/>
-		<can-import from="progressive/appstate" as="viewModel" />
-		<can-import from="progressive/main.css!"/>
+		<can-import from="progressive/appstate" export-as="viewModel" />
+		<can-import from="progressive/main.css"/>
 
-		{{#eq page "home"}}
+		{{#eq(page, "home")}}
 			<div id="home">You are {{page}}</div>
 		{{/eq}}
 
-		{{#eq page "orders"}}
+		{{#eq(page, "orders")}}
 			<can-import from="progressive/orders/">
-				{{#eq state "resolved"}}
+				{{#if isResolved}}
 					<order-history></order-history>
-				{{/eq}}
+				{{/if}}
 			</can-import>
 		{{/eq}}
 
-		{{^eq statusCode 200}}
+		{{^eq(statusCode, 200)}}
+			<div>code: {{statusCode}}</div>
 			<div>Error: {{statusMessage}}</div>
 		{{/eq}}
 
-		{{#if param}} {{param}} {{/if}}
+		{{#if(param)}} {{param}} {{/if}}
 
-		{{#if err}} {{throwError}} {{/if}}
+		{{#if(err)}} {{throwError()}} {{/if}}
 
-		{{#if request}}
+		{{#if(request)}}
 			<div>Showing: {{request.url}}</div>
 		{{/if}}
 

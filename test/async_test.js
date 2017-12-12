@@ -35,7 +35,11 @@ describe("async rendering", function(){
 	});
 
 	it("basics works", function(done){
-		this.render("/").pipe(through(function(buffer){
+		var renderStream = this.render("/");
+
+		renderStream.on("error", done);
+
+		renderStream.pipe(through(function(buffer){
 			Promise.resolve().then(function(){
 				var html = buffer.toString();
 				var node = helpers.dom(html);
@@ -92,7 +96,9 @@ describe("async rendering", function(){
 			}).then(done, done);
 		});
 
-		this.render("/fake").pipe(response);
+		var renderStream = this.render("/fake");
+		renderStream.on("error", done);
+		renderStream.pipe(response);
 	});
 
 	it("sets a 500 status when there are errors", function(done){

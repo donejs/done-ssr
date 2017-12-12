@@ -12,6 +12,7 @@ module.exports = function(request){
 		// Create the document
 		var window = makeWindow({});
 		window.window = global;
+		window.URL = URL;
 		window.location = window.document.location = window.window.location =
 			new URL(fullUrl(request));
 		if(!window.location.protocol) {

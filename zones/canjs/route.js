@@ -11,8 +11,8 @@ module.exports = function(response) {
 			var statusCode = canReflect.getKeyValue(routeData, "statusCode");
 
 			if(!statusCode) {
-				var can = data.modules.can;
-				if(can.route) {
+				var can = data.modules && data.modules.can;
+				if(can && can.route) {
 					var currentRoute = can.route.deparam(pathname).route;
 					// fix: support root-url (i.e '/') in develop-mode
 					if(currentRoute || (currentRoute === "")) {

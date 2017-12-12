@@ -1,24 +1,23 @@
-var List = require("can-list");
-var Map = require("can-map");
-require("can-map-define");
+var DefineMap = require("can-define/map/map");
 
-module.exports = Map.extend({
-	define: {
-		things: {
-			Value: List,
-			get: function(list){
-				debugger;
+module.exports = DefineMap.extend({
+	thingsPromise: {
+		get: function(){
+			return new Promise(function(resolve){
 				var xhr = new XMLHttpRequest();
 				xhr.open("GET", "http://www.example.org/stuff");
 				xhr.addEventListener("load", function(){
 					var json = xhr.responseText;
 					var data = JSON.parse(json);
-					list.replace(data);
+					resolve(data);
 				});
 				xhr.send();
-
-				return list;
-			}
+			})
+		}
+	},
+	things: {
+		get: function(last, resolve){
+			this.thingsPromise.then(resolve);
 		}
 	}
 });

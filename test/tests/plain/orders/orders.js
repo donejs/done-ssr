@@ -1,23 +1,19 @@
 var Component = require("can-component");
-var Map = require("can-map");
-var List = require("can-list");
+var DefineMap = require("can-define/map/map");
 var view = require("./orders.stache");
 require("./orders.css");
-require("can-map-define");
 
-var ViewModel = Map.extend({
-	define: {
-		orders: {
-			Value: List,
-			get: function(list){
-				var id = "foo";
-				var promise = new Promise(function(resolve){
-					resolve([ { a: "a" }, { b: "b" } ]);
-				});
-				list.replace(promise);
-
-				return list;
-			}
+var ViewModel = DefineMap.extend({
+	ordersPromise: {
+		get: function(){
+			return new Promise(function(resolve){
+				resolve([ { a: "a" }, { b: "b" } ]);
+			});
+		}
+	},
+	orders: {
+		get: function(last, resolve){
+			this.ordersPromise.then(resolve);
 		}
 	}
 });
