@@ -58,7 +58,7 @@
   "dependencies": {
     "can-namespace": "^1.0.0",
     "can-reflect": "^1.11.0",
-    "can-util": "^3.11.10",
+    "can-util": "^3.11.0",
     "can-vdom": "^4.0.0",
     "can-zone": "^0.6.11",
     "dom-patch": "^2.1.1",
