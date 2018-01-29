@@ -1,4 +1,4 @@
-var canData = require("can-util/dom/data/data");
+var canData = require("can-dom-data-state");
 
 module.exports = function(data){
 	var oldCanImport, can;
