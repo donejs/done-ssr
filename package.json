@@ -58,7 +58,7 @@
     "can-namespace": "^1.0.0",
     "can-reflect": "^1.11.0",
     "can-util": "^3.10.10",
-    "can-vdom": "^3.2.5",
+    "can-vdom": "^4.0.0",
     "can-zone": "^0.6.11",
     "dom-patch": "^2.1.1",
     "done-ssr-incremental-rendering-client": "^2.0.1",
