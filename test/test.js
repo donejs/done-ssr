@@ -8,7 +8,6 @@ mochas([
 	"../zones/zones-donejs-test.js",
 	"async_test.js",
 	"cookie_test.js",
-	"leakscope_test.js",
 	"plainjs_test.js",
 	"progressive_test.js",
 	"test_envs.js",
