@@ -27,17 +27,15 @@ var ViewModel = DefineMap.extend({
 		}
 	},
 	showTotals: {
-		value: false
+		default: false
+	},
+	connectedCallback: function(){
+		this.showTotals = true;
 	}
 });
 
 Component.extend({
 	tag: "order-history",
 	view: view,
-	ViewModel: ViewModel,
-	events: {
-		inserted: function(){
-			this.viewModel.showTotals = true;
-		}
-	}
+	ViewModel: ViewModel
 });

@@ -4,7 +4,7 @@ module.exports = function(data){
 		return (data.modules && data.modules[propName]) || require(moduleName);
 	}
 
-	var getDomMutate = getEither.bind(null, "domMutate", "can-util/dom/mutate/mutate");
+	var getDomMutate = getEither.bind(null, "domMutate", "can-dom-mutate/node");
 
 	return {
 		ended: function(){
