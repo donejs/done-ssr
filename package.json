@@ -41,7 +41,7 @@
     "can-stache": "^4.0.0-pre.0",
     "copy-dir": "0.0.8",
     "documentjs": "^0.5.0",
-    "done-autorender": "^2.0.0-pre.1",
+    "done-autorender": "^2.0.0-pre.10",
     "done-css": "^3.0.1",
     "es6-promise": "^4.1.0",
     "jquery": "2.x - 3.x",
@@ -55,9 +55,10 @@
     "uglify-js": "3.2.0"
   },
   "dependencies": {
+    "can-dom-data-state": "^1.0.1",
+    "can-dom-mutate": "^1.0.2",
     "can-namespace": "^1.0.0",
     "can-reflect": "^1.11.0",
-    "can-util": "^3.10.10",
     "can-vdom": "^3.2.5",
     "can-zone": "^0.6.11",
     "dom-patch": "^2.1.1",

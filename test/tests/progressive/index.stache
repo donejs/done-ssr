@@ -13,7 +13,7 @@
 
 		{{#eq(page, "orders")}}
 			<can-import from="progressive/orders/">
-				{{#if isResolved}}
+				{{#if(isResolved)}}
 					<order-history></order-history>
 				{{/if}}
 			</can-import>

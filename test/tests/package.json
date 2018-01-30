@@ -3,17 +3,16 @@
   "version": "0.0.1",
   "main": "progressive/index.stache!done-autorender",
   "dependencies": {
-    "can-component": "^4.0.0-pre.15",
-	"can-define": "^2.0.0-pre.19",
-    "can-fixture": "^2.0.0-pre.0",
-	"can-route": "^4.0.0-pre.0",
-    "can-route-pushstate": "^4.0.0-pre.0",
-    "can-stache": "^4.0.0-pre.0",
-	"can-util": "^3.5.0",
+    "can-component": "^4.0.0",
+	"can-define": "^2.0.0",
+    "can-fixture": "^2.0.0",
+	"can-route": "^4.0.0",
+    "can-route-pushstate": "^4.0.0",
+    "can-stache": "^4.0.0",
     "done-css": "^3.0.0",
-    "done-autorender": "^2.0.0-pre.0",
+    "done-autorender": "^2.0.0-pre.10",
     "jquery": "2.x - 3.x",
-    "steal-stache": "^4.0.0-pre.2"
+    "steal-stache": "^4.0.0"
   },
   "steal": {
     "envs": {

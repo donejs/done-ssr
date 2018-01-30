@@ -5,6 +5,8 @@ module.exports = DefineMap.extend({
 }, {
 	page: "string",
 	statusMessage: "string",
+	param: "string",
+	err: "any",
 	throwError: function() {
 		throw Error('Something went wrong');
 	},

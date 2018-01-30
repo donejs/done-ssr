@@ -1,6 +1,7 @@
 var Zone = require("can-zone");
 var dom = require("./can-simple-dom");
 var canjs = require("./canjs");
+var domMutate = require("can-dom-mutate");
 
 var assert = require("assert");
 var {
@@ -46,14 +47,14 @@ describe("SSR Zones - CanJS application", function(){
 
 			return zone.run(function(){
 				require("can-route-pushstate");
-				canRoute("{page}", {});
+				canRoute.register("{page}", {});
 				var loc = LOCATION();
 
 				var zone = Zone.current;
 
 				var params = canRoute.deparam(loc.pathname);
 				var main = document.createElement("main");
-				main.addEventListener("removed", function(){
+				domMutate.onNodeRemoval(main, function(){
 					zone.data.removeCalled = true;
 				});
 				main.textContent = params.page;
