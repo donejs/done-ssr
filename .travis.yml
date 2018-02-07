@@ -1,9 +1,7 @@
 language: node_js
 script: npm test
 node_js:
-  - "6"
-  - "7"
-  - "8"
+  - node
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get -qq update
