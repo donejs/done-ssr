@@ -60,6 +60,10 @@ describe("SSR Zones - Incremental Rendering", function(){
 			assert.equal(dom.getAttribute("data-incrementally-rendered"), "",
 				"contains the flag that incrementally rendering is used");
 
+			var iframe = helpers.find(dom, node => node.nodeName === "IFRAME");
+			assert.equal(iframe.getAttribute("data-keep"), "",
+				"the iframe contains the 'keep' attribute to prevent it from being removed");
+
 			var ul = helpers.find(dom, node => node.nodeName === "UL");
 			assert.ok(!ul.firstChild, "There are no child LIs yet");
 		});
