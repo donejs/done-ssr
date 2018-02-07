@@ -120,9 +120,7 @@ var render = ssr(steal, {
 });
 ```
 
-##### html5shiv : false
-
-Specifies where html5shiv should be configured and attached to the document's head. This will automatically register all of the custom can.Component elements for you when using IE8.
+> *Note*: the `DONE_SSR_DEBUG` environment variable can be used if you need to debug what is happening during incremental rendering reattachment. This provides unminified reattachment code. Set it to any value to enable the debugging. `export DONE_SSR_DEBUG=1`.
 
 ### render(request)
 
