@@ -84,6 +84,8 @@ describe("SSR Zones - Incremental Rendering", function(){
 });
 
 describe("SSR Zones - Incremental Rendering with DoneJS", function(){
+	this.timeout(10000);
+
 	before(function(){
 		return spinUpServer(() => {
 			var request = new Request("/home");
