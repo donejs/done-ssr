@@ -84,15 +84,14 @@ describe("SSR Zones - Incremental Rendering", function(){
 });
 
 describe("SSR Zones - Incremental Rendering with DoneJS", function(){
+	this.timeout(10000);
+
 	before(function(){
 		return spinUpServer(() => {
-			var request = new Request();
+			var request = new Request("/home");
 			var response = this.response = new Response();
 
 			var zone = this.zone = new Zone([
-				// Overrides XHR, fetch
-				requests(request),
-
 				// Sets up a DOM
 				dom(request),
 
@@ -107,6 +106,7 @@ describe("SSR Zones - Incremental Rendering with DoneJS", function(){
 			var runPromise = zone.run();
 			return zone.data.initialStylesLoaded.then(function(){
 				zone.data.initialHTML = zone.data.html;
+				return runPromise;
 			});
 		});
 	});
@@ -134,5 +134,15 @@ describe("SSR Zones - Incremental Rendering with DoneJS", function(){
 		var style = helpers.find(idom, node => node.nodeName === "STYLE");
 
 		assert.ok(style, "there was style here");
+	});
+
+	it("contains the right instructions", function(){
+		var pushes = this.response.data.pushes;
+		var mutations = pushes[0][2];
+
+		assert.equal(mutations.length, 1, "There was only 1 mutation");
+
+		var homeAsyncText = mutations[0].toString();
+		assert.ok(/hello async!/.test(homeAsyncText), "included the async action");
 	});
 });
