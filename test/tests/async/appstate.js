@@ -14,7 +14,7 @@ module.exports = DefineMap.extend({
 		}
 	},
 	language: {
-		value: function(){
+		default: function(){
 			return navigator.language;
 		}
 	},

@@ -1,4 +1,3 @@
-var fuzzyNormalize = require("steal-fuzzy-normalize");
 
 module.exports = function(data){
 	var inserted = new Set();
@@ -69,14 +68,7 @@ function ensureAtLeastMainPage(data) {
 	// If no bundles are found, put the main one in anyways, so some
 	// styles are at least added
 	if(data.pages.length === 0) {
-		var main = data.steal.loader.main;
-		var bundles = data.bundleHelpers.bundles;
-
-		// Find the normalized main name within the bundles
-		var names = Object.keys(bundles);
-		// remove the main in case it's not normalized, find a better match.
-		names.splice(names.indexOf(main), 1);
-		var normalizedMain = fuzzyNormalize(main, names) || main;
-		data.pages.unshift(normalizedMain);
+		var loader = data.steal.loader;
+		data.pages.unshift(loader.normalizedMain);
 	}
 }
