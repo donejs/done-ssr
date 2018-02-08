@@ -12,7 +12,22 @@ module.exports = function(url){
 		} else {
 			document.head.appendChild(element);
 		}
-	};
+	}
+
+	function firstOfKind(root, nodeName) {
+		if (root == null) {
+			return null;
+		}
+
+		var node = root.firstChild;
+		while (node) {
+			if (node.nodeName === nodeName) {
+				return node;
+			}
+			node = node.nextSibling;
+		}
+		return null;
+	}
 
 	function makeIframe(document) {
 		var clone = document.documentElement.cloneNode(true);
@@ -25,7 +40,8 @@ module.exports = function(url){
 			}
 			el.setAttribute("data-noop", "");
 		});
-		var fakeDoc = { head: clone.firstChild };
+		
+		var fakeDoc = { head: firstOfKind(clone, "HEAD") };
 
 		// iframe placeholder
 		appendToHead(fakeDoc, document.createComment("iframe placeholder"));

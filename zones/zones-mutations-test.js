@@ -111,6 +111,20 @@ describe("SSR Zones - Incremental Rendering with DoneJS", function(){
 		});
 	});
 
+	it("reattachment script is within the <head>", function(){
+		var dom = helpers.dom(this.zone.data.initialHTML);
+		var iframe = helpers.find(dom, node => node.nodeName === "IFRAME");
+
+		var html = helpers.decodeSrcDoc(iframe);
+		var idom = helpers.dom(html);
+
+		var reattach = helpers.find(idom, node => node.nodeType === 1 &&
+			node.hasAttribute("data-streamurl"));
+		var parent = reattach.parentNode;
+
+		assert.equal(parent.nodeName, "HEAD", "within the head");
+	});
+
 	it("iframe overlay contains styles", function(){
 		var dom = helpers.dom(this.zone.data.initialHTML);
 		var iframe = helpers.find(dom, node => node.nodeName === "IFRAME");
