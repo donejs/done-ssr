@@ -1,4 +1,5 @@
 module.exports = function(data){
+	var later = setTimeout;
 
 	function getEither(propName, moduleName) {
 		return (data.modules && data.modules[propName]) || require(moduleName);
@@ -14,8 +15,12 @@ module.exports = function(data){
 			var head = data.document.head;
 			var body = data.document.body;
 
-			domMutate.removeChild.call(docEl, head);
-			domMutate.removeChild.call(docEl, body);
+			// Do this some time later to prevent extra mutations
+			// In the mutation stream
+			later(function(){
+				domMutate.removeChild.call(docEl, head);
+				domMutate.removeChild.call(docEl, body);
+			});
 		}
 	};
 };
