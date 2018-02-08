@@ -114,6 +114,9 @@ function traceBundles(loader){
 			if(parentName && parentMap[normalizedName] !== false) {
 				parentMap[normalizedName] = parentName;
 			}
+			if(name === loader.main) {
+				loader.normalizedMain = normalizedName;
+			}
 			return normalizedName;
 		});
 	};

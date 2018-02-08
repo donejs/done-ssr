@@ -1,6 +1,7 @@
 var makeWindow = require("can-vdom/make-window/make-window");
 var document = makeWindow({}).document;
 var http = require("http");
+var he = require("he");
 
 exports.dom = function(html){
 	html = html.replace("<!doctype html>", "").trim();
@@ -20,6 +21,16 @@ exports.preventWeirdSrcDocBug = function(){
 		return setAttribute.apply(this, arguments);
 	};
 	exports.preventWeirdSrcDocBug = Function.prototype; // noop
+};
+
+exports.decodeSrcDoc = function(iframe){
+	var raw = iframe.getAttribute("srcdoc");
+	if(!raw) {
+		throw new Error("No srcdoc attribute for this iframe");
+	}
+	var encoded = he.decode(raw, { isAttributeValue: true });
+	var html = encoded.replace(/&quot;/g, '"');
+	return html;
 };
 
 exports.traverse = function(node, callback){

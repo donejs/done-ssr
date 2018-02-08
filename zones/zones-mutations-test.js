@@ -5,6 +5,8 @@ var pushFetch = require("./push-fetch");
 var pushImages = require("./push-images");
 var pushMutations = require("./push-mutations");
 var pushXHR = require("./push-xhr");
+var donejs = require("./donejs");
+var he = require("he");
 
 var assert = require("assert");
 var {
@@ -23,6 +25,9 @@ var spinUpServer = function(cb){
 				break;
 			case "/api/cart":
 				var data = { count: 22 };
+				break;
+			case "/bar":
+				var data = [{name:"foo"}];
 				break;
 		}
 		res.end(JSON.stringify(data));
@@ -75,5 +80,45 @@ describe("SSR Zones - Incremental Rendering", function(){
 			assert.equal(liMutation[0].type, "insert", "Inserting a li");
 			assert.equal(liMutation[0].node[3], "LI", "Inserting a li");
 		});
+	});
+});
+
+describe("SSR Zones - Incremental Rendering with DoneJS", function(){
+	before(function(){
+		return spinUpServer(() => {
+			var request = new Request();
+			var response = this.response = new Response();
+
+			var zone = this.zone = new Zone([
+				// Overrides XHR, fetch
+				requests(request),
+
+				// Sets up a DOM
+				dom(request),
+
+				donejs({
+					config: __dirname + "/../test/tests/package.json!npm",
+					main: "async/index.stache!done-autorender"
+				}, response),
+
+				pushMutations(response)
+			]);
+
+			var runPromise = zone.run();
+			return zone.data.initialStylesLoaded.then(function(){
+				zone.data.initialHTML = zone.data.html;
+			});
+		});
+	});
+
+	it("iframe overlay contains styles", function(){
+		var dom = helpers.dom(this.zone.data.initialHTML);
+		var iframe = helpers.find(dom, node => node.nodeName === "IFRAME");
+		var html = helpers.decodeSrcDoc(iframe);
+		var idom = helpers.dom(html);
+
+		var style = helpers.find(idom, node => node.nodeName === "STYLE");
+
+		assert.ok(style, "there was style here");
 	});
 });
