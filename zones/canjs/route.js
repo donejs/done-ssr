@@ -13,7 +13,7 @@ module.exports = function(response) {
 			if(!statusCode) {
 				var can = data.modules && data.modules.can;
 				if(can && can.route) {
-					var currentRoute = can.route.deparam(pathname).route;
+					var currentRoute = can.route.rule(pathname);
 					// fix: support root-url (i.e '/') in develop-mode
 					if(currentRoute || (currentRoute === "")) {
 						statusCode = 200;
@@ -38,14 +38,14 @@ module.exports = function(response) {
 				if(data.modules.can) {
 					canRoute = data.modules.can.route;
 					routeData = canRoute.data;
-					routeData.addEventListener("statusCode", noop);
+					canReflect.onKeyValue(routeData, "statusCode", noop);
 				}
 			},
 			afterRun: function(){
 				try {
 					canRoute = require("can-route");
 					routeData = canRoute.data;
-					routeData.addEventListener("statusCode", noop);
+					canReflect.onKeyValue(routeData, "statusCode", noop);
 				} catch(e){}
 			},
 
@@ -65,7 +65,7 @@ module.exports = function(response) {
 			ended: function(){
 				if(routeData) {
 					data.statusCode = extractStatusCode();
-					routeData.removeEventListener("statusCode", noop);
+					canReflect.offKeyValue(routeData, "statusCode", noop);
 					response.statusCode = data.statusCode;
 				}
 			}
