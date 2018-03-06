@@ -1,4 +1,5 @@
 var DefineMap = require("can-define/map/map");
+require("./helpers");
 
 module.exports = DefineMap.extend({
 	page: {
