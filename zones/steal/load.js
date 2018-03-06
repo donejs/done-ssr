@@ -37,6 +37,7 @@ module.exports = function(cfg){
 
 		function makeRun(zone) {
 			var run = zone.run;
+			var Zone = zone.constructor;
 			return function(runFn){
 				return run.call(this, function(){
 					var startup;
@@ -48,6 +49,13 @@ module.exports = function(cfg){
 					}
 
 					data.steal = startup.steal;
+
+					// live-reload error occurred, push the error into the stack.
+					if(startup.error) {
+						Zone.error(startup.error);
+						return;
+					}
+
 					startup.promise.then(function(modules){
 						zone.data.modules = modules;
 						zone.execHook("afterStealDone");
@@ -68,14 +76,7 @@ module.exports = function(cfg){
 					})
 					.then(doneResolve, function(err){
 						doneReject(err);
-						return Promise.reject(err);
-					})
-					.catch(function(error){
-						// This prevents the error from being unhandled, but
-						// is still part of the Zone
-						setTimeout(function(){
-							throw error;
-						});
+						Zone.error(err);
 					});
 				});
 			};
