@@ -37,6 +37,18 @@ function applyPages(document, bundleHelpers, pages, inserted){
 	var bundles = bundleHelpers.bundles;
 
 	var head = document.head;
+	if (!head) {
+		console.info('document.head:', head);
+		console.info('bundles:', bundles);
+		console.info('document.documentElement:', document.documentElement);
+		if (document.documentElement) {
+			console.info('document.documentElement.innerHTML:', document.documentElement.innerHTML);
+		}
+		console.info('global.document:', global.document);
+		if (global.document && global.document.documentElement) {
+			console.info('global.document.documentElement.innerHTML:', global.document.documentElement.innerHTML);
+		}
+	}
 
 	var changes = 0;
 	var oldDoc = global.document;
@@ -52,7 +64,11 @@ function applyPages(document, bundleHelpers, pages, inserted){
 					inserted.add(asset.id);
 					var node = asset.value();
 					node.setAttribute("asset-id", asset.id);
-					head.insertBefore(node, head.lastChild);
+					if (head) {
+						head.insertBefore(node, head.lastChild);
+					} else {
+						console.info('no head:', head);
+					}
 				}
 			});
 		}
