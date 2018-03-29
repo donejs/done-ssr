@@ -10,7 +10,7 @@ var Override = require("../../lib/override");
 var isHttps = /^https/;
 
 module.exports = function(request){
-	function fetch(relativeUrl){
+	function fetch(relativeUrl, options){
 		assert(typeof relativeUrl === "string",
 			"done-ssr currently only supports a string as the parameter to fetch()");
 
@@ -23,13 +23,13 @@ module.exports = function(request){
 			});
 		}
 
-		var options = {
+		options = Object.assign({
 			agent: agent,
 
 			// Disable gzip compression because it
 			// eliminates streaming
 			compress: false
-		};
+		}, options);
 
 		return nodeFetch(url, options).then(function(resp){
 			var response = Object.assign({}, resp);
