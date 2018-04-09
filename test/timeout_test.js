@@ -61,6 +61,10 @@ describe("Timeouts", function(){
 			assert.ok(/setTimeout/.test(html),
 					  "Includes the task name that failed");
 
+			var node = helpers.dom(html);
+			var debug = node.getElementById("done-ssr-debug");
+			assert.equal(debug.getAttribute("data-keep"), "", "This attribute was added");
+
 			done();
 		}));
 	});
