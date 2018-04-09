@@ -38,6 +38,11 @@ function applyPages(document, bundleHelpers, pages, inserted){
 
 	var head = document.head;
 
+	// If there isn't a head element for some reason.
+	if(!head) {
+		return;
+	}
+
 	var changes = 0;
 	var oldDoc = global.document;
 	global.document = document;

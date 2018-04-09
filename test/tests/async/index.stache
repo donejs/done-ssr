@@ -26,5 +26,9 @@
 		{{#if showError}}
 			<span>{{someError()}}</span>
 		{{/if}}
+
+		{{#if(removeHead)}}
+			{{removeTheDocHead()}}
+		{{/if}}
 	</body>
 </html>
