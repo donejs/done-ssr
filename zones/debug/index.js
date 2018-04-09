@@ -13,6 +13,7 @@ module.exports = function(/*doc, */timeoutZone){
 
 				var div = doc.createElement("div");
 				div.setAttribute("id", "done-ssr-debug");
+				div.setAttribute("data-keep", "");
 				div.innerHTML = modal;
 
 				var modalBody;
