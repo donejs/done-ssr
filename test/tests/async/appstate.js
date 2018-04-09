@@ -30,7 +30,12 @@ module.exports = DefineMap.extend({
 			}, 50);
 		}
 	},
+	showError: "boolean",
 	someError: function(){
 		throw new Error("This is an error.");
+	},
+	removeHead: "boolean",
+	removeTheDocHead: function() {
+		document.documentElement.removeChild(document.head);
 	}
 });

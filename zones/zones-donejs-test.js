@@ -129,5 +129,39 @@ describe("SSR Zones - DoneJS application", function(){
 		});
 	})
 
+	describe("An app that removes the document.head", function(){
+		before(function(){
+			function runRequest() {
+				var request = new Request("/orders?removeHead=true");
+				var response = this.response = new Response();
+
+				var zone = this.zone = new Zone({
+					plugins: [
+						requests(request),
+
+						// Sets up a DOM
+						dom(request),
+
+						donejs({
+							config: __dirname + "/../test/tests/package.json!npm",
+							main: "async/index.stache!done-autorender"
+						}, response)
+					]
+				});
+
+				return zone.run();
+			}
+
+			return spinUpServer(() => {
+				return runRequest.call(this).then(() => {
+					return runRequest.call(this);
+				});
+			});
+		});
+
+		it("Is able to render", function(){
+			assert.ok(true, "Was able to render");
+		});
+	});
 
 });
