@@ -40,6 +40,7 @@ module.exports = function(request){
 			response.body = toWebReadableStream(body);
 			response.json = resp.json.bind(resp);
 			response.text = resp.text.bind(resp);
+			response.ok = resp.ok;
 			return response;
 		});
 	}
