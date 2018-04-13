@@ -74,6 +74,9 @@ describe("SSR Zones - Basics", function(){
 			var globalDiv = helpers.find(dom, node => node.getAttribute &&
 				node.getAttribute("id") === "the-global");
 			assert.equal(globalDiv.firstChild.nodeValue, "true", "The window is the global object");
+
+			var statusSpan = helpers.find(dom, node => node.className === "status");
+			assert.equal(statusSpan.textContent, "OK", "Supports response.ok");
 		});
 
 		it("Data from the fetch requests was pushed", function(){

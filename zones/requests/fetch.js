@@ -32,7 +32,7 @@ module.exports = function(request){
 		}, options);
 
 		return nodeFetch(url, options).then(function(resp){
-			var response = Object.assign({}, resp);
+			var response = Object.create(resp);
 
 			// Convert the Node.js Readable stream to a WHATWG stream.
 			response._readableBody = resp.body;
