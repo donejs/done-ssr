@@ -77,8 +77,8 @@ describe("SSR Zones - Incremental Rendering", function(){
 			var pushes = this.response.data.pushes;
 			var liMutation = JSON.parse(pushes[0][2][0].toString());
 
-			assert.equal(liMutation[0].type, "insert", "Inserting a li");
-			assert.equal(liMutation[0].node[3], "LI", "Inserting a li");
+			assert.equal(liMutation[1].type, "insert", "Inserting a li");
+			assert.equal(liMutation[1].node[3], "LI", "Inserting a li");
 		});
 	});
 });

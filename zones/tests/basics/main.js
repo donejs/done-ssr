@@ -4,11 +4,19 @@ module.exports = function(){
 	var ul = document.createElement("ul");
 	main.appendChild(ul);
 
+	var statusSpan = document.createElement("span");
+	statusSpan.className = "status";
+	main.appendChild(statusSpan);
+
 	var img = document.createElement("img");
 	img.src = "/images/cat.png";
 	main.appendChild(img);
 
-	fetch("/api/todos").then(res => res.json()).then(todos => {
+	fetch("/api/todos").then(res => {
+		statusSpan.appendChild(document.createTextNode(res.ok ? "OK" : "BAD"));
+
+		return res.json();
+	}).then(todos => {
 		todos.forEach(todo => {
 			var li = document.createElement("li");
 			li.appendChild(document.createTextNode(todo));
