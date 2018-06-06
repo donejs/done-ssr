@@ -50,7 +50,7 @@
     "leakage": "0.3.0-beta",
     "nock": "^9.0.11",
     "spawn-mochas": "^1.1.0",
-    "steal-stache": "^4.0.0",
+    "steal-stache": "^4.1.1",
     "steal-tools": "^1.3.5",
     "through2": "^2.0.1",
     "uglify-js": "^3.3.19"
