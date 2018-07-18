@@ -69,7 +69,7 @@
     "full-url": "^1.0.0",
     "is-promise": "^2.1.0",
     "lodash.defaults": "^4.0.1",
-    "mime-types": "^2.1.17",
+    "mime-types": "^2.1.19",
     "node-fetch": "^2.0.0",
     "once": "^1.4.0",
     "steal": "^1.9.0",
