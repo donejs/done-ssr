@@ -46,7 +46,7 @@
     "es6-promise": "^4.1.0",
     "he": "^1.1.1",
     "jquery": "2.x - 3.x",
-    "jshint": "^2.8.0",
+    "jshint": "2.9.5",
     "leakage": "0.3.0-beta",
     "nock": "^9.0.11",
     "spawn-mochas": "^1.1.0",
