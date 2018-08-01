@@ -12,12 +12,12 @@ describe("Incremental rendering", function(){
 			switch(req.url) {
 				case "/bar":
 					var data = [ { "a": "a" }, { "b": "b" } ];
+					res.setHeader("Content-Type", "application/json");
+					res.end(JSON.stringify(data));
 					break;
 				default:
 					throw new Error("No route for " + req.url);
 			}
-			res.setHeader("Content-Type", "application/json");
-			res.end(JSON.stringify(data));
 		})
 		.then(server => {
 			this.server = server;

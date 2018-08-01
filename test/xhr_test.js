@@ -19,12 +19,12 @@ describe("xhr async rendering", function() {
 			switch(req.url) {
 				case "/api/list":
 					var data = [1,2,3,4,5];
+					res.setHeader("Content-Type", "application/json");
+					res.end(JSON.stringify(data));
 					break;
 				default:
 					throw new Error("No route for " + req.url);
 			}
-			res.setHeader("Content-Type", "application/json");
-			res.end(JSON.stringify(data));
 		})
 		.then(server => {
 			this.server = server;
