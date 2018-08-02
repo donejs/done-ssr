@@ -2,6 +2,7 @@ var makeWindow = require("can-vdom/make-window/make-window");
 var document = makeWindow({}).document;
 var http = require("http");
 var he = require("he");
+var moUtils = require("done-mutation-observer");
 
 exports.dom = function(html){
 	html = html.replace("<!doctype html>", "").trim();
@@ -173,4 +174,12 @@ exports.createServer = function(port, cb){
 			resolve(server);
 		});
 	});
+};
+
+exports.removeMutationObserverZone = function(data) {
+	return {
+		ended: function(){
+			moUtils.removeMutationObserver(data.window);
+		}
+	}
 };

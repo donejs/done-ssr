@@ -7,6 +7,7 @@ var pushMutations = require("./push-mutations");
 var pushXHR = require("./push-xhr");
 var donejs = require("./donejs");
 var he = require("he");
+var MutationDecoder = require("done-mutation/decoder");
 
 var assert = require("assert");
 var {
@@ -51,7 +52,9 @@ describe("SSR Zones - Incremental Rendering", function(){
 					// Sets up a DOM
 					dom(request),
 
-					pushMutations(response)
+					pushMutations(response),
+
+					helpers.removeMutationObserverZone
 				]);
 
 				var runPromise = zone.run(main);
@@ -74,11 +77,15 @@ describe("SSR Zones - Incremental Rendering", function(){
 		});
 
 		it("Contains mutations", function(){
+			var decoder = new MutationDecoder(this.zone.data.document);
 			var pushes = this.response.data.pushes;
-			var liMutation = JSON.parse(pushes[0][2][0].toString());
+			var mutations = pushes[0][2].map(buf => Array.from(decoder.decode(
+				new Uint8Array(buf.buffer))));
 
-			assert.equal(liMutation[1].type, "insert", "Inserting a li");
-			assert.equal(liMutation[1].node[3], "LI", "Inserting a li");
+			assert.equal(mutations[0][0].node.nodeValue, "OK", "Status change");
+			assert.equal(mutations[1][0].node.nodeName, "LI", "Todo 1 added");
+			assert.equal(mutations[1][1].node.nodeName, "LI", "Todo 2 added");
+			assert.equal(mutations[2][0].node.nodeValue, "Count: 22", "Cart count updated");
 		});
 	});
 });
@@ -100,7 +107,8 @@ describe("SSR Zones - Incremental Rendering with DoneJS", function(){
 					main: "async/index.stache!done-autorender"
 				}, response),
 
-				pushMutations(response)
+				pushMutations(response),
+				helpers.removeMutationObserverZone
 			]);
 
 			var runPromise = zone.run();
@@ -137,12 +145,10 @@ describe("SSR Zones - Incremental Rendering with DoneJS", function(){
 	});
 
 	it("contains the right instructions", function(){
+		var decoder = new MutationDecoder(this.zone.data.document);
 		var pushes = this.response.data.pushes;
 		var mutations = pushes[0][2];
 
 		assert.equal(mutations.length, 1, "There was only 1 mutation");
-
-		var homeAsyncText = mutations[0].toString();
-		assert.ok(/hello async!/.test(homeAsyncText), "included the async action");
 	});
 });
