@@ -59,7 +59,7 @@
     "can-dom-data-state": "^1.0.1",
     "can-dom-mutate": "^1.0.2",
     "can-namespace": "^1.0.0",
-    "can-reflect": "^1.11.0",
+    "can-reflect": "^1.17.4",
     "can-util": "^3.10.10",
     "can-vdom": "^4.0.0",
     "can-zone": "^0.6.11",
