@@ -47,7 +47,7 @@
     "he": "^1.1.1",
     "jquery": "2.x - 3.x",
     "jshint": "^2.8.0",
-    "leakage": "0.3.0-beta",
+    "leakage": "0.4.0",
     "nock": "^9.0.11",
     "spawn-mochas": "^1.1.0",
     "steal-stache": "^4.0.0",
@@ -56,8 +56,8 @@
     "uglify-js": "^3.3.19"
   },
   "dependencies": {
-    "can-dom-data-state": "^1.0.1",
-    "can-dom-mutate": "^1.0.2",
+    "can-dom-data-state": "^1.0.2",
+    "can-dom-mutate": "^1.2.1",
     "can-namespace": "^1.0.0",
     "can-reflect": "^1.11.0",
     "can-util": "^3.10.10",

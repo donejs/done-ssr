@@ -12,15 +12,15 @@ module.exports = function(data){
 			var domMutate = getDomMutate();
 
 			var docEl = data.document.documentElement;
-			var head = data.document.head;
-			var body = data.document.body;
+
+			// Run the removal within the zone so that the globals point to our globals.
+			var removeDocumentElement = this.wrap(function() {
+				domMutate.removeChild.call(data.document, docEl);
+			});
 
 			// Do this some time later to prevent extra mutations
 			// In the mutation stream
-			later(function(){
-				domMutate.removeChild.call(docEl, head);
-				domMutate.removeChild.call(docEl, body);
-			});
+			later(removeDocumentElement);
 		}
 	};
 };

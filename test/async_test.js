@@ -14,9 +14,10 @@ describe("async rendering", function(){
 		});
 
 		helpers.createServer(8070, function(req, res){
+			var data;
 			switch(req.url) {
 				case "/bar":
-					var data = [ { "a": "a" }, { "b": "b" } ];
+					data = [ { "a": "a" }, { "b": "b" } ];
 					break;
 				default:
 					throw new Error("No route for " + req.url);
