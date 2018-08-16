@@ -6,28 +6,37 @@ module.exports = function(data){
 		return (data.modules && data.modules[propName]) || require(moduleName);
 	}
 
-	var getLocation = getEither.bind(null, "LOCATION", "can-globals/location/location");
-	var getDocument = getEither.bind(null, "DOCUMENT", "can-globals/document/document");
+	var getGlobals = getEither.bind(null, "globals", "can-globals");
 
 	var oldLocation, oldDocument;
 
 	function setCanGlobals() {
-		var LOCATION = getLocation();
-		var DOCUMENT = getDocument();
+		var globals = getGlobals();
+		
+		oldLocation = globals.getKeyValue("location");
+		globals.setKeyValue("location", data.window.location);
 
-		oldLocation = LOCATION();
-		LOCATION(data.window.location);
-
-		oldDocument = DOCUMENT();
-		DOCUMENT(data.window.document);
+		oldDocument = globals.getKeyValue("document");
+		globals.setKeyValue("document", data.window.document);
 	}
 
 	return {
 		afterStealDone: setCanGlobals,
 		beforeTask: setCanGlobals,
 		afterTask: function(){
-			getLocation()(oldLocation);
-			getDocument()(oldDocument);
+			var globals = getGlobals();
+
+			globals.setKeyValue("location", oldLocation);
+			globals.setKeyValue("document", oldDocument);
+		},
+		end: function() {
+			function teardown(globals) {
+				globals.deleteKeyValue("document");
+				globals.deleteKeyValue("location");
+			}
+
+			teardown(getGlobals());
+			teardown(require("can-globals"));
 		}
 	};
 };

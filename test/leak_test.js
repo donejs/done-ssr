@@ -48,10 +48,12 @@ describe("Memory leaks", function(){
 		this.server.close();
 	});
 
-	it("No leaks occur after 10 iterations", function(done){
+	it("No leaks occur after iterations", function(done){
+		var options = { iterations: 1 };
+
 		var debug = typeof process.env.DONE_SSR_DEBUG !== "undefined";
 		var cnt = 0;
-		iterate(10, () => {
+		iterate.async(() => {
 			cnt++;
 			var thisIteration = cnt;
 			if(debug) {
@@ -63,7 +65,7 @@ describe("Memory leaks", function(){
 					console.error("After render", thisIteration);
 				}
 			});
-		})
+		}, options)
 		.then(() => {
 			done();
 		})
