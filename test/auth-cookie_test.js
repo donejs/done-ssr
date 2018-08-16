@@ -25,10 +25,11 @@ describe("auth cookies", function() {
 		});
 
 		helpers.createServer(8070, function(req, res){
+			var data;
 			authHeader = req.headers.authorization;
 			switch(req.url) {
 				case "/api/list":
-					var data = [1,2,3,4,5];
+					data = [1,2,3,4,5];
 					break;
 				default:
 					throw new Error("No route for " + req.url);
