@@ -7,21 +7,24 @@ module.exports = function(data){
 	}
 
 	var getLocation = getEither.bind(null, "LOCATION", "can-globals/location/location");
-	var getDocument = getEither.bind(null, "DOCUMENT", "can-globals/document/document")
+	var getDocument = getEither.bind(null, "DOCUMENT", "can-globals/document/document");
 
 	var oldLocation, oldDocument;
 
+	function setCanGlobals() {
+		var LOCATION = getLocation();
+		var DOCUMENT = getDocument();
+
+		oldLocation = LOCATION();
+		LOCATION(data.window.location);
+
+		oldDocument = DOCUMENT();
+		DOCUMENT(data.window.document);
+	}
+
 	return {
-		beforeTask: function(){
-			var LOCATION = getLocation();
-			var DOCUMENT = getDocument();
-
-			oldLocation = LOCATION();
-			LOCATION(window.location);
-
-			oldDocument = DOCUMENT();
-			DOCUMENT(window.document);
-		},
+		afterStealDone: setCanGlobals,
+		beforeTask: setCanGlobals,
 		afterTask: function(){
 			getLocation()(oldLocation);
 			getDocument()(oldDocument);

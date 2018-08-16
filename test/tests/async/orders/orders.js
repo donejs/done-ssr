@@ -14,7 +14,8 @@ var ViewModel = DefineMap.extend({
 					resolve(data);
 				};
 				xhr.onerror = function(err){
-					console.error(err);
+					var error = err || new Error(this.responseText);
+					console.error(error);
 				};
 				xhr.send();
 			});

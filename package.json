@@ -56,8 +56,8 @@
     "uglify-js": "^3.3.19"
   },
   "dependencies": {
-    "can-dom-data-state": "^1.0.1",
-    "can-dom-mutate": "^1.0.2",
+    "can-dom-data-state": "^1.0.2",
+    "can-dom-mutate": "^1.2.1",
     "can-namespace": "^1.0.0",
     "can-reflect": "^1.11.0",
     "can-util": "^3.10.10",

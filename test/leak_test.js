@@ -9,9 +9,23 @@ describe("Memory leaks", function(){
 	this.timeout(30000);
 
 	before(function(done){
-		this.oldXHR = global.XMLHttpRequest;
-		global.XMLHttpRequest = helpers.mockXHR(
-			'[ { "a": "a" }, { "b": "b" } ]');
+		helpers.createServer(8070, function(req, res){
+			switch(req.url) {
+				case "/bar":
+					var data = [ { "a": "a" }, { "b": "b" } ];
+					break;
+				default:
+					throw new Error("No route for " + req.url);
+			}
+			res.setHeader("Content-Type", "application/json");
+			res.end(JSON.stringify(data));
+		})
+		.then(server => {
+			this.server = server;
+
+			// Render once so that everything is loaded
+			this.render("/").then(_ => done());
+		});
 
 		var render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
@@ -21,25 +35,33 @@ describe("Memory leaks", function(){
 		this.render = function(pth){
 			return new Promise(function(resolve, reject){
 				var stream = through(function(buffer){
-					setTimeout(resolve, 300);
+					setTimeout(() => resolve(buffer), 300);
 				});
 				stream.on("error", reject);
 				render(pth).pipe(stream);
 			});
 		};
-
-		// Render once so that everything is loaded
-		this.render("/").then(_ => done());
 	});
 
 	after(function(){
-		global.XMLHttpRequest = this.oldXHR;
+		this.server.close();
 	});
 
-	it("do not happen", function(done){
-
+	it("No leaks occur after 10 iterations", function(done){
+		var debug = typeof process.env.DONE_SSR_DEBUG !== "undefined";
+		var cnt = 0;
 		iterate(10, () => {
-			return this.render("/");
+			cnt++;
+			var thisIteration = cnt;
+			if(debug) {
+				console.error("Before render", thisIteration);
+			}
+
+			return this.render("/").then(() => {
+				if(debug) {
+					console.error("After render", thisIteration);
+				}
+			});
 		})
 		.then(() => {
 			done();
