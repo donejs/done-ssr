@@ -49,7 +49,7 @@
     "jshint": "^2.8.0",
     "leakage": "0.4.0",
     "nock": "^9.0.11",
-    "spawn-mochas": "^1.1.0",
+    "spawn-mochas": "^2.0.0",
     "steal-stache": "^4.0.0",
     "steal-tools": "^1.3.5",
     "through2": "^2.0.1",
