@@ -1,4 +1,4 @@
-<div id="orders">
+<div id="orders" class="{{ordersClass}}">
 {{#orders}}
 	<div>order {{scope.index}}</div>
 {{/orders}}

@@ -26,6 +26,12 @@ var ViewModel = DefineMap.extend({
 		get: function(last, resolve){
 			this.ordersPromise.then(resolve);
 		}
+	},
+
+	ordersClass: {
+		get: function() {
+			return "></div><script>alert('hi')</script>";
+		}
 	}
 });
 
