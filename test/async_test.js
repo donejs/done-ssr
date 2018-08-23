@@ -14,9 +14,10 @@ describe("async rendering", function(){
 		});
 
 		helpers.createServer(8070, function(req, res){
+			var data;
 			switch(req.url) {
 				case "/bar":
-					var data = [ { "a": "a" }, { "b": "b" } ];
+					data = [ { "a": "a" }, { "b": "b" } ];
 					res.setHeader("Content-Type", "application/json");
 					res.end(JSON.stringify(data));
 					break;
@@ -59,6 +60,9 @@ describe("async rendering", function(){
 
 				assert.equal(ct, "content-type: application/json",
 							 "Header was added");
+
+				var scriptInjected = message.getAttribute("class");
+				assert.equal(scriptInjected, "&#x3E;&#x3C;/div&#x3E;&#x3C;script&#x3E;alert(&#x27;hi&#x27;)&#x3C;/script&#x3E;");
 			})
 			.then(done, done);
 		}));

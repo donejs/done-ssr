@@ -49,15 +49,14 @@
     "jshint": "^2.8.0",
     "leakage": "0.4.0",
     "nock": "^9.0.11",
-    "spawn-mochas": "^1.1.0",
+    "spawn-mochas": "^2.0.0",
     "steal-stache": "^4.0.0",
     "steal-tools": "^2.0.0-pre.3",
     "through2": "^2.0.1",
     "uglify-js": "^3.3.19"
   },
   "dependencies": {
-    "can-dom-data-state": "^1.0.1",
-    "can-dom-mutate": "^1.0.2",
+    "can-dom-mutate": "^1.2.1",
     "can-namespace": "^1.0.0",
     "can-reflect": "^1.11.0",
     "can-util": "^3.10.10",
@@ -78,7 +77,7 @@
     "text-encoding": "^0.6.4",
     "useragent": "^2.1.13",
     "websocket": "^1.0.22",
-    "whatwg-url": "^6.3.0",
+    "whatwg-url": "^7.0.0",
     "xmlhttprequest2": "^1.0.0"
   },
   "greenkeeper": {

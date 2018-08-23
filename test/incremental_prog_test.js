@@ -9,9 +9,10 @@ describe("Incremental rendering", function(){
 
 	before(function(done){
 		helpers.createServer(8070, function(req, res){
+			var data;
 			switch(req.url) {
 				case "/bar":
-					var data = [ { "a": "a" }, { "b": "b" } ];
+					data = [ { "a": "a" }, { "b": "b" } ];
 					res.setHeader("Content-Type", "application/json");
 					res.end(JSON.stringify(data));
 					break;

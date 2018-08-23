@@ -1,4 +1,4 @@
-var canData = require("can-dom-data-state");
+var pageNormalizeSymbol = Symbol.for("done.pageNormalizePromise");
 
 module.exports = function(){
 	return function(data){
@@ -13,7 +13,7 @@ module.exports = function(){
 		var oldCanImport;
 		var canImport = function(el){
 			var res = oldCanImport.apply(this, arguments);
-			var promise = canData.get.call(el, "pageNormalizePromise");
+			var promise = el[pageNormalizeSymbol];
 			promises.push(promise);
 			return res;
 		};
