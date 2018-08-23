@@ -181,5 +181,5 @@ exports.removeMutationObserverZone = function(data) {
 		ended: function(){
 			moUtils.removeMutationObserver(data.window);
 		}
-	}
+	};
 };

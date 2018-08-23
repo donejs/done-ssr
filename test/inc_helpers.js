@@ -41,9 +41,9 @@ exports.mock = function(url, expectedPushes){
 	function instructions() {
 		return new Writable({
 			write(chunk, enc, next) {
-				var json = chunk.toString();
-				var instrs = JSON.parse(json);
-				result.instructions.push(instrs);
+				//var json = chunk.toString();
+				//var instrs = JSON.parse(json);
+				result.instructions.push(chunk);
 				next();
 			}
 		});

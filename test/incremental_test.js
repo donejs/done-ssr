@@ -3,6 +3,7 @@ var helpers = require("./helpers");
 var incHelpers = require("./inc_helpers");
 var assert = require("assert");
 var path = require("path");
+var MutationDecoder = require("done-mutation/decoder");
 
 describe("Incremental rendering", function(){
 	this.timeout(10000);
@@ -12,9 +13,10 @@ describe("Incremental rendering", function(){
 
 	before(function(done){
 		helpers.createServer(8070, function(req, res){
+			var data;
 			switch(req.url) {
 				case "/bar":
-					var data = [ { "a": "a" }, { "b": "b" } ];
+					data = [ { "a": "a" }, { "b": "b" } ];
 					res.setHeader("Content-Type", "application/json");
 					res.end(JSON.stringify(data));
 					break;
@@ -56,6 +58,9 @@ describe("Incremental rendering", function(){
 		});
 
 		it("Sends the correct rendering instructions", function(){
+			var doc = helpers.dom(this.result.html).ownerDocument;
+			debugger;
+			var decoder = new MutationDecoder(doc);
 			var instr = this.result.instructions[0][1];
 			assert.equal(instr.route, "0.2.7");
 
