@@ -14,21 +14,20 @@ module.exports = function(response, root){
 		function pushImage(img) {
 			var mimeType = mime.lookup(img.src);
 			if(mimeType) {
-				var pushStream = response.push(img.src, {
-					status: 200,
-					method: "GET",
-					request: { accept: "*/*" },
-					response: {
-						"content-type": mimeType
-					}
-				});
+				response.pushStream({":path": img.src}, (err, pushStream) => {
+					if(err) throw err;
 
-				// pushStream will be null if the response is closed.
-				if(pushStream) {
-					var path = url.parse(img.src).pathname;
-					var sendStream = fs.createReadStream(root + path);
+					let path = url.parse(img.src).pathname;
+					let sendStream = fs.createReadStream(root + path);
+
+					pushStream.respond({
+						":status": 200,
+						":method": "GET",
+						"content-type": mimeType
+					});
+
 					sendStream.pipe(pushStream);
-				}
+				});
 			}
 		}
 
