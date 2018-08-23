@@ -12,23 +12,24 @@ var MutationDecoder = require("done-mutation/decoder");
 var assert = require("assert");
 var {
 	createServer,
-	Request,
-	Response
+	h2Headers,
+	H2Stream
 } = require("./test-helpers");
 var helpers = require("../test/helpers");
 var main = require("./tests/basics/main");
 
 var spinUpServer = function(cb){
 	return createServer(8070, function(req, res){
+		var data;
 		switch(req.url) {
 			case "/api/todos":
-				var data = ["eat", "sleep"];
+				data = ["eat", "sleep"];
 				break;
 			case "/api/cart":
-				var data = { count: 22 };
+				data = { count: 22 };
 				break;
 			case "/bar":
-				var data = [{name:"foo"}];
+				data = [{name:"foo"}];
 				break;
 		}
 		res.end(JSON.stringify(data));
@@ -42,17 +43,17 @@ describe("SSR Zones - Incremental Rendering", function(){
 	describe("An app using fetch and PUSH", function(){
 		before(function(){
 			return spinUpServer(() => {
-				var request = new Request();
-				var response = this.response = new Response();
+				var headers = h2Headers();
+				var stream = this.stream = new H2Stream();
 
 				var zone = this.zone = new Zone([
 					// Overrides XHR, fetch
-					requests(request),
+					requests(headers),
 
 					// Sets up a DOM
-					dom(request),
+					dom(headers),
 
-					pushMutations(response),
+					pushMutations(stream),
 
 					helpers.removeMutationObserverZone
 				]);
@@ -78,9 +79,8 @@ describe("SSR Zones - Incremental Rendering", function(){
 
 		it("Contains mutations", function(){
 			var decoder = new MutationDecoder(this.zone.data.document);
-			var pushes = this.response.data.pushes;
-			var mutations = pushes[0][2].map(buf => Array.from(decoder.decode(
-				new Uint8Array(buf.buffer))));
+			var pushes = this.stream.data.pushes;
+			var mutations = pushes[0][2].map(buf => Array.from(decoder.decode(buf)));
 
 			assert.equal(mutations[0][0].node.nodeValue, "OK", "Status change");
 			assert.equal(mutations[1][0].node.nodeName, "LI", "Todo 1 added");
@@ -90,24 +90,24 @@ describe("SSR Zones - Incremental Rendering", function(){
 	});
 });
 
-describe("SSR Zones - Incremental Rendering with DoneJS", function(){
+describe.skip("SSR Zones - Incremental Rendering with DoneJS", function(){
 	this.timeout(10000);
 
 	before(function(){
 		return spinUpServer(() => {
-			var request = new Request("/home");
-			var response = this.response = new Response();
+			var headers = h2Headers();
+			var stream = this.stream = new H2Stream();
 
 			var zone = this.zone = new Zone([
 				// Sets up a DOM
-				dom(request),
+				dom(headers),
 
 				donejs({
 					config: __dirname + "/../test/tests/package.json!npm",
 					main: "async/index.stache!done-autorender"
-				}, response),
+				}, stream),
 
-				pushMutations(response),
+				pushMutations(stream),
 				helpers.removeMutationObserverZone
 			]);
 

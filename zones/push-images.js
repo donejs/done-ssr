@@ -1,5 +1,5 @@
 
-module.exports = function(response, root){
+module.exports = function(stream, root){
 	root = root || process.cwd();
 
 	var fs = require("fs");
@@ -14,7 +14,7 @@ module.exports = function(response, root){
 		function pushImage(img) {
 			var mimeType = mime.lookup(img.src);
 			if(mimeType) {
-				response.pushStream({":path": img.src}, (err, pushStream) => {
+				stream.pushStream({":path": img.src}, (err, pushStream) => {
 					if(err) throw err;
 
 					let path = url.parse(img.src).pathname;

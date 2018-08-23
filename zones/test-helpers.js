@@ -45,18 +45,37 @@ exports.h2Headers = function() {
 	return Object.assign(Object.create(null), {
 		":method": "GET",
 		":authority": "localhost:8070",
-		":scheme": "https",
+		":scheme": "http",
 		":path": "/",
 		"accept": "text/html"
 	});
 };
 
 exports.H2Stream = class extends Duplex {
+	constructor(options) {
+		super(options);
+
+		this.data = {};
+	}
 	// We only need this if we have a POST body
 	_read() {}
 	_write() {}
 
-	pushStream() {
+	pushStream(pushHeaders, cb) {
+		var pushes = this.data.pushes || (this.data.pushes = []);
+		var push = [pushHeaders, null, []];
+		pushes.push(push);
+		var PushStream = class extends Duplex {
+			_read(){}
+			_write(chunk, enc, next){
+				push[2].push(chunk);
+				next();
+			}
+			respond(headers) {
+				push[1] = headers;
+			}
+		}
 
+		cb(null, new PushStream());
 	}
 };

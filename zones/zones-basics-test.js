@@ -37,7 +37,7 @@ describe("SSR Zones - Basics", function(){
 		before(function(){
 			return spinUpServer(() => {
 				var headers = h2Headers();
-				var stream = new H2Stream();
+				var stream = this.stream = new H2Stream();
 
 				var zone = this.zone = new Zone({
 					plugins: [
@@ -57,7 +57,7 @@ describe("SSR Zones - Basics", function(){
 			});
 		});
 
-		it.only("Includes the right HTML", function(){
+		it("Includes the right HTML", function(){
 			assert(this.zone.data.html);
 			var dom = helpers.dom(this.zone.data.html);
 			var ul = helpers.find(dom, node => node.nodeName === "UL");
@@ -81,10 +81,10 @@ describe("SSR Zones - Basics", function(){
 		});
 
 		it("Data from the fetch requests was pushed", function(){
-			var pushes = this.response.data.pushes;
-			var [url, opts, data] = pushes.filter(p => p[0] === "/api/todos")[0];
+			var pushes = this.stream.data.pushes;
+			var [headers, opts, data] = pushes.filter(p => p[0][":path"] === "/api/todos")[0];
 
-			assert.equal(url, "/api/todos", "Todos api");
+			assert.equal(headers[":path"], "/api/todos", "Todos api");
 
 			var todos = JSON.parse(data[0].toString());
 			assert.equal(todos[0], "eat");
@@ -92,20 +92,20 @@ describe("SSR Zones - Basics", function(){
 		});
 
 		it("Data from the XHR requests was pushed", function(){
-			var pushes = this.response.data.pushes;
-			var [url, opts, data] = pushes.filter(p => p[0] === "/api/cart")[0];
+			var pushes = this.stream.data.pushes;
+			var [headers, opts, data] = pushes.filter(p => p[0][":path"] === "/api/cart")[0];
 
-			assert.equal(url, "/api/cart", "Cart api");
+			assert.equal(headers[":path"], "/api/cart", "Cart api");
 
 			var cart = JSON.parse(data[0].toString());
 			assert.equal(cart.count, 22, "Have the cart!");
 		});
 
 		it("Images from the request were pushed", function(){
-			var pushes = this.response.data.pushes;
-			var [url, opts, data] = pushes[0];
+			var pushes = this.stream.data.pushes;
+			var [headers, opts, data] = pushes[0];
 
-			assert.equal(url, "/images/cat.png");
+			assert.equal(headers[":path"], "/images/cat.png");
 			assert.ok(data.length, "Got the data too");
 		});
 	});
