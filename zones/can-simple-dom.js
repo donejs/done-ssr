@@ -1,26 +1,28 @@
-var fullUrl = require("full-url");
+var fullUrl = require("../lib/util/full_url");
 var makeWindow = require("can-vdom/make-window/make-window");
 var makeDocument = require("can-vdom/make-document/make-document");
+var makeHeaders = require("../lib/util/make_headers");
 var once = require("once");
 var URL = (require("url").URL || require("whatwg-url").URL);
 var zoneRegister = require("can-zone/register");
 
 var globalDocument = makeDocument();
 
-module.exports = function(request){
+module.exports = function(requestOrHeaders){
+	var headers = makeHeaders(requestOrHeaders);
 	return function(data){
 		// Create the document
 		var window = makeWindow({});
 		window.window = global;
 		window.URL = URL;
 		window.location = window.document.location = window.window.location =
-			new URL(fullUrl(request));
+			new URL(fullUrl(headers));
 		if(!window.location.protocol) {
 			window.location.protocol = "http:";
 		}
 
-		if(request.headers && request.headers["accept-language"]) {
-			window.navigator.language = request.headers["accept-language"];
+		if(headers["accept-language"]) {
+			window.navigator.language = headers["accept-language"];
 		}
 
 		return {
@@ -28,7 +30,7 @@ module.exports = function(request){
 			created: function(){
 				data.window = window;
 				data.document = window.document;
-				data.request = request;
+				data.headers = headers;
 				registerNode(window);
 			},
 			beforeTask: function(){

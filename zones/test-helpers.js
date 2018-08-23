@@ -1,5 +1,5 @@
 var http = require("http");
-var Writable = require("stream").Writable;
+var {Duplex, Writable} = require("stream");
 
 exports.createServer = function(port, cb){
 	var server = http.createServer(cb).listen(port);
@@ -38,5 +38,25 @@ exports.Response = class extends Writable {
 				next();
 			}
 		});
+	}
+};
+
+exports.h2Headers = function() {
+	return Object.assign(Object.create(null), {
+		":method": "GET",
+		":authority": "localhost:8070",
+		":scheme": "https",
+		":path": "/",
+		"accept": "text/html"
+	});
+};
+
+exports.H2Stream = class extends Duplex {
+	// We only need this if we have a POST body
+	_read() {}
+	_write() {}
+
+	pushStream() {
+
 	}
 };

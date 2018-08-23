@@ -8,20 +8,21 @@ var pushXHR = require("./push-xhr");
 var assert = require("assert");
 var {
 	createServer,
-	Request,
-	Response
+	h2Headers,
+	H2Stream
 } = require("./test-helpers");
 var helpers = require("../test/helpers");
 var main = require("./tests/basics/main");
 
 var spinUpServer = function(cb){
 	return createServer(8070, function(req, res){
+		var data;
 		switch(req.url) {
 			case "/api/todos":
-				var data = ["eat", "sleep"];
+				data = ["eat", "sleep"];
 				break;
 			case "/api/cart":
-				var data = { count: 22 };
+				data = { count: 22 };
 				break;
 		}
 		res.end(JSON.stringify(data));
@@ -35,20 +36,20 @@ describe("SSR Zones - Basics", function(){
 	describe("An app using fetch and PUSH", function(){
 		before(function(){
 			return spinUpServer(() => {
-				var request = new Request();
-				var response = this.response = new Response();
+				var headers = h2Headers();
+				var stream = new H2Stream();
 
 				var zone = this.zone = new Zone({
 					plugins: [
 						// Overrides XHR, fetch
-						requests(request),
+						requests(headers),
 
 						// Sets up a DOM
-						dom(request),
+						dom(headers),
 
-						pushFetch(response),
-						pushImages(response, __dirname + "/tests/basics"),
-						pushXHR(response)
+						pushFetch(stream),
+						pushImages(stream, __dirname + "/tests/basics"),
+						pushXHR(stream)
 					]
 				});
 
@@ -56,7 +57,7 @@ describe("SSR Zones - Basics", function(){
 			});
 		});
 
-		it("Includes the right HTML", function(){
+		it.only("Includes the right HTML", function(){
 			assert(this.zone.data.html);
 			var dom = helpers.dom(this.zone.data.html);
 			var ul = helpers.find(dom, node => node.nodeName === "UL");

@@ -67,7 +67,6 @@
     "done-mutation-observer": "file:../done-mutation-observer",
     "done-ssr-incremental-rendering-client": "^2.0.1",
     "donejs-node-web-streams": "^1.0.0",
-    "full-url": "^1.0.0",
     "is-promise": "^2.1.0",
     "lodash.defaults": "^4.0.1",
     "mime-types": "^2.1.17",
