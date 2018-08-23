@@ -52,7 +52,7 @@ describe("Incremental rendering", function(){
 			complete.then(done);
 		});
 
-		it("Pushed a mutation to insert styles", function(){
+		it.skip("Pushed a mutation to insert styles", function(){
 			var instr = this.result.instructions[0][0];
 			assert.equal(instr.type, "insert", "Inserting an element");
 			assert.equal(instr.node[3], "STYLE", "Inserting a style tag");
