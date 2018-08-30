@@ -70,11 +70,15 @@ describe("async rendering", function(){
 
 	it("request language is used", function(done){
 		var request = {
+			method: "GET",
 			url: "/",
 			connection: {},
 			headers: {
 				"host": "localhost",
 				"accept-language": "en-US"
+			},
+			get: function(name) {
+				return this.headers[name.toLowerCase()];
 			}
 		};
 		this.render(request).pipe(through(function(buffer){
