@@ -78,7 +78,7 @@ module.exports = function(request, response){
 	  })();
 	  Object.defineProperty( doc, "cookie", cookieDef );
 
-	  var cookie = request.headers && request.headers.cookie || "";
+	  var cookie = (request.headers && request.headers.cookie) || request["cookie"] || "";
 	  var cookiesArr = cookie.length ? cookie.split( "; " ) : [];
 
 	  // Set on the cookies in the document
