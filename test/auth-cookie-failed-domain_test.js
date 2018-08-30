@@ -49,10 +49,14 @@ describe("auth cookies - failed domain", function() {
 	it("works", function(done) {
 		var stream = render({
 			url: '/',
+			method: "GET",
 			connection: {},
 			headers: {
 				host: "localhost",
 				cookie: "feathers-jwt=foobar;"
+			},
+			get: function(name) {
+				return this.headers[name.toLowerCase()];
 			}
 		});
 

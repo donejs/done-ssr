@@ -49,11 +49,15 @@ describe("auth cookies", function() {
 
 	it("works", function(done) {
 		var stream = render({
+			method: "GET",
 			url: '/',
 			connection: {},
 			headers: {
 				host: "localhost",
 				cookie: "feathers-jwt=foobar;"
+			},
+			get: function(name) {
+				return this.headers[name.toLowerCase()];
 			}
 		});
 

@@ -9,18 +9,13 @@ module.exports = function(){
 	return function(data){
 		var observer, encoder, nodeIndex;
 
-		// TODO remove
-		var decoder;
-
 		var mutationStream = new Readable({
 			// Required, but we push manually
 			read() {}
 		});
 
 		function onMutations(records) {
-			debugger;
 			var bytes = encoder.encode(records);
-			var r = Array.from(decoder.decode(bytes));
 			mutationStream.push(bytes);
 		}
 
@@ -42,11 +37,6 @@ module.exports = function(){
 				observer = new MutationObserver(onMutations);
 				nodeIndex = new NodeIndex(data.document);
 				encoder = new MutationEncoder(nodeIndex);
-
-				// TODO remove this
-				var MutationDecoder = require("done-mutation/decoder");
-				decoder = new MutationDecoder(data.document);
-
 				nodeIndex.startObserving();
 				data.mutations = mutationStream;
 			},

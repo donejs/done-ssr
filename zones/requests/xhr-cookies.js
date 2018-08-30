@@ -1,6 +1,8 @@
+var makeHeaders = require("../../lib/util/make_headers");
 var url = require("url");
 
-module.exports = function(request, options){
+module.exports = function(requestOrHeaders, options){
+	var headers = makeHeaders(requestOrHeaders);
 	if (options.auth) {
 		if (!options.auth.cookie || !options.auth.domains) {
 			throw new Error('The auth.cookie and auth.domains must both be provided.');
@@ -13,7 +15,7 @@ module.exports = function(request, options){
 
 		// Override open to attach auth header if the domain is approved.
 		var open = function(httpMethod, xhrURL){
-			var cookie = request.headers && request.headers.cookie || "";
+			var cookie = headers["cookie"] || "";
 
 			// Monkey patch URL onto xhr for cookie origin checking in the send method.
 			var reqURL = url.parse(xhrURL);
@@ -49,7 +51,7 @@ module.exports = function(request, options){
 		};
 
 		var send = function(){
-			var cookie = request.headers && request.headers.cookie || "";
+			var cookie = headers["cookie"] || "";
 			var self = this;
 			var onload = this.onload;
 
