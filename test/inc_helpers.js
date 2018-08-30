@@ -26,10 +26,14 @@ exports.mock = function(url, expectedPushes){
 
 	var request = {
 		url: "/orders",
+		method: "GET",
 		connection: {},
 		headers: {
 			"host": "localhost",
 			"user-agent": helpers.ua.chrome
+		},
+		get: function(name) {
+			return this.headers[name.toLowerCase()];
 		}
 	};
 
