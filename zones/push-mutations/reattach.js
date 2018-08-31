@@ -40,7 +40,7 @@ module.exports = function(url){
 			}
 			el.setAttribute("data-noop", "");
 		});
-		
+
 		var fakeDoc = { head: firstOfKind(clone, "HEAD") };
 
 		// iframe placeholder
@@ -50,6 +50,9 @@ module.exports = function(url){
 		script.setAttribute("data-streamurl", url);
 		script.appendChild(document.createTextNode(clientScript));
 		appendToHead(fakeDoc, script);
+
+		// Append this to the document element
+		clone.setAttribute("data-streamurl", url);
 
 		var iframe = document.createElement("iframe");
 		iframe.setAttribute("id", "donessr-iframe");
@@ -103,9 +106,9 @@ module.exports = function(url){
 };
 
 function getClientScript() {
-	var dir = path.dirname(require.resolve("done-ssr-incremental-rendering-client"));
+	var dir = path.dirname(require.resolve("ir-reattach/ir-reattach.mjs"));
 	var basename = "done-ssr-incremental-rendering-client";
 	var debugMode = typeof process.env.DONE_SSR_DEBUG !== "undefined";
-	var clientPth = `${dir}/${basename}${debugMode ? "" : ".min"}.js`;
+	var clientPth = `${dir}/ir-reattach${debugMode ? "" : ".min"}.mjs`;
 	return fs.readFileSync(clientPth, "utf8");
 }

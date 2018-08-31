@@ -64,6 +64,10 @@ describe("SSR Zones - Incremental Rendering", function(){
 			});
 		});
 
+		after(function() {
+			delete global.XMLHttpRequest;
+		})
+
 		it("Contains the correct initial HTML", function(){
 			var dom = helpers.dom(this.zone.data.initialHTML);
 			assert.equal(dom.getAttribute("data-incrementally-rendered"), "",
@@ -90,7 +94,7 @@ describe("SSR Zones - Incremental Rendering", function(){
 	});
 });
 
-describe.skip("SSR Zones - Incremental Rendering with DoneJS", function(){
+describe("SSR Zones - Incremental Rendering with DoneJS", function(){
 	this.timeout(10000);
 
 	before(function(){
@@ -99,6 +103,9 @@ describe.skip("SSR Zones - Incremental Rendering with DoneJS", function(){
 			var stream = this.stream = new H2Stream();
 
 			var zone = this.zone = new Zone([
+				// Overrides XHR, fetch
+				requests(headers),
+
 				// Sets up a DOM
 				dom(headers),
 
@@ -146,9 +153,10 @@ describe.skip("SSR Zones - Incremental Rendering with DoneJS", function(){
 
 	it("contains the right instructions", function(){
 		var decoder = new MutationDecoder(this.zone.data.document);
-		var pushes = this.response.data.pushes;
-		var mutations = pushes[0][2];
+		var decoder = new MutationDecoder(this.zone.data.document);
+		var pushes = this.stream.data.pushes;
+		var mutations = pushes[0][2].map(buf => Array.from(decoder.decode(buf)));
 
-		assert.equal(mutations.length, 1, "There was only 1 mutation");
+		assert.equal(mutations.length, 3, "There were 3 mutations");
 	});
 });
