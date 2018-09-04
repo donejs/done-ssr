@@ -37,11 +37,6 @@ exports.mock = function(url, expectedPushes){
 			next();
 		}
 
-		_final(next) {
-			next();
-			//dfd.resolve();
-		}
-
 		pushStream(pushHeaders, cb) {
 			var pushes = result.pushes || (result.pushes = []);
 			var push = [pushHeaders, null, []];
