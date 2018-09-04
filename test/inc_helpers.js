@@ -1,19 +1,13 @@
 // Incremental rendering test helpers
 
 var helpers = require("./helpers");
-var through = require("through2");
-var {Duplex, Writable} = require("stream");
-var noop = Function.prototype;
+var {Duplex} = require("stream");
 
 function Deferred() {
 	this.promise = new Promise(function(resolve, reject){
 		this.resolve = resolve;
 		this.reject = reject;
 	}.bind(this));
-}
-
-function emptyWritable() {
-	return new Writable({write(c,e,next){next();}});
 }
 
 exports.mock = function(url, expectedPushes){
@@ -53,7 +47,7 @@ exports.mock = function(url, expectedPushes){
 				respond(headers) {
 					push[1] = headers;
 				}
-			}
+			};
 
 			cb(null, new PushStream());
 		}

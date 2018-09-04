@@ -3,9 +3,6 @@ var helpers = require("./helpers");
 var incHelpers = require("./inc_helpers");
 var assert = require("assert");
 var path = require("path");
-var through = require("through2");
-var noop = Function.prototype;
-var path = require("path");
 var MutationDecoder = require("done-mutation/decoder");
 
 describe("Incremental rendering - plain JS", function(){
