@@ -63,7 +63,7 @@ exports.mock = function(url, expectedPushes){
 		":method": "GET",
 		":authority": "localhost:8070",
 		":scheme": "http",
-		":path": "/",
+		":path": url,
 		"accept": "text/html",
 		"user-agent": helpers.ua.chrome
 	});
