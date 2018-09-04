@@ -1,11 +1,9 @@
 var ssr = require("../lib/");
 var helpers = require("./helpers");
+var incHelpers = require("./inc_helpers");
 var assert = require("assert");
 var path = require("path");
-var Writable = require("stream").Writable;
-var through = require("through2");
-var noop = Function.prototype;
-var path = require("path");
+var MutationDecoder = require("done-mutation/decoder");
 
 describe("Incremental rendering - plain JS", function(){
 	this.timeout(10000);
@@ -25,52 +23,28 @@ describe("Incremental rendering - plain JS", function(){
 
 	describe("A basic async app", function(){
 		before(function(done){
-			var result = this.result = {
-				html: null,
-				instructions: []
-			};
+			var {
+				headers,
+				stream,
+				result,
+				complete
+			} = incHelpers.mock("/", 2);
 
-			var request = {
-				url: "/",
-				connection: {},
-				headers: {
-					host: "localhost",
-					"user-agent": helpers.ua.chrome
-				}
-			};
+			this.result = result;
+			var outStream = this.render(headers);
+			outStream.pipe(stream);
 
-			var response = through(function(buffer, enc, done){
-				result.html = buffer.toString();
-			});
-			response.writeHead = noop;
-
-			function instructions() {
-				var writable = new Writable({
-					write(chunk, enc, next) {
-						result.instructions.push(chunk);
-						next();
-					}
-				});
-
-				var end = writable.end;
-				writable.end = function(){
-					done();
-					return end.apply(this, arguments);
-				};
-
-				return writable;
-			}
-
-			response.push = function(){
-				return instructions();
-			};
-
-			this.render(request).pipe(response);
+			// Complete is a promise that resolves when rendering is done
+			complete.then(done);
 		});
 
-		it.skip("Sends back rendering instructions", function(){
-			var instrs = this.result.instructions[0];
-			assert.ok(instrs.length > 0, "Some instructions were returned");
+		it("Sends back rendering instructions", function(){
+			var doc = helpers.dom(this.result.html).ownerDocument;
+			var decoder = new MutationDecoder(doc);
+			var instrPush = this.result.pushes[0][2];
+			var insert = Array.from(decoder.decode(instrPush[0]))[1];
+			assert.equal(insert.type, "insert");
+			assert.equal(insert.node.nodeName, "HOME-PAGE");
 		});
 
 		it("Includes the styles as part of the initial HTML", function(){

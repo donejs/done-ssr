@@ -2,7 +2,6 @@ var makeHeaders = require("../../lib/util/make_headers");
 var once = require("once");
 var resolveUrl = require("../../lib/util/resolve_url");
 var XMLHttpRequest2 = require("xmlhttprequest2").XMLHttpRequest;
-var zoneRegister = require("can-zone/register");
 
 var XHR_WAITING = Symbol("xhr-resolve.waiting");
 
@@ -74,12 +73,12 @@ module.exports = function(requestOrHeaders){
 
 	return {
 		created: function(){
-			registerXHR(makeXHR(XMLHttpRequest2));
+			global.XMLHttpRequest = makeXHR(XMLHttpRequest2);
+			registerXHR();
 		}
 	};
 };
 
 var registerXHR = once(function(XMLHttpRequest) {
-	global.XMLHttpRequest = XMLHttpRequest;
 	require("can-zone/register")();
 });

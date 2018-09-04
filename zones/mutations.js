@@ -57,6 +57,7 @@ module.exports = function(){
 			ended: function(){
 				observer.disconnect();
 				nodeIndex.stopObserving();
+				mutationStream.push(null);
 			}
 		};
 	};
