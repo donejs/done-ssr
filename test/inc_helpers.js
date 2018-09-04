@@ -2,8 +2,8 @@
 
 var helpers = require("./helpers");
 var through = require("through2");
+var {Duplex, Writable} = require("stream");
 var noop = Function.prototype;
-var Writable = require("stream").Writable;
 
 function Deferred() {
 	this.promise = new Promise(function(resolve, reject){
@@ -19,52 +19,61 @@ function emptyWritable() {
 exports.mock = function(url, expectedPushes){
 	var dfd = new Deferred();
 
-	var result = {
-		html: null,
-		instructions: []
-	};
+	var result = {};
 
-	var request = {
-		url: "/orders",
-		method: "GET",
-		connection: {},
-		headers: {
-			"host": "localhost",
-			"user-agent": helpers.ua.chrome
-		},
-		get: function(name) {
-			return this.headers[name.toLowerCase()];
+	var H2Stream = class extends Duplex {
+		constructor(options) {
+			super(options);
 		}
-	};
-
-	var response = through(function(buffer, enc, done){
-		result.html = buffer.toString();
-	});
-	response.writeHead = noop;
-
-	function instructions() {
-		return new Writable({
-			write(chunk, enc, next) {
-				//var json = chunk.toString();
-				//var instrs = JSON.parse(json);
-				result.instructions.push(chunk);
-				next();
+		// We only need this if we have a POST body
+		_read() {}
+		_write(val, enc, next) {
+			if(!result.html) {
+				result.html = "";
 			}
-		});
-	}
 
-	var pushes = expectedPushes;
-	response.push = function(url){
-		pushes--;
-		if(pushes === 0) {
-			setTimeout(dfd.resolve, 20);
+			result.html += val;
+
+			next();
 		}
-		if(/donessr_instructions/.test(url)) {
-			return instructions();
-		} else if(url === "http://localhost:8070/bar") {
-			return emptyWritable();
+
+		_final(next) {
+			next();
+			//dfd.resolve();
+		}
+
+		pushStream(pushHeaders, cb) {
+			var pushes = result.pushes || (result.pushes = []);
+			var push = [pushHeaders, null, []];
+			pushes.push(push);
+			var PushStream = class extends Duplex {
+				_read(){}
+				_write(chunk, enc, next){
+					push[2].push(chunk);
+					next();
+				}
+				_final() {
+					dfd.resolve();
+				}
+				respond(headers) {
+					push[1] = headers;
+				}
+			}
+
+			cb(null, new PushStream());
 		}
 	};
 
-	return { request, response, result, complete: dfd.promise };
+	var headers = Object.assign(Object.create(null), {
+		":method": "GET",
+		":authority": "localhost:8070",
+		":scheme": "http",
+		":path": "/",
+		"accept": "text/html",
+		"user-agent": helpers.ua.chrome
+	});
+
+	var stream = new H2Stream();
+
+	return { headers, stream, result, complete: dfd.promise };
 };
