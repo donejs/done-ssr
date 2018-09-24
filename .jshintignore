@@ -1,2 +1,3 @@
 lib/strategies/incremental/client/dist/
 lib/strategies/incremental/client/node_modules/
+test/incremental_h1_test.js
