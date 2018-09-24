@@ -53,7 +53,7 @@ describe("SSR Zones - Incremental Rendering", function(){
 					// Sets up a DOM
 					dom(headers),
 
-					pushMutations(stream),
+					pushMutations(headers, stream),
 
 					helpers.removeMutationObserverZone
 				]);
@@ -114,7 +114,7 @@ describe("SSR Zones - Incremental Rendering with DoneJS", function(){
 					main: "async/index.stache!done-autorender"
 				}, stream),
 
-				pushMutations(stream),
+				pushMutations(headers, stream),
 				helpers.removeMutationObserverZone
 			]);
 

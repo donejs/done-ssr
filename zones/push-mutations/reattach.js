@@ -29,14 +29,14 @@ module.exports = function(url){
 		return null;
 	}
 
-	function makeIframe(document) {
+	function makeIframe(document, data) {
 		var clone = document.documentElement.cloneNode(true);
 		// Disable all scripts, but leave them in the page so that ids
 		// match up correctly.
 		Array.from(clone.getElementsByTagName("script")).forEach(function(el){
 			el.removeAttribute("src");
-			while(el.firstChild) {
-				el.removeChild(el.firstChild);
+			if(el.firstChild) {
+				el.firstChild.nodeValue = "";
 			}
 			el.setAttribute("data-noop", "");
 		});
@@ -46,8 +46,16 @@ module.exports = function(url){
 		// iframe placeholder
 		appendToHead(fakeDoc, document.createComment("iframe placeholder"));
 
+		// Preload
+		if(data.isHTTP1) {
+			var link = data.document.createElement("link");
+			link.setAttribute("rel", "preload");
+			link.setAttribute("href", url);
+			appendToHead(fakeDoc, link);
+		}
+
 		var script = document.createElement("script");
-		script.setAttribute("data-streamurl", url);
+		script.setAttribute("type", "module");
 		script.appendChild(document.createTextNode(clientScript));
 		appendToHead(fakeDoc, script);
 
@@ -78,15 +86,13 @@ module.exports = function(url){
 	return function(data){
 		function injectStuff() {
 			let doc = data.document;
-			injectIntoHead(doc, makeIframe(doc));
+			injectIntoHead(doc, makeIframe(doc, data));
+			if(data.isHTTP1) {
+				// Preload link placeholder
+				injectIntoHead(doc, doc.createComment("preload placeholder"));
+			}
 			var closeScript = doc.createElement("script");
-			closeScript.textContent = `
-				window.closeSsrIframe = function(){
-					var frame = document.getElementById("donessr-iframe");
-					frame.parentNode.removeChild(frame);
-					document.body.style.visibility = '';
-				};
-			`;
+			closeScript.textContent = `window.closeSsrIframe=function(){var d=document;var f=d.getElementById("donessr-iframe");f.parentNode.removeChild(f);d.body.style.visibility = ''}`;
 			appendToHead(doc, closeScript);
 			doc.body.setAttribute("style", "visibility: hidden;");
 			doc.documentElement.setAttribute("data-incrementally-rendered", "");
