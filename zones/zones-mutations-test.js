@@ -134,7 +134,7 @@ describe("SSR Zones - Incremental Rendering with DoneJS", function(){
 		var idom = helpers.dom(html);
 
 		var reattach = helpers.find(idom, node => node.nodeType === 1 &&
-			node.hasAttribute("data-streamurl"));
+			node.getAttribute("type") === "module");
 		var parent = reattach.parentNode;
 
 		assert.equal(parent.nodeName, "HEAD", "within the head");
