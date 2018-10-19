@@ -35,7 +35,7 @@ module.exports = function(){
 
 				var MutationObserver = moUtils.addMutationObserver(data.window);
 				observer = new MutationObserver(onMutations);
-				nodeIndex = new NodeIndex(data.document);
+				nodeIndex = new NodeIndex(data.document, { collapseTextNodes: true });
 				encoder = new MutationEncoder(nodeIndex);
 				nodeIndex.startObserving();
 				data.mutations = mutationStream;
