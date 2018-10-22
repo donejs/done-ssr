@@ -20,6 +20,8 @@ module.exports = function(){
 		}
 
 		function startListeningToMutations() {
+			// Walk the tree to get the correct set of initial TextNodes
+			nodeIndex.walkTree();
 			observer.observe(data.document, {
 				subtree: true,
 				childList: true,
