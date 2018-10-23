@@ -3,6 +3,8 @@ module.exports = function(){
 	var main = document.createElement("main");
 	var ul = document.createElement("ul");
 	main.appendChild(ul);
+	main.appendChild(document.createTextNode("\n"));
+	main.appendChild(document.createTextNode("Testing"));
 
 	var statusSpan = document.createElement("span");
 	statusSpan.className = "status";

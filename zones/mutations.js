@@ -1,5 +1,4 @@
 var assert = require("assert");
-var cloneUtils = require("ir-clone");
 var isPromise = require("is-promise");
 var Readable = require("stream").Readable;
 var moUtils = require("done-mutation-observer");
@@ -21,12 +20,7 @@ module.exports = function(){
 		}
 
 		function startListeningToMutations() {
-			Object.defineProperty(data, "html", {
-				value: cloneUtils.serializeToString(data.document),
-				enumerable: true,
-				configurable: true,
-				writable: false
-			});
+			data.html = data.document.documentElement.outerHTML;
 
 			observer.observe(data.document, {
 				subtree: true,
@@ -55,11 +49,11 @@ module.exports = function(){
 					data.startMutations.then(startListeningToMutations);
 				} else {
 					startListeningToMutations();
-					data.html = cloneUtils.serializeToString(data.document);
+					data.html = data.document.documentElement.outerHTML;
 				}
 			},
 			afterStealMain: function(){
-				data.html = cloneUtils.serializeToString(data.document);
+				data.html = data.document.documentElement.outerHTML;
 			},
 			ended: function(){
 				observer.disconnect();
