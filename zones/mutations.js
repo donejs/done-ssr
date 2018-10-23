@@ -20,8 +20,6 @@ module.exports = function(){
 		}
 
 		function startListeningToMutations() {
-			// Walk the tree to get the correct set of initial TextNodes
-			nodeIndex.walkTree();
 			observer.observe(data.document, {
 				subtree: true,
 				childList: true,
@@ -37,8 +35,8 @@ module.exports = function(){
 
 				var MutationObserver = moUtils.addMutationObserver(data.window);
 				observer = new MutationObserver(onMutations);
-				nodeIndex = new NodeIndex(data.document, { collapseTextNodes: true });
-				encoder = new MutationEncoder(nodeIndex, { collapseTextNodes: true });
+				nodeIndex = new NodeIndex(data.document);
+				encoder = new MutationEncoder(nodeIndex);
 				nodeIndex.startObserving();
 				data.mutations = mutationStream;
 			},
