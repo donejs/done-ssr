@@ -81,6 +81,22 @@ describe("SSR Zones - Incremental Rendering", function(){
 			assert.ok(!ul.firstChild, "There are no child LIs yet");
 		});
 
+		it("iframe doc contains TextNode separators", function() {
+			var dom = helpers.dom(this.zone.data.initialHTML);
+			var iframe = helpers.find(dom, node => node.nodeName === "IFRAME");
+			var html = helpers.decodeSrcDoc(iframe);
+			var idom = helpers.dom(html);
+
+			var comments = 0;
+			helpers.traverse(idom, node => {
+				if(node.nodeType === 8 && node.nodeValue === "__DONEJS-SEP__") {
+					comments++;
+				}
+			});
+
+			assert.ok(comments > 0, "There are some separator comment nodes");
+		});
+
 		it("Contains mutations", function(){
 			var decoder = new MutationDecoder(this.zone.data.document);
 			var pushes = this.stream.data.pushes;
