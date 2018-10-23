@@ -20,6 +20,7 @@ module.exports = function(){
 		}
 
 		function startListeningToMutations() {
+			nodeIndex.stopObserving();
 			data.html = data.document.documentElement.outerHTML;
 
 			observer.observe(data.document, {
