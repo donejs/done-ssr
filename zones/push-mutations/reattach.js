@@ -113,7 +113,6 @@ module.exports = function(url){
 
 function getClientScript() {
 	var dir = path.dirname(require.resolve("ir-reattach/ir-reattach.mjs"));
-	var basename = "done-ssr-incremental-rendering-client";
 	var debugMode = typeof process.env.DONE_SSR_DEBUG !== "undefined";
 	var clientPth = `${dir}/ir-reattach${debugMode ? "" : ".min"}.mjs`;
 	return fs.readFileSync(clientPth, "utf8");
