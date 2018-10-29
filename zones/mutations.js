@@ -23,6 +23,7 @@ module.exports = function(){
 			nodeIndex.stopObserving();
 			if(typeof data.injectIRFrame === "function") {
 				data.injectIRFrame();
+				nodeIndex.reindex();
 			}
 			data.html = data.document.documentElement.outerHTML;
 
