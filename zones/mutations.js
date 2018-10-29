@@ -21,6 +21,9 @@ module.exports = function(){
 
 		function startListeningToMutations() {
 			nodeIndex.stopObserving();
+			if(typeof data.injectIRFrame === "function") {
+				data.injectIRFrame();
+			}
 			data.html = data.document.documentElement.outerHTML;
 
 			observer.observe(data.document, {
