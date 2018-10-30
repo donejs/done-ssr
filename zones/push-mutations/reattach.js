@@ -90,7 +90,7 @@ module.exports = function(url){
 			injectIntoHead(doc, makeIframe(doc, data));
 			if(data.isHTTP1) {
 				// Preload link placeholder
-				injectIntoHead(doc, doc.createComment("preload placeholder"));
+				injectIntoHead(doc, doc.createComment("autorender-keep preload placeholder"));
 			}
 			var closeScript = doc.createElement("script");
 			closeScript.textContent = `window.closeSsrIframe=function(){var d=document;var f=d.getElementById("donessr-iframe");f.parentNode.removeChild(f);d.body.style.visibility = ''}`;
