@@ -12,6 +12,8 @@ describe("Server-Side Rendering Basics", function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "progressive/index.stache!done-autorender"
+		}, {
+			strategy: 'safe'
 		});
 	});
 

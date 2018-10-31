@@ -14,6 +14,8 @@ describe("Rendering a JavaScript main", function(){
 			paths: {
 				"done-ssr/import": "file:" + path.resolve(__dirname + "/../import.js")
 			}
+		}, {
+			strategy: 'safe',
 		});
 	});
 

@@ -14,6 +14,7 @@ describe("auth cookies - failed domain", function() {
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "xhr/index.stache!done-autorender"
 		}, {
+			strategy: 'safe',
 			auth: {
 				cookie: 'feathers-jwt',
 				domains: [

@@ -13,6 +13,8 @@ describe("xhr async rendering", function() {
 		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "xhr/index.stache!done-autorender"
+		}, {
+			strategy: 'safe',
 		});
 
 		helpers.createServer(8070, function(req, res){

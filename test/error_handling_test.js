@@ -40,6 +40,7 @@ describe("Handling errors during app lifecycle", function(){
 			main: "async/index.stache!done-autorender",
 			configDependencies: ["live-reload"]
 		}, {
+			strategy: "safe",
 			zones: [reloadableFile]
 		});
 	});

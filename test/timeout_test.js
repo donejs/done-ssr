@@ -12,6 +12,7 @@ describe("Timeouts", function(){
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "timeout/index.stache!done-autorender"
 		}, {
+			strategy: "safe",
 			timeout: 100,
 			debug: true
 		});

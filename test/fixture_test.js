@@ -12,6 +12,8 @@ describe("Using can-fixture", function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "fixtures/index.stache!done-autorender"
+		}, {
+			strategy: 'safe',
 		});
 
 		this.scope = nock("http://www.example.org")

@@ -12,6 +12,8 @@ describe("rendering an app using envs", function(){
 			main: "envs/index.stache!done-autorender",
 			env: "someenv"
 		});
+	}, {
+		strategy: 'safe',
 	});
 
 	it("works", function(done){

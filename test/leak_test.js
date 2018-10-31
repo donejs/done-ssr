@@ -31,6 +31,8 @@ describe("Memory leaks", function(){
 		var render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "async/index.stache!done-autorender"
+		}, {
+			strategy: 'safe',
 		});
 
 		this.render = function(pth){

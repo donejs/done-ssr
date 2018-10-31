@@ -18,6 +18,8 @@ describe("Error during steal.startup()", function(){
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "startup_err/index.stache!done-autorender",
 			configDependencies: ["live-reload"]
+		}, {
+			strategy: 'safe',
 		});
 	});
 
