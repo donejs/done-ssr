@@ -44,17 +44,8 @@ describe("Server-Side Rendering Basics", function(){
 		function check(html) {
 			var node = helpers.dom(html);
 
-			var found = {};
-			helpers.traverse(node, function(el){
-				if(el.nodeName === "STYLE" || el.nodeName === "SCRIPT") {
-					found[el.getAttribute("asset-id").split('!')[0]] = true;
-				}
-			});
-
 			assert.ok(!hasError.test(html), 'does not print an error message');
 			assert.equal(response.statusCode, 200);
-			assert.equal(found["progressive/main.css"], true, "Found the main css");
-			assert.equal(found["progressive/orders/orders.css"], true, "Found the orders bundle css");
 
 			var totalsEl = helpers.find(node, function(el){
 				return el.getAttribute && el.getAttribute("id") === "totals";
