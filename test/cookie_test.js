@@ -33,6 +33,8 @@ describe("cookie async rendering", function() {
 		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "cookie/index.stache!done-autorender"
+		}, {
+			strategy: 'safe',
 		});
 	});
 
