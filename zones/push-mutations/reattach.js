@@ -52,7 +52,6 @@ module.exports = function(url){
 			var link = data.document.createElement("link");
 			link.setAttribute("rel", "preload");
 			link.setAttribute("href", url);
-			link.setAttribute("as", "fetch");
 			appendToHead(fakeDoc, link);
 		}
 
