@@ -20,7 +20,6 @@ module.exports = function(){
 		}
 
 		function startListeningToMutations() {
-			nodeIndex.stopObserving();
 			if(typeof data.injectIRFrame === "function") {
 				data.injectIRFrame();
 				nodeIndex.reindex();
@@ -44,7 +43,6 @@ module.exports = function(){
 				observer = new MutationObserver(onMutations);
 				nodeIndex = new NodeIndex(data.document);
 				encoder = new MutationEncoder(nodeIndex);
-				nodeIndex.startObserving();
 				data.mutations = mutationStream;
 			},
 			afterRun: function(){
@@ -62,7 +60,6 @@ module.exports = function(){
 			},
 			ended: function(){
 				observer.disconnect();
-				nodeIndex.stopObserving();
 				mutationStream.push(null);
 			}
 		};
