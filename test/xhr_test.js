@@ -13,6 +13,8 @@ describe("xhr async rendering", function() {
 		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "xhr/index.stache!done-autorender"
+		}, {
+			strategy: 'safe',
 		});
 
 		helpers.createServer(8070, function(req, res){
@@ -20,12 +22,12 @@ describe("xhr async rendering", function() {
 			switch(req.url) {
 				case "/api/list":
 					data = [1,2,3,4,5];
+					res.setHeader("Content-Type", "application/json");
+					res.end(JSON.stringify(data));
 					break;
 				default:
 					throw new Error("No route for " + req.url);
 			}
-			res.setHeader("Content-Type", "application/json");
-			res.end(JSON.stringify(data));
 		})
 		.then(server => {
 			this.server = server;

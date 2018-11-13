@@ -33,6 +33,8 @@ describe("cookie async rendering", function() {
 		render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "cookie/index.stache!done-autorender"
+		}, {
+			strategy: 'safe',
 		});
 	});
 
@@ -43,11 +45,15 @@ describe("cookie async rendering", function() {
 	it( "works", function(done){
 		var stream = render({
 			//mocked up req object
+			method: "GET",
 			url: "/",
 			connection: {},
 			headers: {
 				host: "localhost",
 				cookie: "willitcookie=letsfindout"
+			},
+			get: function(name) {
+				return this.headers[name.toLowerCase()];
 			}
 		});
 

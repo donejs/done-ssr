@@ -1,9 +1,9 @@
 
-module.exports = function(request, options){
+module.exports = function(headers, options){
 	return {
 		plugins: [
-			require("./fetch")(request),
-			require("./xhr")(request, options),
+			require("./fetch")(headers),
+			require("./xhr")(headers, options),
 			require("./websocket")
 		]
 	};

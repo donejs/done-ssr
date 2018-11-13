@@ -1,13 +1,15 @@
+var makeHeaders = require("../../lib/util/make_headers");
 var xhrResolveUrl = require("./xhr-resolve-url");
 var xhrCookies = require("./xhr-cookies");
 var xhrCache = require("./xhr-cache");
 
-module.exports = function(request, options){
+module.exports = function(requestOrHeaders, options){
+	var headers = makeHeaders(requestOrHeaders);
 	return {
 		plugins: [
-			xhrResolveUrl(request),
+			xhrResolveUrl(headers),
 			xhrCache,
-			xhrCookies(request, options || {})
+			xhrCookies(headers, options || {})
 		]
 	};
 };

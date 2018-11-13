@@ -14,6 +14,7 @@ describe("auth cookies", function() {
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "xhr/index.stache!done-autorender"
 		}, {
+			strategy: 'safe',
 			auth: {
 				cookie: 'feathers-jwt',
 				domains: [
@@ -30,12 +31,12 @@ describe("auth cookies", function() {
 			switch(req.url) {
 				case "/api/list":
 					data = [1,2,3,4,5];
+					res.setHeader("Content-Type", "application/json");
+					res.end(JSON.stringify(data));
 					break;
 				default:
 					throw new Error("No route for " + req.url);
 			}
-			res.setHeader("Content-Type", "application/json");
-			res.end(JSON.stringify(data));
 		})
 		.then(server => {
 			this.server = server;
@@ -49,11 +50,15 @@ describe("auth cookies", function() {
 
 	it("works", function(done) {
 		var stream = render({
+			method: "GET",
 			url: '/',
 			connection: {},
 			headers: {
 				host: "localhost",
 				cookie: "feathers-jwt=foobar;"
+			},
+			get: function(name) {
+				return this.headers[name.toLowerCase()];
 			}
 		});
 

@@ -78,7 +78,7 @@ module.exports = function(request, response){
 	  })();
 	  Object.defineProperty( doc, "cookie", cookieDef );
 
-	  var cookie = request.headers && request.headers.cookie || "";
+	  var cookie = (request.headers && request.headers.cookie) || request["cookie"] || "";
 	  var cookiesArr = cookie.length ? cookie.split( "; " ) : [];
 
 	  // Set on the cookies in the document
@@ -104,7 +104,7 @@ module.exports = function(request, response){
 			uh = cookies[ key ];
 			if ( !uh.isSSRReqCookie ) {
 	      //not a cookie that was on the initial request, basically any that are new from ssr, so forward them
-				if(response.cookie) {
+				if(response.cookie && !response.headersSent) {
 					response.cookie(key, uh.value, uh.options);
 				}
 			}

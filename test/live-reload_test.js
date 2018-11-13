@@ -14,6 +14,8 @@ describe("live-reload", function(){
 			configDependencies: [
 				"live-reload"
 			]
+		}, {
+			strategy: 'safe',
 		});
 	});
 

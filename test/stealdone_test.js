@@ -11,6 +11,8 @@ describe("Using steal.done() in a module", function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "stealdone/main"
+		}, {
+			strategy: 'safe',
 		});
 	});
 

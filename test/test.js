@@ -25,6 +25,7 @@ mochas([
 	"live-reload_test.js",
 	"leak_test.js",
 	"incremental_test.js",
+	"incremental_h1_test.js",
 	"incremental_plain_test.js",
 	"incremental_prog_test.js",
 	"error_handling_test.js"

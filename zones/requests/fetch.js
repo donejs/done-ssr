@@ -1,5 +1,5 @@
 var assert = require("assert");
-var https = require("https");
+var makeHeaders = require("../../lib/util/make_headers");
 var nodeFetch = require("node-fetch");
 var PassThrough = require("stream").PassThrough;
 var resolveUrl = require("../../lib/util/resolve_url");
@@ -9,15 +9,18 @@ var toWebReadableStream = webStreams.toWebReadableStream;
 var Override = require("../../lib/override");
 var isHttps = /^https/;
 
-module.exports = function(request){
+module.exports = function(requestOrHeaders){
+	var headers = makeHeaders(requestOrHeaders);
 	function fetch(relativeUrl, options){
 		assert(typeof relativeUrl === "string",
 			"done-ssr currently only supports a string as the parameter to fetch()");
 
-		var url = resolveUrl(request, relativeUrl);
+
+		var url = resolveUrl(headers, relativeUrl);
 
 		var agent;
 		if(isHttps.test(url) && url.indexOf("localhost") !== -1) {
+			var https = require("https");
 			agent = new https.Agent({
 				rejectUnauthorized: false
 			});

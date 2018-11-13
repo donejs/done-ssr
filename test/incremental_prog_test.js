@@ -3,6 +3,7 @@ var helpers = require("./helpers");
 var incHelpers = require("./inc_helpers");
 var assert = require("assert");
 var path = require("path");
+var MutationDecoder = require("done-mutation/decoder");
 
 describe("Incremental rendering", function(){
 	this.timeout(10000);
@@ -13,12 +14,12 @@ describe("Incremental rendering", function(){
 			switch(req.url) {
 				case "/bar":
 					data = [ { "a": "a" }, { "b": "b" } ];
+					res.setHeader("Content-Type", "application/json");
+					res.end(JSON.stringify(data));
 					break;
 				default:
 					throw new Error("No route for " + req.url);
 			}
-			res.setHeader("Content-Type", "application/json");
-			res.end(JSON.stringify(data));
 		})
 		.then(server => {
 			this.server = server;
@@ -40,22 +41,29 @@ describe("Incremental rendering", function(){
 	describe("A progressively loaded page", function(){
 		before(function(done){
 			var {
-				request,
-				response,
+				headers,
+				stream,
 				result,
 				complete
 			} = incHelpers.mock("/orders", 2);
 
 			this.result = result;
-			this.render(request).pipe(response);
+			var outStream = this.render(headers);
+			outStream.pipe(stream);
 
+			// Complete is a promise that resolves when rendering is done
 			complete.then(done);
 		});
 
 		it("Pushed a mutation to insert styles", function(){
-			var instr = this.result.instructions[0][0];
-			assert.equal(instr.type, "insert", "Inserting an element");
-			assert.equal(instr.node[3], "STYLE", "Inserting a style tag");
+			var doc = helpers.dom(this.result.html).ownerDocument;
+			var decoder = new MutationDecoder(doc);
+			var instrPushes = this.result.pushes[0][2];
+
+			var insert = Array.from(decoder.decode(instrPushes[0]))[0];
+			assert.equal(insert.type, "insert");
+			assert.equal(insert.node.nodeName, "STYLE",
+				"inserted the progressively loaded style");
 		});
 	});
 });

@@ -12,6 +12,8 @@ describe("Using can-define/map/map", function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "define-map-status/index.stache!done-autorender"
+		}, {
+			strategy: 'safe',
 		});
 	});
 

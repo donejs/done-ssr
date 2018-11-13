@@ -11,6 +11,8 @@ describe("Projects importing a component that doesn't exist", function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "import-empty/index.stache!done-autorender"
+		}, {
+			strategy: 'safe',
 		});
 	});
 

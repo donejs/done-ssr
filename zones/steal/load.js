@@ -64,7 +64,7 @@ module.exports = function(cfg){
 						} else {
 							var render = modules.main.default || modules.main;
 							if(typeof render === "function") {
-								render(data.request);
+								render(data.headers);
 							} else if(typeof data.mainExecute === "function" &&
 								data.steal[MAIN_LOADED]) {
 								data.mainExecute();

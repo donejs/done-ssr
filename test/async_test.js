@@ -11,6 +11,8 @@ describe("async rendering", function(){
 		this.render = ssr({
 			config: "file:" + path.join(__dirname, "tests", "package.json!npm"),
 			main: "async/index.stache!done-autorender"
+		}, {
+			strategy: "seo"
 		});
 
 		helpers.createServer(8070, function(req, res){
@@ -18,12 +20,12 @@ describe("async rendering", function(){
 			switch(req.url) {
 				case "/bar":
 					data = [ { "a": "a" }, { "b": "b" } ];
+					res.setHeader("Content-Type", "application/json");
+					res.end(JSON.stringify(data));
 					break;
 				default:
 					throw new Error("No route for " + req.url);
 			}
-			res.setHeader("Content-Type", "application/json");
-			res.end(JSON.stringify(data));
 		})
 		.then(server => {
 			this.server = server;
@@ -70,11 +72,15 @@ describe("async rendering", function(){
 
 	it("request language is used", function(done){
 		var request = {
+			method: "GET",
 			url: "/",
 			connection: {},
 			headers: {
 				"host": "localhost",
 				"accept-language": "en-US"
+			},
+			get: function(name) {
+				return this.headers[name.toLowerCase()];
 			}
 		};
 		this.render(request).pipe(through(function(buffer){

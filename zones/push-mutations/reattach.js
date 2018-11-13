@@ -1,6 +1,7 @@
 var fs = require("fs");
 var isPromise = require("is-promise");
 var path = require("path");
+var cloneUtils = require("ir-clone");
 
 var clientScript = getClientScript();
 
@@ -29,32 +30,43 @@ module.exports = function(url){
 		return null;
 	}
 
-	function makeIframe(document) {
+	function makeIframe(document, data) {
 		var clone = document.documentElement.cloneNode(true);
 		// Disable all scripts, but leave them in the page so that ids
 		// match up correctly.
 		Array.from(clone.getElementsByTagName("script")).forEach(function(el){
 			el.removeAttribute("src");
-			while(el.firstChild) {
-				el.removeChild(el.firstChild);
+			if(el.firstChild) {
+				el.firstChild.nodeValue = "";
 			}
 			el.setAttribute("data-noop", "");
 		});
-		
+
 		var fakeDoc = { head: firstOfKind(clone, "HEAD") };
 
 		// iframe placeholder
 		appendToHead(fakeDoc, document.createComment("iframe placeholder"));
 
+		// Preload
+		if(data.isHTTP1) {
+			var link = data.document.createElement("link");
+			link.setAttribute("rel", "preload");
+			link.setAttribute("href", url);
+			appendToHead(fakeDoc, link);
+		}
+
 		var script = document.createElement("script");
-		script.setAttribute("data-streamurl", url);
+		script.setAttribute("type", "module");
 		script.appendChild(document.createTextNode(clientScript));
 		appendToHead(fakeDoc, script);
+
+		// Append this to the document element
+		clone.setAttribute("data-streamurl", url);
 
 		var iframe = document.createElement("iframe");
 		iframe.setAttribute("id", "donessr-iframe");
 		iframe.setAttribute("data-keep", "");
-		iframe.setAttribute("srcdoc", clone.outerHTML);
+		iframe.setAttribute("srcdoc", cloneUtils.serializeToString(clone));
 		iframe.setAttribute("style", "border:0;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;visibility:visible;");
 		return iframe;
 	}
@@ -75,37 +87,34 @@ module.exports = function(url){
 	return function(data){
 		function injectStuff() {
 			let doc = data.document;
-			injectIntoHead(doc, makeIframe(doc));
+			injectIntoHead(doc, makeIframe(doc, data));
+			if(data.isHTTP1) {
+				// Preload link placeholder
+				injectIntoHead(doc, doc.createComment("autorender-keep preload placeholder"));
+			}
 			var closeScript = doc.createElement("script");
-			closeScript.textContent = `
-				window.closeSsrIframe = function(){
-					var frame = document.getElementById("donessr-iframe");
-					frame.parentNode.removeChild(frame);
-					document.body.style.visibility = '';
-				};
-			`;
+			closeScript.textContent = `window.closeSsrIframe=function(){var d=document;var f=d.getElementById("donessr-iframe");f.parentNode.removeChild(f);d.body.style.visibility = ''}`;
 			appendToHead(doc, closeScript);
 			doc.body.setAttribute("style", "visibility: hidden;");
 			doc.documentElement.setAttribute("data-incrementally-rendered", "");
 		}
 
 		return {
+			created: function() {
+				data.injectIRFrame = injectStuff;
+			},
 			afterRun: function(){
 				if(!isPromise(data.startMutations)) {
 					injectStuff();
 				}
-			},
-			afterStealMain: function() {
-				injectStuff();
 			}
 		};
 	};
 };
 
 function getClientScript() {
-	var dir = path.dirname(require.resolve("done-ssr-incremental-rendering-client"));
-	var basename = "done-ssr-incremental-rendering-client";
+	var dir = path.dirname(require.resolve("ir-reattach/ir-reattach.mjs"));
 	var debugMode = typeof process.env.DONE_SSR_DEBUG !== "undefined";
-	var clientPth = `${dir}/${basename}${debugMode ? "" : ".min"}.js`;
+	var clientPth = `${dir}/ir-reattach${debugMode ? "" : ".min"}.mjs`;
 	return fs.readFileSync(clientPth, "utf8");
 }

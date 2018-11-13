@@ -1,39 +1,48 @@
 var assert = require("assert");
-var domPatch = require("dom-patch");
 var isPromise = require("is-promise");
 var Readable = require("stream").Readable;
-
-domPatch.collapseTextNodes = true;
-var patchTypes = ["attribute", "replace", "insert",
-	"remove", "text", "prop", "style"].reduce(truthyObject, {});
+var moUtils = require("done-mutation-observer");
+var MutationEncoder = require("done-mutation/encoder");
+var NodeIndex = require("done-mutation/index");
 
 module.exports = function(){
 	return function(data){
+		var observer, encoder, nodeIndex;
+
 		var mutationStream = new Readable({
-			read() {
-				// This happens automatically on patch changes
-			}
+			// Required, but we push manually
+			read() {}
 		});
 
-		function onChanges(changes){
-			var instructions = changes.filter(function(change){
-				// Is this one of the changes that we care about.
-				return patchTypes[change.type];
-			});
-
-			if(instructions.length) {
-				var msg = JSON.stringify(instructions) + "\n";
-				mutationStream.push(msg);
-			}
+		function onMutations(records) {
+			var bytes = encoder.encode(records);
+			mutationStream.push(bytes);
 		}
 
 		function startListeningToMutations() {
-			domPatch(data.document, onChanges);
+			if(typeof data.injectIRFrame === "function") {
+				data.injectIRFrame();
+				nodeIndex.reindex();
+			}
+			data.html = data.document.documentElement.outerHTML;
+
+			observer.observe(data.document, {
+				subtree: true,
+				childList: true,
+				characterData: true,
+				attributes: true
+			});
 		}
 
 		return {
 			created() {
 				assert(data.document, "The mutations zone requires a document.");
+				assert(data.window, "The mutations zone requires a window.");
+
+				var MutationObserver = moUtils.addMutationObserver(data.window);
+				observer = new MutationObserver(onMutations);
+				nodeIndex = new NodeIndex(data.document);
+				encoder = new MutationEncoder(nodeIndex);
 				data.mutations = mutationStream;
 			},
 			afterRun: function(){
@@ -43,16 +52,15 @@ module.exports = function(){
 					data.startMutations.then(startListeningToMutations);
 				} else {
 					startListeningToMutations();
+					data.html = data.document.documentElement.outerHTML;
 				}
-
-				data.html = data.document.documentElement.outerHTML;
 			},
 			afterStealMain: function(){
 				data.html = data.document.documentElement.outerHTML;
 			},
 			ended: function(){
-				domPatch.flush();
-				domPatch.unbind(data.document, onChanges);
+				observer.disconnect();
+				mutationStream.push(null);
 			}
 		};
 	};

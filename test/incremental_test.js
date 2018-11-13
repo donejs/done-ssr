@@ -3,6 +3,7 @@ var helpers = require("./helpers");
 var incHelpers = require("./inc_helpers");
 var assert = require("assert");
 var path = require("path");
+var MutationDecoder = require("done-mutation/decoder");
 
 describe("Incremental rendering", function(){
 	this.timeout(10000);
@@ -16,12 +17,12 @@ describe("Incremental rendering", function(){
 			switch(req.url) {
 				case "/bar":
 					data = [ { "a": "a" }, { "b": "b" } ];
+					res.setHeader("Content-Type", "application/json");
+					res.end(JSON.stringify(data));
 					break;
 				default:
 					throw new Error("No route for " + req.url);
 			}
-			res.setHeader("Content-Type", "application/json");
-			res.end(JSON.stringify(data));
 		})
 		.then(server => {
 			this.server = server;
@@ -43,26 +44,28 @@ describe("Incremental rendering", function(){
 	describe("A basic async app", function(){
 		before(function(done){
 			var {
-				request,
-				response,
+				headers,
+				stream,
 				result,
 				complete
 			} = incHelpers.mock("/", 2);
 
 			this.result = result;
-			this.render(request).pipe(response);
+			var outStream = this.render(headers);
+			outStream.pipe(stream);
 
 			// Complete is a promise that resolves when rendering is done
 			complete.then(done);
 		});
 
 		it("Sends the correct rendering instructions", function(){
-			var instr = this.result.instructions[0][1];
-			assert.equal(instr.route, "0.2.7");
+			var doc = helpers.dom(this.result.html).ownerDocument;
+			var decoder = new MutationDecoder(doc);
+			var chunks = this.result.pushes[0][2];
+			var insert = Array.from(decoder.decode(chunks[1]))[2];
 
-			// Easier to test
-			var nodeAsJson = JSON.stringify(instr.node);
-			assert.ok(/ORDER-HISTORY/.test(nodeAsJson), "adds the order-history component");
+			assert.equal(insert.type, "insert", "an insert");
+			assert.equal(insert.node.nodeName, "ORDER-HISTORY", "adds the order-history component");
 		});
 
 		it("Includes the incremental rendering iframe", function(){

@@ -8,20 +8,21 @@ var pushXHR = require("./push-xhr");
 var assert = require("assert");
 var {
 	createServer,
-	Request,
-	Response
+	h2Headers,
+	H2Stream
 } = require("./test-helpers");
 var helpers = require("../test/helpers");
 var main = require("./tests/basics/main");
 
 var spinUpServer = function(cb){
 	return createServer(8070, function(req, res){
+		var data;
 		switch(req.url) {
 			case "/api/todos":
-				var data = ["eat", "sleep"];
+				data = ["eat", "sleep"];
 				break;
 			case "/api/cart":
-				var data = { count: 22 };
+				data = { count: 22 };
 				break;
 		}
 		res.end(JSON.stringify(data));
@@ -35,20 +36,20 @@ describe("SSR Zones - Basics", function(){
 	describe("An app using fetch and PUSH", function(){
 		before(function(){
 			return spinUpServer(() => {
-				var request = new Request();
-				var response = this.response = new Response();
+				var headers = h2Headers();
+				var stream = this.stream = new H2Stream();
 
 				var zone = this.zone = new Zone({
 					plugins: [
 						// Overrides XHR, fetch
-						requests(request),
+						requests(headers),
 
 						// Sets up a DOM
-						dom(request),
+						dom(headers),
 
-						pushFetch(response),
-						pushImages(response, __dirname + "/tests/basics"),
-						pushXHR(response)
+						pushFetch(stream),
+						pushImages(stream, __dirname + "/tests/basics"),
+						pushXHR(stream)
 					]
 				});
 
@@ -80,10 +81,10 @@ describe("SSR Zones - Basics", function(){
 		});
 
 		it("Data from the fetch requests was pushed", function(){
-			var pushes = this.response.data.pushes;
-			var [url, opts, data] = pushes.filter(p => p[0] === "/api/todos")[0];
+			var pushes = this.stream.data.pushes;
+			var [headers, opts, data] = pushes.filter(p => p[0][":path"] === "/api/todos")[0];
 
-			assert.equal(url, "/api/todos", "Todos api");
+			assert.equal(headers[":path"], "/api/todos", "Todos api");
 
 			var todos = JSON.parse(data[0].toString());
 			assert.equal(todos[0], "eat");
@@ -91,20 +92,20 @@ describe("SSR Zones - Basics", function(){
 		});
 
 		it("Data from the XHR requests was pushed", function(){
-			var pushes = this.response.data.pushes;
-			var [url, opts, data] = pushes.filter(p => p[0] === "/api/cart")[0];
+			var pushes = this.stream.data.pushes;
+			var [headers, opts, data] = pushes.filter(p => p[0][":path"] === "/api/cart")[0];
 
-			assert.equal(url, "/api/cart", "Cart api");
+			assert.equal(headers[":path"], "/api/cart", "Cart api");
 
 			var cart = JSON.parse(data[0].toString());
 			assert.equal(cart.count, 22, "Have the cart!");
 		});
 
 		it("Images from the request were pushed", function(){
-			var pushes = this.response.data.pushes;
-			var [url, opts, data] = pushes[0];
+			var pushes = this.stream.data.pushes;
+			var [headers, opts, data] = pushes[0];
 
-			assert.equal(url, "/images/cat.png");
+			assert.equal(headers[":path"], "/images/cat.png");
 			assert.ok(data.length, "Got the data too");
 		});
 	});
