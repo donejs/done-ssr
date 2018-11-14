@@ -1,5 +1,6 @@
 var http = require("http");
 var URL = require("url").URL;
+var ua = require("./ua").ua;
 
 exports.makeRequest = async function(url, encoding = "utf8") {
 	let urlObj = new URL(url);
@@ -13,7 +14,10 @@ function makeH1Request(urlObj, encoding) {
 			hostname: urlObj.hostname,
 			port: Number(urlObj.port),
 			path: urlObj.pathname + urlObj.search,
-			method: 'GET'
+			method: 'GET',
+			headers: {
+				"user-agent": ua.chrome
+			}
 		};
 
 		if(urlObj.protocol === "https:") {
