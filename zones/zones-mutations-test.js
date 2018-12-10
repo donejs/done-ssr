@@ -7,6 +7,7 @@ var pushMutations = require("./push-mutations");
 var pushXHR = require("./push-xhr");
 var donejs = require("./donejs");
 var he = require("he");
+require('fast-text-encoding');
 var MutationDecoder = require("done-mutation/decoder");
 
 var assert = require("assert");
