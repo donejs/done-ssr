@@ -56,6 +56,7 @@ exports.H2Stream = class extends Duplex {
 		super(options);
 
 		this.data = {};
+		this.pushAllowed = true;
 	}
 	// We only need this if we have a POST body
 	_read() {}
