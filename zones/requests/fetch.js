@@ -35,14 +35,22 @@ module.exports = function(requestOrHeaders){
 		}, options);
 
 		return nodeFetch(url, options).then(function(resp){
-			var response = Object.create(resp);
-
-			// Convert the Node.js Readable stream to a WHATWG stream.
-			response._readableBody = resp.body;
 			var body = resp.body.pipe(new PassThrough());
-			response.body = toWebReadableStream(body);
-			response.json = resp.json.bind(resp);
-			response.text = resp.text.bind(resp);
+			var response = Object.create(resp, {
+				body: {
+					value: toWebReadableStream(body)
+				},
+				_readableBody: {
+					enumerable: false,
+					value: resp.body
+				},
+				json: {
+					value: resp.json.bind(resp)
+				},
+				text: {
+					value: resp.text.bind(resp)
+				}
+			});
 			return response;
 		});
 	}
