@@ -7,6 +7,7 @@ var clientScript = getClientScript();
 
 module.exports = function(url){
 	function appendToHead(document, element){
+		if(!document.head) return;
 		var fc = document.head.firstChild;
 		if(fc) {
 			document.head.insertBefore(element, fc);

@@ -1,5 +1,6 @@
 var domHelpers = require("./dom");
 var he = require("he");
+require('fast-text-encoding');
 var MutationDecoder = require("done-mutation/decoder");
 
 exports.findMutationDoc = function(node) {
