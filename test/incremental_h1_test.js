@@ -45,5 +45,15 @@ describe("Incremental rendering with HTTP/1", function(){
 			assert.equal(oh.type, "insert");
 			assert.equal(oh.node.nodeName, "ORDER-HISTORY");
 		});
+
+		it("Includes the preload link in the iframe document", function(){
+			var doc = helpers.extractIframeDoc(this.htmlResponse.body);
+			var link = helpers.find(doc, function(node) {
+				return node.getAttribute && node.getAttribute("rel") === "preload";
+			});
+
+			assert.ok(link, "Preload link exists");
+			assert.equal(link.getAttribute("as"), "fetch", "has the correct 'as'");
+		});
 	});
 });

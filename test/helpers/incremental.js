@@ -10,7 +10,12 @@ exports.findMutationDoc = function(node) {
 	var srcdoc = node.getAttribute("srcdoc");
 	var str = he.decode(he.decode(srcdoc));
 	return domHelpers.dom(str);
-}
+};
+
+exports.extractIframeDoc = function(html) {
+	var node = domHelpers.dom(html);
+	return exports.findMutationDoc(node);
+};
 
 exports.extractInstructionsURL = function(html) {
 	var node = domHelpers.dom(html);

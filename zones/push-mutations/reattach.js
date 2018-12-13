@@ -52,6 +52,7 @@ module.exports = function(url){
 		if(data.isHTTP1) {
 			var link = data.document.createElement("link");
 			link.setAttribute("rel", "preload");
+			link.setAttribute("as", "fetch");
 			link.setAttribute("href", url);
 			appendToHead(fakeDoc, link);
 		}
