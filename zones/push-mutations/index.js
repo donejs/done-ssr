@@ -11,7 +11,7 @@ module.exports = function(requestOrHeaders, stream,
 	}
 
 	return function(data){
-		setHTTPVersion(data, requestOrHeaders);
+		setHTTPVersion(data, requestOrHeaders, stream);
 		var instrStream;
 
 		return {
@@ -22,7 +22,7 @@ module.exports = function(requestOrHeaders, stream,
 
 			created: function(){
 				// If this is HTTP/1 a preload link is added.
-				if(data.isHTTP1) {
+				if(!data.pushAllowed) {
 					pushStreams.set(url, data.mutations);
 					return;
 				}

@@ -18,6 +18,7 @@ exports.mock = function(url, expectedPushes){
 	var H2Stream = class extends Duplex {
 		constructor(options) {
 			super(options);
+			this.pushAllowed = true;
 		}
 		// We only need this if we have a POST body
 		_read() {}

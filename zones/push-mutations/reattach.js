@@ -49,9 +49,11 @@ module.exports = function(url){
 		appendToHead(fakeDoc, document.createComment("iframe placeholder"));
 
 		// Preload
-		if(data.isHTTP1) {
+		if(!data.pushAllowed) {
 			var link = data.document.createElement("link");
 			link.setAttribute("rel", "preload");
+			link.setAttribute("as", "fetch");
+			link.setAttribute("crossorigin", "anonymous");
 			link.setAttribute("href", url);
 			appendToHead(fakeDoc, link);
 		}
@@ -89,7 +91,7 @@ module.exports = function(url){
 		function injectStuff() {
 			let doc = data.document;
 			injectIntoHead(doc, makeIframe(doc, data));
-			if(data.isHTTP1) {
+			if(!data.pushAllowed) {
 				// Preload link placeholder
 				injectIntoHead(doc, doc.createComment("autorender-keep preload placeholder"));
 			}
