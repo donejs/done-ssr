@@ -54,6 +54,7 @@ describe("Incremental rendering with HTTP/1", function(){
 
 			assert.ok(link, "Preload link exists");
 			assert.equal(link.getAttribute("as"), "fetch", "has the correct 'as'");
+			assert.equal(link.getAttribute("crossorigin"), "anonymous", "set as anonymous");
 		});
 	});
 });

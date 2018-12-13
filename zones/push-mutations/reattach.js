@@ -53,6 +53,7 @@ module.exports = function(url){
 			var link = data.document.createElement("link");
 			link.setAttribute("rel", "preload");
 			link.setAttribute("as", "fetch");
+			link.setAttribute("crossorigin", "anonymous");
 			link.setAttribute("href", url);
 			appendToHead(fakeDoc, link);
 		}
