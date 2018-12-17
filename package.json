@@ -38,7 +38,7 @@
     "can-globals": "<2.0.0",
     "can-route": "^4.0.0",
     "can-route-pushstate": "^4.0.0",
-    "can-stache": "^4.0.0",
+    "can-stache": "^4.16.0",
     "copy-dir": "0.0.8",
     "documentjs": "^0.5.0",
     "done-autorender": "^2.2.0",
