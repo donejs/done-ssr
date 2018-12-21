@@ -59,7 +59,7 @@
   "dependencies": {
     "can-dom-mutate": "^1.2.1",
     "can-namespace": "^1.0.0",
-    "can-reflect": "^1.11.0",
+    "can-reflect": "^1.17.9",
     "can-vdom": "^4.4.0",
     "can-zone": "^1.0.0",
     "dom-patch": "^2.1.1",
