@@ -10,7 +10,7 @@
     "can-route-pushstate": "^4.0.0",
     "can-stache": "^4.0.0",
     "done-css": "^3.0.0",
-    "done-autorender": "^2.0.0-pre.10",
+    "done-autorender": "^2.5.7",
     "jquery": "2.x - 3.x",
     "steal-stache": "^4.0.0"
   },
