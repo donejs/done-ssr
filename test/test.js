@@ -28,5 +28,6 @@ mochas([
 	"incremental_h1_test.js",
 	"incremental_plain_test.js",
 	"incremental_prog_test.js",
-	"error_handling_test.js"
+	"error_handling_test.js",
+	"fn_test.js"
 ], __dirname);
