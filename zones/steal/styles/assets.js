@@ -56,6 +56,7 @@ function applyPages(document, bundleHelpers, pages, inserted){
 					changes++;
 					inserted.add(asset.id);
 					var node = asset.value();
+					node.setAttribute("asset-id", asset.id);
 					head.insertBefore(node, head.lastChild);
 				}
 			});
