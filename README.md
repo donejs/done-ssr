@@ -23,8 +23,12 @@ Server-side rendering for [DoneJS](https://donejs.com/).
 	- <code>[options](#options)</code>
 	  - <code>[timeout](#timeout--5000)</code>
 	  - <code>[debug](#debug--false)</code>
-	  - <code>[html5shiv](#html5shiv--false)</code>
+	  - <code>[auth](#auth-cookie-domains)</code>
+	  - <code>[strategy](#strategy-safe)</code>
+	  - <code>[zones](#zones)</code>
+	  - <code>[domZone](#domZone)</code>
   - <code>[render(request)](#renderrequest)</code>
+  - <code>[DONE_SSR_DEBUG](#DONE_SSR_DEBUG)</code>
 
 ## Install
 
@@ -39,11 +43,11 @@ npm install done-ssr --save
 Pass your request into the render function and pipe the resulting stream into the response.
 
 ```js
-var http = require("http");
-var ssr = require("done-ssr");
-var render = ssr();
+const http = require("http");
+const ssr = require("done-ssr");
+const render = ssr();
 
-var server = http.createServer(function(request, response){
+const server = http.createServer(function(request, response){
 	render(request).pipe(response);
 });
 
@@ -52,13 +56,13 @@ server.listen(8080);
 
 ### Your app
 
-done-ssr expect's your project's **main** to export a function that renders based on the request parameter. This will work with any module format supported by Steal.
+__done-ssr__ expect's your project's **main** to export a function that renders based on the request parameter. This will work with any module format supported by Steal.
 
 ```js
-var ViewModel = can.Map.extend( { ... });
+const ViewModel = DefineMap.extend( { ... });
 
 module.exports = function(request){
-  var params = can.route.deparam(location.pathname);
+  var params = route.deparam(location.pathname);
   var viewModel = new ViewModel(params);
 
   // Do whatever is needed to render
@@ -73,10 +77,11 @@ More can be found in the [main module docs](https://github.com/donejs/done-ssr/b
 
 ### Express Middleware and Development Server
 
-As of *0.12* can-ssr was renamed to done-ssr. The Express middleware and can-serve functionality were moved to their own projects:
+__done-ssr__ provides the low-level server rendering capabilities in DoneJS. It takes a request and a response and renders your application into the response. If you are writing a Node server yourself, done-ssr is likely for you.
 
-* [done-ssr-middleware](https://github.com/donejs/done-ssr-middleware)
-* [done-serve](https://github.com/donejs/done-serve)
+If you are using a framework, like [Express](https://expressjs.com/) then you'll want to use __[done-ssr-middleware](https://github.com/donejs/done-ssr-middleware)__.
+
+If you're looking for a development server that provides you most of what you need, and can run from the cli, then use __[done-serve](https://github.com/donejs/done-serve)__.
 
 ## API
 
@@ -92,7 +97,13 @@ Configuration options that are a [StealConfig](https://stealjs.com/docs/steal-to
 
 ##### timeout : 5000
 
-Specify a timeout in milliseconds for how long should be waited before returning whatever HTML has already been rendered. Defaults to **5000**
+Specify a timeout in milliseconds for how long should be waited before returning whatever HTML has already been rendered. Defaults to **5000**.
+
+##### debug : false
+
+Specify to turn on debug mode when used in conjunction with timeout. If rendering times out debugging information will be attached to a modal window in the document. For this reason you only want to use the debug option during development.
+
+![debug output](https://cloud.githubusercontent.com/assets/361671/14474862/08b5f01e-00cd-11e6-8d70-b3f3ba835493.png)
 
 ##### auth: {cookie, domains}
 
@@ -104,23 +115,59 @@ An object for enabling JavaScript Web Tokens (JWT) support for XHR requests made
 
 - `domains`: An array of domain names to which the JWT token will be sent.  Any domains not in this list will not receive the JWT token.
 
-##### debug : false
+##### strategy: 'incremental'
 
-Specify to turn on debug mode when used in conjunction with timeout. If rendering times out debugging information will be attached to a modal window in the document. For this reason you only want to use the debug option during development.
-
-![debug output](https://cloud.githubusercontent.com/assets/361671/14474862/08b5f01e-00cd-11e6-8d70-b3f3ba835493.png)
-
-##### strategy: 'safe'
-
-Specify the rendering strategy. In done-ssr 1.1.0 the new incremental rendering strategy was added which works by returning initial HTML immediately and incrementally updating the DOM in the client. To enable incremental rendering set this option:
+Specify the rendering strategy. Starting in done-ssr 3 the default is __incremental__. If you are using SSR primarily for SEO (and not performance) you will want to set this to __seo__.
 
 ```js
-var render = ssr(steal, {
-  strategy: "incremental"
+const render = ssr(steal, {
+  strategy: "seo"
 });
 ```
 
-> *Note*: the `DONE_SSR_DEBUG` environment variable can be used if you need to debug what is happening during incremental rendering reattachment. This provides unminified reattachment code. Set it to any value to enable the debugging. `export DONE_SSR_DEBUG=1`.
+##### zones
+
+Specify additional [zones](https://github.com/canjs/can-zone) to be added. This is an advanced option most will not need. You might add zones to do some sort of special processing to the DOM. You can essentially do whatever you want to `data.document` within a Zone like so:
+
+```js
+const render = ssr({}, {
+  zones: [
+    function(data) {
+      return {
+        ended: function() {
+          // Remove all scripts. Why, idk.
+          let scripts = Array.from(data.document.getElementsByTagName("script"));
+          for(let script of scripts) {
+            script.parentNode.removeChild(script);
+          }
+        }
+      }
+    }
+  ]
+});
+```
+
+##### domZone
+
+Specify the zone that provides the DOM. This zone must create a `window`, a `document`, and other associated globals and set them on Node's `global`.
+
+This option is a __function__ that takes the *request* and *response*. By default done-ssr uses [can-simple-dom](https://github.com/canjs/can-simple-dom).
+
+For example, this is how you can use [can-zone-jsdom](https://github.com/canjs/can-zone-jsdom) to get a much more complete DOM implementation.
+
+```js
+const ssr = require('done-ssr');
+const dom = require('can-zone-jsdom');
+
+const render = ssr({}, {
+  domZone: request => dom(request, {
+    root: __dirname + '/build',
+    html: 'index.html'
+  })
+});
+
+// ... use render like normal.
+```
 
 ### render(request)
 
@@ -131,6 +178,10 @@ render(request).pipe(response);
 ```
 
 You can use request/response streams from servers created with `require("http")`, or [Express](http://expressjs.com/) and probably most other Node servers.
+
+### DONE_SSR_DEBUG
+
+The `DONE_SSR_DEBUG` environment variable can be used if you need to debug what is happening during incremental rendering reattachment. This provides unminified reattachment code. Set it to any value to enable the debugging. `export DONE_SSR_DEBUG=1`.
 
 ## License
 
