@@ -78,6 +78,16 @@ exports.getXhrCache = function(node){
 	return cache;
 };
 
+exports.getInlineCache = function(node){
+	var script = exports.text(exports.find(node, function(el){
+		return el.getAttribute && el.getAttribute("asset-id") === "@inline-cache";
+	})).trim().replace(/INLINE_CACHE = /, "");
+	var cache = JSON.parse(
+		script.substr(0, script.length - 1)
+	);
+	return cache;
+};
+
 exports.count = function(node, callback){
 	var count = 0;
 	exports.traverse(node, function(){
