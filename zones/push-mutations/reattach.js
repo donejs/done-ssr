@@ -105,11 +105,6 @@ module.exports = function(url){
 		return {
 			created: function() {
 				data.injectIRFrame = injectStuff;
-			},
-			afterRun: function(){
-				if(!isPromise(data.startMutations)) {
-					injectStuff();
-				}
 			}
 		};
 	};
