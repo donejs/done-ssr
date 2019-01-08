@@ -45,12 +45,31 @@ describe("SSR Zones - CanJS application", function(){
 				]
 			});
 
-			return zone.run(function(){
+			var dfd = {};
+			var p = new Promise(function(resolve, reject) {
+				dfd.resolve = resolve;
+				dfd.reject = reject;
+			});
+
+			zone.run(function(){
 				require("can-route-pushstate");
 				canRoute.register("{page}", {});
 				var loc = LOCATION();
 
+				// Test that we always have a documentElement because jQuery complains.
 				var zone = Zone.current;
+				var preferredDocument = document;
+				var fn = Zone.ignore(function() {
+					setTimeout(function() {
+						var doc = preferredDocument;
+						if(!doc.documentElement) {
+							dfd.reject(new Error("No documentElement"));
+						} else {
+							dfd.resolve();
+						}
+					}, 10);
+				});
+				fn();
 
 				var params = canRoute.deparam(loc.pathname);
 				var main = document.createElement("main");
@@ -60,6 +79,8 @@ describe("SSR Zones - CanJS application", function(){
 				main.textContent = params.page;
 				document.body.appendChild(main);
 			});
+
+			return p;
 		});
 	});
 
