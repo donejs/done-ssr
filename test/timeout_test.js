@@ -68,4 +68,16 @@ describe("Timeouts", function(){
 			done();
 		}));
 	});
+
+	// Cannot do this in 2.x.
+	it.skip("Adds an error message when the timeout exceeds", function(done){
+		this.render("/slow").pipe(through(function(){
+			var count = undo();
+			Promise.resolve()
+			.then(function(){
+				assert.equal(count, 1, "Added error message about the timeout");
+			})
+			.then(done, done);
+		}));
+	});
 });
