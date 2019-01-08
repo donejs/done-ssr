@@ -7,6 +7,7 @@ Object.assign(exports, require("./incremental"));
 Object.assign(exports, require("./request"));
 Object.assign(exports, require("./server"));
 Object.assign(exports, require("./ua"));
+Object.assign(exports, require("./logging"));
 
 exports.removeMutationObserverZone = function(data) {
 	return {
