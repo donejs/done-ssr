@@ -6,6 +6,7 @@ var through = require("through2");
 
 describe("Timeouts", function(){
 	this.timeout(30000);
+	var undo;
 
 	before(function(done){
 		this.render = ssr({
@@ -18,11 +19,21 @@ describe("Timeouts", function(){
 		});
 
 		// Do a warm-up so steal is loaded
+		undo = helpers.willError(/was exceeded/);
 		this.render("/fast").pipe(through(function(){
 			setTimeout(function(){
+				undo();
 				done();
 			}, 10000);
 		}));
+	});
+
+	beforeEach(function() {
+		undo = helpers.willError(/was exceeded/);
+	});
+
+	afterEach(function() {
+		undo();
 	});
 
 	it("App times out after the specified time", function(done){
@@ -67,6 +78,17 @@ describe("Timeouts", function(){
 			assert.equal(debug.getAttribute("data-keep"), "", "This attribute was added");
 
 			done();
+		}));
+	});
+
+	it("Adds an error message when the timeout exceeds", function(done){
+		this.render("/slow").pipe(through(function(){
+			var count = undo();
+			Promise.resolve()
+			.then(function(){
+				assert.equal(count, 1, "Added error message about the timeout");
+			})
+			.then(done, done);
 		}));
 	});
 });
