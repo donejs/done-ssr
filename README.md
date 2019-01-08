@@ -92,7 +92,23 @@ Configuration options that are a [StealConfig](https://stealjs.com/docs/steal-to
 
 ##### timeout : 5000
 
-Specify a timeout in milliseconds for how long should be waited before returning whatever HTML has already been rendered. Defaults to **5000**
+Specify a timeout in milliseconds for how long should be waited before returning whatever HTML has already been rendered. Defaults to **5000**.
+
+###### Debugging Timeouts
+
+A timeout might occur for a variety of reasons such as:
+
+* __Running in development__: In development the server has to load all modules the first time a request is made. In this case the first render could timeout. You can specify a longer timeout to remedy this.
+* __Unresolved promise__: If you have a promise that never resolves it could cause a timeout. Be sure to always resolve your promises and catch rejections.
+* __Undetectable recursion__: can-zone tracks all types of asynchronous tasks. Some times it can't detect that a program will never complete. One example is `setTimeout` call that is called recursively. Use [Zone.ignore](https://github.com/canjs/can-zone/tree/master/docs) to ignore those type of code.
+
+If all else fails, use the [debug](#debug--false) option to get more information on why the timeout occurs.
+
+##### debug : false
+
+Specify to turn on debug mode when used in conjunction with timeout. If rendering times out debugging information will be attached to a modal window in the document. For this reason you only want to use the debug option during development.
+
+![debug output](https://cloud.githubusercontent.com/assets/361671/14474862/08b5f01e-00cd-11e6-8d70-b3f3ba835493.png)
 
 ##### auth: {cookie, domains}
 
