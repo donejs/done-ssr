@@ -98,7 +98,6 @@ module.exports = function(url){
 			var closeScript = doc.createElement("script");
 			closeScript.textContent = `window.closeSsrIframe=function(){var d=document;var f=d.getElementById("donessr-iframe");f.parentNode.removeChild(f);d.body.style.visibility = ''}`;
 			appendToHead(doc, closeScript);
-			doc.body.setAttribute("style", "visibility: hidden;");
 			doc.documentElement.setAttribute("data-incrementally-rendered", "");
 		}
 
