@@ -66,7 +66,7 @@
     "done-mutation": "^3.0.0",
     "done-mutation-observer": "^1.0.1",
     "donejs-node-web-streams": "^1.0.0",
-    "ir-clone": "^1.1.1",
+    "ir-clone": "^1.2.1",
     "ir-reattach": "^5.0.0",
     "is-promise": "^2.1.0",
     "lodash.defaults": "^4.0.1",
