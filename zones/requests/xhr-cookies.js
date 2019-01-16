@@ -1,5 +1,6 @@
 var makeHeaders = require("../../lib/util/make_headers");
 var url = require("url");
+var Zone = require("can-zone");
 
 module.exports = function(requestOrHeaders, options){
 	var headers = makeHeaders(requestOrHeaders);
@@ -55,7 +56,7 @@ module.exports = function(requestOrHeaders, options){
 			var self = this;
 			var onload = this.onload;
 
-			this.onload = function(){
+			this.onload = Zone.current.wrap(function(){
 				var setcookies = self.getResponseHeader( "Set-Cookie" );
 				if ( !setcookies ) {
 					if(onload) {
@@ -72,7 +73,7 @@ module.exports = function(requestOrHeaders, options){
 				if(onload) {
 					return onload.apply(this, arguments);
 				}
-			};
+			});
 
 			// TODO:
 			// don't attach the cookies if the xhr url isn't the
