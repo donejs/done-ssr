@@ -16,7 +16,8 @@ module.exports = function(){
 
 		function onMutations(records) {
 			var bytes = encoder.encode(records);
-			mutationStream.push(bytes);
+			var buffer = Buffer.from(bytes);
+			mutationStream.push(buffer);
 		}
 
 		function startListeningToMutations() {
