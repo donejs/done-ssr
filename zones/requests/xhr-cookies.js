@@ -8,7 +8,7 @@ module.exports = function(requestOrHeaders, options){
 		if (!options.auth.cookie || !options.auth.domains) {
 			throw new Error('The auth.cookie and auth.domains must both be provided.');
 		}
-		var cookieReg = RegExp(options.auth.cookie + "=(.+?);");
+		var cookieReg = RegExp(options.auth.cookie + "=(.+?)($|;)");
 	}
 
 	return function(data){
