@@ -1,16 +1,19 @@
 var fs = require("fs");
 var path = require("path");
 var cloneUtils = require("ir-clone");
+var supportsPreloadFetch = require("../../lib/util/supports_preloadfetch");
 
 var clientScript = getClientScript();
 
 module.exports = function(url){
 	return function(data){
 		function injectStuff() {
+			var usePreload = !data.pushAllowed && supportsPreloadFetch(data.request);
+
 			cloneUtils.injectFrame(data.document, {
 				reattachScript: clientScript,
 				streamUrl: url,
-				preload: !data.pushAllowed
+				preload: usePreload
 			});
 		}
 
