@@ -1,3 +1,4 @@
+var nodeLists = require("can-view-nodelist");
 module.exports = function(data){
 	var later = setTimeout;
 
@@ -6,7 +7,6 @@ module.exports = function(data){
 	}
 
 	var getDomMutate = getEither.bind(null, "domMutate", "can-dom-mutate/node");
-
 	return {
 		ended: function(){
 			var domMutate = getDomMutate();
@@ -15,6 +15,12 @@ module.exports = function(data){
 
 			// Run the removal within the zone so that the globals point to our globals.
 			var removeDocumentElement = this.wrap(function() {
+				if(!data.modules) {
+					return;
+				}
+				var main = data.modules.main;
+				nodeLists.unregister(main.nodeList);
+				
 				var newDocEl = data.document.createElement("html");
 				domMutate.replaceChild.call(data.document, newDocEl, docEl);
 			});
