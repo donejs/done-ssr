@@ -7,20 +7,24 @@ module.exports = function(data){
 	}
 
 	var getDomMutate = getEither.bind(null, "domMutate", "can-dom-mutate/node");
+	var getNodeLists = getEither.bind(null, "nodeLists", "can-view-nodelist");
 	return {
 		ended: function(){
 			var domMutate = getDomMutate();
+			var nodeLists = getNodeLists();
 
 			var docEl = data.document.documentElement;
 
 			// Run the removal within the zone so that the globals point to our globals.
 			var removeDocumentElement = this.wrap(function() {
-				if(!data.modules) {
-					return;
+				if(data.modules) {
+					var main = data.modules.main;
+					if(main.nodeList) {
+						nodeLists.unregister(main.nodeList);
+					}
+
 				}
-				var main = data.modules.main;
-				nodeLists.unregister(main.nodeList);
-				
+
 				var newDocEl = data.document.createElement("html");
 				domMutate.replaceChild.call(data.document, newDocEl, docEl);
 			});
