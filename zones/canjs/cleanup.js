@@ -17,12 +17,8 @@ module.exports = function(data){
 
 			// Run the removal within the zone so that the globals point to our globals.
 			var removeDocumentElement = this.wrap(function() {
-				if(data.modules) {
-					var main = data.modules.main;
-					if(main.nodeList) {
-						nodeLists.unregister(main.nodeList);
-					}
-
+				if(data.nodeList) {
+					nodeLists.unregister(data.nodeList);
 				}
 
 				var newDocEl = data.document.createElement("html");
