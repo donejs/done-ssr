@@ -76,7 +76,7 @@
     "useragent": "^2.1.13",
     "websocket": "^1.0.22",
     "whatwg-url": "^6.3.0",
-    "xmlhttprequest2": "^1.0.0"
+    "xmlhttprequest2": "^1.0.1"
   },
   "greenkeeper": {
     "ignore": [
