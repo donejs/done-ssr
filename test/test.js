@@ -6,6 +6,7 @@ mochas([
 	"../zones/zones-steal-test.js",
 	"../zones/zones-canjs-test.js",
 	"../zones/zones-donejs-test.js",
+	"../zones/canjs/globals-test.js",
 	"async_test.js",
 	"cookie_test.js",
 	"plainjs_test.js",
