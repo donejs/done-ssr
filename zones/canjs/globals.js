@@ -12,7 +12,7 @@ module.exports = function(data){
 
 	function setCanGlobals() {
 		var globals = getGlobals();
-		
+
 		oldLocation = globals.getKeyValue("location");
 		globals.setKeyValue("location", data.window.location);
 
@@ -29,7 +29,7 @@ module.exports = function(data){
 			globals.setKeyValue("location", oldLocation);
 			globals.setKeyValue("document", oldDocument);
 		},
-		end: function() {
+		ended: function() {
 			function teardown(globals) {
 				globals.deleteKeyValue("document");
 				globals.deleteKeyValue("location");
