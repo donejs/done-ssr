@@ -26,8 +26,10 @@ module.exports = function(data){
 		afterTask: function(){
 			var globals = getGlobals();
 
-			globals.setKeyValue("location", oldLocation);
-			globals.setKeyValue("document", oldDocument);
+			var document = oldDocument !== data.window.document ? oldDocument : undefined;
+			var location = oldLocation !== data.window.location ? oldLocation : undefined;
+			globals.setKeyValue("location", location);
+			globals.setKeyValue("document", document);
 		},
 		ended: function() {
 			function teardown(globals) {
