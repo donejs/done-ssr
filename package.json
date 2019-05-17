@@ -1,6 +1,6 @@
 {
   "name": "done-ssr",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "Server-side rendering for CanJS applications",
   "main": "lib/index.js",
   "scripts": {
