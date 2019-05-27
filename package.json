@@ -61,7 +61,7 @@
     "can-namespace": "^1.0.0",
     "can-reflect": "^1.11.0",
     "can-vdom": "^4.4.0",
-    "can-view-nodelist": "^4.0.0",
+    "can-view-nodelist": "4.3.3",
     "can-zone": "^1.0.0",
     "dom-patch": "^2.1.1",
     "done-mutation": "^3.0.0",
