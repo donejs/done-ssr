@@ -54,7 +54,7 @@
     "steal-stache": "^4.0.0",
     "steal-tools": "^2.0.0-pre.3",
     "through2": "^2.0.1",
-    "uglify-js": "^3.3.19"
+    "uglify-js": "^3.6.0"
   },
   "dependencies": {
     "can-dom-mutate": "^1.2.1",
