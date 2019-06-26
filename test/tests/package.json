@@ -4,9 +4,9 @@
   "main": "progressive/index.stache!done-autorender",
   "dependencies": {
     "can-component": "^4.0.0",
-	"can-define": "^2.0.0",
+    "can-define": "^2.0.0",
     "can-fixture": "^2.0.0",
-	"can-route": "^4.0.0",
+    "can-route": "^4.0.0",
     "can-route-pushstate": "^4.0.0",
     "can-stache": "^4.0.0",
     "done-css": "^3.0.0",
@@ -17,13 +17,13 @@
   "steal": {
     "envs": {
       "someenv": {
-		"renderingBaseURL": "http://example.com/",
-		"FOO": "bar"
+        "renderingBaseURL": "http://example.com/",
+        "FOO": "bar"
       }
     },
-	"plugins": [
-		"done-css",
-		"steal-stache"
-	]
+    "plugins": [
+      "done-css",
+      "steal-stache"
+    ]
   }
 }

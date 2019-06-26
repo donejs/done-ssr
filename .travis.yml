@@ -8,3 +8,6 @@ before_install:
   - sudo apt-get -qq install g++-4.8
 env:
   - CXX=g++-4.8
+dist: xenial
+services:
+  - xvfb

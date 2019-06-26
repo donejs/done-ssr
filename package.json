@@ -52,7 +52,7 @@
     "nock": "^10.0.3",
     "spawn-mochas": "^2.0.0",
     "steal-stache": "^4.0.0",
-    "steal-tools": "^2.0.0-pre.3",
+    "steal-tools": "^2.0.0",
     "through2": "^2.0.1",
     "uglify-js": "^3.3.19"
   },
@@ -75,7 +75,7 @@
     "mime-types": "^2.1.17",
     "node-fetch": "^2.0.0",
     "once": "^1.4.0",
-    "steal": "^2.0.0-pre.9",
+    "steal": "^2.0.0",
     "text-encoding": "^0.6.4",
     "useragent": "^2.3.0",
     "websocket": "^1.0.22",
