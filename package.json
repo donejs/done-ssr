@@ -75,7 +75,7 @@
     "mime-types": "^2.1.17",
     "node-fetch": "^2.0.0",
     "once": "^1.4.0",
-    "steal": "^2.0.0",
+    "steal": "^2.2.4",
     "text-encoding": "^0.6.4",
     "useragent": "^2.3.0",
     "websocket": "^1.0.22",
