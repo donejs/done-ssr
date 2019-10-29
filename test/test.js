@@ -13,6 +13,7 @@ mochas([
 	"progressive_test.js",
 	"test_envs.js",
 	"xhr_test.js",
+	"xhr_nocache_test.js",
 	"auth-cookie_test.js",
 	"auth-cookie-failed-domain_test.js",
 	"import_empty_test.js",

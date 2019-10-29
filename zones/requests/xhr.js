@@ -5,11 +5,17 @@ var xhrCache = require("./xhr-cache");
 
 module.exports = function(requestOrHeaders, options){
 	var headers = makeHeaders(requestOrHeaders);
+
+	var plugins = [ xhrResolveUrl(headers) ];
+
+	// Users can opt-out of rendering the XHR_CACHE by providing xhrCache: false
+	if(!options || options.xhrCache !== false) {
+		plugins.push(xhrCache);
+	}
+
+	plugins.push(xhrCookies(headers, options || {}));
+
 	return {
-		plugins: [
-			xhrResolveUrl(headers),
-			xhrCache,
-			xhrCookies(headers, options || {})
-		]
+		plugins: plugins
 	};
 };
