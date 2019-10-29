@@ -27,6 +27,7 @@ Server-side rendering for [DoneJS](https://donejs.com/).
 	  - <code>[strategy](#strategy-safe)</code>
 	  - <code>[zones](#zones)</code>
 	  - <code>[domZone](#domZone)</code>
+	  - <code>[xhrCache](#xhrCache)</code>
   - <code>[render(request)](#renderrequest)</code>
   - <code>[DONE_SSR_DEBUG](#DONE_SSR_DEBUG)</code>
 
@@ -177,6 +178,18 @@ const render = ssr({}, {
 });
 
 // ... use render like normal.
+```
+
+##### xhrCache: true
+
+Specifies if the XHR cache should be inlined into the page. The XHR cache is used to prevent duplicate requests from occuring in the client when hydrating from server-rendering HTML. In some cases you might not use XHR in the client and therefore want to prevent the script from being included.
+
+```js
+const ssr = require('done-ssr');
+
+const render = ssr({}, {
+	xhrCache: false
+});
 ```
 
 ### render(request)

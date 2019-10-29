@@ -1,5 +1,7 @@
 var DefineMap = require("can-define/map/map");
-require("can-route");
+var route = require("can-route");
+
+route.register("{page}", { page: "home" });
 
 module.exports = DefineMap.extend({
 	list: {
