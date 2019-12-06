@@ -78,7 +78,7 @@
     "steal": "^2.0.0",
     "text-encoding": "^0.6.4",
     "useragent": "^2.3.0",
-    "websocket": "^1.0.22",
+    "websocket": "1.0.30",
     "whatwg-url": "^7.0.0",
     "xmlhttprequest2": "^1.0.0"
   },
