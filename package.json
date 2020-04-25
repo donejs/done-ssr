@@ -69,7 +69,7 @@
     "donejs-node-web-streams": "^1.0.0",
     "ir-clone": "^1.2.1",
     "ir-reattach": "^5.0.0",
-    "is-promise": "^2.1.0",
+    "is-promise": "^2.2.2",
     "lodash.defaults": "^4.0.1",
     "lru-cache": "^5.1.1",
     "mime-types": "^2.1.17",
