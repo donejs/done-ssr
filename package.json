@@ -42,7 +42,7 @@
     "copy-dir": "0.0.8",
     "documentjs": "^0.5.0",
     "done-autorender": "^2.6.1",
-    "done-css": "^3.0.1",
+    "done-css": "^3.1.0",
     "es6-promise": "^4.1.0",
     "fast-text-encoding": "^1.0.0",
     "he": "^1.1.1",
