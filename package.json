@@ -46,7 +46,7 @@
     "es6-promise": "^4.1.0",
     "fast-text-encoding": "^1.0.0",
     "he": "^1.1.1",
-    "jquery": "2.x - 3.x",
+    "jquery": "3.5.1",
     "jshint": "^2.8.0",
     "leakage": "0.4.0",
     "nock": "^10.0.3",
