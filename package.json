@@ -79,7 +79,7 @@
     "text-encoding": "^0.6.4",
     "useragent": "^2.3.0",
     "websocket": "^1.0.22",
-    "whatwg-url": "^7.0.0",
+    "whatwg-url": "^8.1.0",
     "xmlhttprequest2": "^1.0.0"
   },
   "greenkeeper": {
