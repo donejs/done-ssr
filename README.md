@@ -15,21 +15,27 @@
 
 Server-side rendering for [DoneJS](https://donejs.com/).
 
-- [Install](#install)
-- [Usage](#usage)
-- [API](#api)
-  - <code>[ssr(steal, options)](#ssrsteal-options---render)</code>
-    - <code>[steal](#steal)</code>
-	- <code>[options](#options)</code>
-	  - <code>[timeout](#timeout--5000)</code>
-	  - <code>[debug](#debug--false)</code>
-	  - <code>[auth](#auth-cookie-domains)</code>
-	  - <code>[strategy](#strategy-safe)</code>
-	  - <code>[zones](#zones)</code>
-	  - <code>[domZone](#domZone)</code>
-	  - <code>[xhrCache](#xhrCache)</code>
-  - <code>[render(request)](#renderrequest)</code>
-  - <code>[DONE_SSR_DEBUG](#DONE_SSR_DEBUG)</code>
+- [done-ssr](#done-ssr)
+  - [Install](#install)
+  - [Usage](#usage)
+    - [Your app](#your-app)
+    - [Express Middleware and Development Server](#express-middleware-and-development-server)
+  - [API](#api)
+    - [ssr(steal, options) -> render](#ssrsteal-options---render)
+      - [steal](#steal)
+      - [options](#options)
+        - [timeout : 5000](#timeout--5000)
+          - [Debugging Timeouts](#debugging-timeouts)
+        - [debug : false](#debug--false)
+        - [exitOnTimeout : false](#exitontimeout--false)
+        - [auth: {cookie, domains}](#auth-cookie-domains)
+        - [strategy: 'incremental'](#strategy-incremental)
+        - [zones](#zones)
+        - [domZone](#domzone)
+        - [xhrCache: true](#xhrcache-true)
+    - [render(request)](#renderrequest)
+    - [DONE_SSR_DEBUG](#done_ssr_debug)
+  - [License](#license)
 
 ## Install
 
@@ -115,6 +121,10 @@ If all else fails, use the [debug](#debug--false) option to get more information
 Specify to turn on debug mode when used in conjunction with timeout. If rendering times out debugging information will be attached to a modal window in the document. For this reason you only want to use the debug option during development.
 
 ![debug output](https://cloud.githubusercontent.com/assets/361671/14474862/08b5f01e-00cd-11e6-8d70-b3f3ba835493.png)
+
+##### exitOnTimeout : false
+
+This option is for the rare instance where the above debugging tips and info do not resolve a timeout, or the timeout is sporadic and difficult to find. With this option set to `true` a timeout error will still display the warning, but will exit the Node process cleanly, allowing redundant processes to take over on future calls.
 
 ##### auth: {cookie, domains}
 
