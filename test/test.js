@@ -31,5 +31,6 @@ mochas([
 	"incremental_plain_test.js",
 	"incremental_prog_test.js",
 	"error_handling_test.js",
-	"fn_test.js"
+	"fn_test.js",
+	"exit_on_timeout_test.js"
 ], __dirname);
